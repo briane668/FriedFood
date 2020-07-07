@@ -8,8 +8,8 @@
     <string name="maps_api_key">AIzaSyACv2P43DU4i6KjORAWG1X5pgEGIYcFPAs</string>
     <string name="pick_place">Choose a place</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">地圖</string>
+    <string name="title_recommend">推薦</string>
     <string name="title_notifications">Notifications</string>
 
 </resources>

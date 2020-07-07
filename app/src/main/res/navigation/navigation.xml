@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/mapsFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/mapsFragment"
+        android:name="com.wade.friedfood.map.MapsFragment"
+        android:label="MapsFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
         android:name="com.wade.friedfood.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <action android:id="@+id/action_global_mapsFragment" app:destination="@id/mapsFragment"/>
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
 
 </navigation>

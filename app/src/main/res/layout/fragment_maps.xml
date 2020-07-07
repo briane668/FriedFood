@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.wade.friedfood.MapViewModel" />
+            type="com.wade.friedfood.map.MapViewModel" />
 
     </data>
 
@@ -32,6 +32,6 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/view_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.google.android.gms.maps.MapView>
+            android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
