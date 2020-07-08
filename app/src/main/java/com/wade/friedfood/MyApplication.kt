@@ -1,6 +1,7 @@
 package com.wade.friedfood
 
 import android.app.Application
+import app.appworks.school.publisher.data.source.PublisherRepository
 import app.appworks.school.publisher.util.ServiceLocator
 
 import kotlin.properties.Delegates
@@ -14,7 +15,8 @@ import kotlin.properties.Delegates
 class PublisherApplication : Application() {
 
 
-
+    val repository: PublisherRepository
+        get() = ServiceLocator.provideRepository(this)
 
     companion object {
         var instance: PublisherApplication by Delegates.notNull()
