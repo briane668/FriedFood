@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -27,16 +30,22 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentMapsBinding
+import com.wade.friedfood.detail.DetailFragmentArgs
+import com.wade.friedfood.ext.getVmFactory
+import kotlinx.android.synthetic.main.fragment_maps.*
 
-class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
-
-    private val viewModel: MapViewModel by lazy {
-        ViewModelProvider(this).get(MapViewModel::class.java)
-    }
+class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.OnMarkerClickListener {
 
 
+
+    private val viewModel by viewModels<MapViewModel> { getVmFactory() }
+
+
+
+    private var marker1 : Marker? = null
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
@@ -48,7 +57,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+    private val defaultLocation = LatLng(24.972569, 121.517274)
     private var locationPermissionGranted = false
 
     // The geographical location where the device is currently located. That is, the last-known
@@ -71,14 +80,64 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
          */
         this.map = googleMap
         this.map!!.setOnMarkerClickListener(this)
-//        setOnMarkerClickListener(this) 會導致標籤失效???
+        this.map?.setOnInfoWindowClickListener(this)
 
-        val sydney = LatLng(-34.0, 151.0)
+
+         viewModel.shop.observe(viewLifecycleOwner, Observer {
+             Log.d("Wade","$it")
+         })
+
+
+
+
+viewModel.shop.observe(viewLifecycleOwner, Observer {
+    viewModel.shop.value.let {
+        if (it != null) {
+            for (i in it){
+                val x= i.latitude?.toDouble()
+                val y= i.longitude?.toDouble()
+                val z=i.name
+                val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
+                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("i am here") })
+
+            }
+        }
+    }
+})
+
+
+        val sydney = LatLng(24.972569, 121.517274)
+
 //        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
-        map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
+//        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
+//
+
+
         map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+
+
+        this.map?.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+            // Return null here, so that getInfoContents() is called next.
+            override fun getInfoWindow(arg0: Marker): View? {
+                return null
+            }
+
+            override fun getInfoContents(marker: Marker): View {
+                // Inflate the layouts for the info window, title and snippet.
+                val infoWindow = layoutInflater.inflate(R.layout.custom_info_contents,
+                    view_map, false)
+                val title = infoWindow.findViewById<TextView>(R.id.title)
+                title.text = marker.title
+                val snippet = infoWindow.findViewById<TextView>(R.id.snippet)
+                snippet.text = marker.snippet
+                return infoWindow
+            }
+        })
+
+
 
 
 
@@ -176,13 +235,42 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         // TODO Auto-generated method stub
         // googleMap.clear();
 
+        if (marker != null) {
+            for (i in viewModel.shop.value!!){
+                if (marker.title == i.name){
 
-        Toast.makeText(
-            requireContext(), "USER MARKER",
-            Toast.LENGTH_LONG
-        ).show()
-        return true
+                    findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(i))
+
+
+
+
+
+                    Toast.makeText(
+                        requireContext(), i.name,
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                }
+            }
+
+
+
+
+        }
+        return false
     }
+
+
+    override fun onInfoWindowClick(marker: Marker) {
+        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
+    }
+
+
+
+
+
+
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->

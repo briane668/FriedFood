@@ -2,19 +2,34 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@id/mapsFragment">
+    android:id="@+id/navigation"
+    app:startDestination="@id/mapsFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.wade.friedfood.map.MapsFragment"
-        android:label="MapsFragment" />
+        android:label="MapsFragment"
+        tools:layout="@layout/fragment_maps"/>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.wade.friedfood.home.HomeFragment"
+        android:id="@+id/recommendFragment"
+        android:name="com.wade.friedfood.recommend.RecommendFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <action android:id="@+id/action_global_mapsFragment" app:destination="@id/mapsFragment"/>
-    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
+        tools:layout="@layout/fragment_recommend" />
+    <action android:id="@+id/action_global_mapsFragment" app:destination="@id/mapsFragment"/><action android:id="@+id/action_global_recommendFragment" app:destination="@id/recommendFragment"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.wade.friedfood.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/fragment_profile" />
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.wade.friedfood.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="shopKey"
+            app:argType="com.wade.friedfood.data.Shop" />
+    </fragment><action android:id="@+id/action_global_detailFragment" app:destination="@id/detailFragment"/>
 
 </navigation>

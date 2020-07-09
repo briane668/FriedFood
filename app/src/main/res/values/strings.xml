@@ -10,6 +10,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">地圖</string>
     <string name="title_recommend">推薦</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">個人</string>
+    <string name="profile_login">登入</string>
+    <string name="you_know_nothing">You know nothing</string>
 
 </resources>

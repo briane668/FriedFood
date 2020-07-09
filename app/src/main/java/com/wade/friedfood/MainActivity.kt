@@ -39,12 +39,17 @@ class MainActivity : AppCompatActivity() {
                 findNavController(this,R.id.myNavHostFragment).navigate(R.id.mapsFragment)
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.navigation_recommend -> {
-//
-//                findNavController(this,R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
+            R.id.navigation_recommend -> {
 
+                findNavController(this,R.id.myNavHostFragment).navigate(R.id.recommendFragment)
+                return@OnNavigationItemSelectedListener true
+            }
+
+            R.id.navigation_menu -> {
+
+                findNavController(this,R.id.myNavHostFragment).navigate(R.id.profileFragment)
+                return@OnNavigationItemSelectedListener true
+            }
 
         }
         false

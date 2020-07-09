@@ -1,32 +1,34 @@
-package com.wade.friedfood.home
+package com.wade.friedfood.recommend
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.wade.friedfood.R
+import androidx.fragment.app.viewModels
+import com.wade.friedfood.ext.getVmFactory
+import com.wade.friedfood.databinding.FragmentRecommendBinding
+import com.wade.friedfood.detail.DetailFragmentArgs
 
-class HomeFragment : Fragment() {
+class RecommendFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val viewModel by viewModels<RecommendViewModel> { getVmFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        val binding = FragmentRecommendBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.recommendView.adapter = ShopAdapter()
+
+
+
+
+
+        return binding.root
     }
 }

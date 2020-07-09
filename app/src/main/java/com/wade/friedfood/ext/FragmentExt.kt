@@ -1,7 +1,9 @@
-package app.appworks.school.stylish.ext
+package com.wade.friedfood.ext
 
 import androidx.fragment.app.Fragment
-import com.wade.friedfood.PublisherApplication
+import com.wade.friedfood.MyApplication
+import com.wade.friedfood.data.Shop
+import com.wade.friedfood.factory.DetailViewModelFactory
 import com.wade.friedfood.factory.ViewModelFactory
 
 
@@ -10,8 +12,12 @@ import com.wade.friedfood.factory.ViewModelFactory
  *
  * Extension functions for Fragment.
  */
-//fun Fragment.getVmFactory(): ViewModelFactory {
-//    val repository = (requireContext().applicationContext as PublisherApplication).repository
-//    return ViewModelFactory(repository)
-//}
+fun Fragment.getVmFactory(): ViewModelFactory {
+    val repository = (requireContext().applicationContext as MyApplication).repository
+    return ViewModelFactory(repository)
+}
 
+fun Fragment.getVmFactory(shop: Shop): DetailViewModelFactory {
+    val repository = (requireContext().applicationContext as MyApplication).repository
+    return DetailViewModelFactory(repository,shop)
+}

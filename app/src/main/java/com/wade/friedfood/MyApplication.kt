@@ -12,19 +12,19 @@ import kotlin.properties.Delegates
  * An application that lazily provides a repository. Note that this Service Locator pattern is
  * used to simplify the sample. Consider a Dependency Injection framework.
  */
-class PublisherApplication : Application() {
+class MyApplication : Application() {
 
 
     val repository: PublisherRepository
         get() = ServiceLocator.provideRepository(this)
 
     companion object {
-        var instance: PublisherApplication by Delegates.notNull()
+        var INSTANCE: MyApplication by Delegates.notNull()
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        INSTANCE = this
     }
 
     fun isLiveDataDesign() = true

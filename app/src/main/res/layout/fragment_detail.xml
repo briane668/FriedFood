@@ -6,26 +6,27 @@
     <data>
         <variable
             name="viewModel"
-            type="com.wade.friedfood.recommend.RecommendViewModel" />
+            type="com.wade.friedfood.detail.DetailViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".recommend.RecommendFragment">
+        tools:context=".detail.DetailFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recommendView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.shop.name}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="1"
-            tools:itemCount="16"
-            app:ShopData="@{viewModel.shop}"/>
-
+            app:layout_constraintVertical_bias="0.404" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
