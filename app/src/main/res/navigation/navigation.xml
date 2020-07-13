@@ -31,5 +31,10 @@
             android:name="shopKey"
             app:argType="com.wade.friedfood.data.Shop" />
     </fragment><action android:id="@+id/action_global_detailFragment" app:destination="@id/detailFragment"/>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.wade.friedfood.detail.review.ReviewFragment"
+        android:label="ReviewFragment" />
+    <action android:id="@+id/action_global_reviewFragment" app:destination="@id/reviewFragment" />
 
 </navigation>

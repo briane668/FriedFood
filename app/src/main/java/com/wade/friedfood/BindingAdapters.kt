@@ -51,20 +51,13 @@ fun bindRecyclerViewImage(recyclerView: RecyclerView, data: List<String>?) {
 }
 
 
-//    val shop = data!!.filter {
-//        it.name == viewModel.selectedShop.value
-////[shop]
-//    }
-//
-////    創造一個list 去裝? 然後submitlist??bo
-//    for (shop in data) {
-//    if (shop.name == viewModel.selectedShop.value) {
-//
-//        val position = data!!.indexOf(shop)
-//        viewModel.Position.value=position
-//    }
-//}
-//    .sort
+@BindingAdapter("getStar" , "starPos")
+fun setStar(imageView: ImageView, getStar:Int , starPos : Int) {
+    if (starPos <= getStar)
+        imageView.setImageResource(android.R.drawable.btn_star_big_on)
+    else
+        imageView.setImageResource(android.R.drawable.btn_star_big_off)
+}
 
 
 /**
@@ -83,3 +76,28 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .into(imgView)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+//    val shop = data!!.filter {
+//        it.name == viewModel.selectedShop.value
+////[shop]
+//    }
+//
+////    創造一個list 去裝? 然後submitlist??bo
+//    for (shop in data) {
+//    if (shop.name == viewModel.selectedShop.value) {
+//
+//        val position = data!!.indexOf(shop)
+//        viewModel.Position.value=position
+//    }
+//}
+//    .sort

@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         setupBottomNav()
+
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 

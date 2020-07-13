@@ -2,6 +2,7 @@ package com.wade.friedfood.map
 
 
 import android.view.LayoutInflater
+
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.DiffUtil
@@ -17,7 +18,7 @@ import com.wade.friedfood.databinding.ItemShopBinding
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class MapAdapter : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class MapAdapter(private val onClickListener: OnClickListener) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
@@ -26,6 +27,8 @@ class MapAdapter : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCall
         RecyclerView.ViewHolder(binding.root) {
         fun bind(shop: Shop) {
             binding.mapItem = shop
+            binding.star.text="${shop.star}顆星"
+            binding.recommend.text="${shop.recommend}則評論"
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
@@ -63,10 +66,17 @@ class MapAdapter : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCall
      */
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
         val marsProperty = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(marsProperty)
+        }
+        
+        
         holder.bind(marsProperty )
     }
 
-
+    class OnClickListener(val clickListener: (shop: Shop) -> Unit) {
+        fun onClick(shop: Shop) = clickListener(shop)
+    }
 
 
 }

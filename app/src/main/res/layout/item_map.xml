@@ -30,7 +30,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/warm_grey_two">
 
                 <TextView
                     android:id="@+id/distance"
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="TextView"
+                    android:text="100公尺"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -58,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@{mapItem.recommend}"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/star" />
 
@@ -80,7 +81,7 @@
                     android:layout_height="19dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@{mapItem.star}"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/photo" />
 
@@ -91,6 +92,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:scaleType="centerCrop"
                     app:imageUrl="@{mapItem.image}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

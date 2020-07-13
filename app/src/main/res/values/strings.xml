@@ -16,4 +16,9 @@
     <string name="before">曾到訪餐廳</string>
     <string name="recommendTtitle">全台北好評如潮的店家</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sendReview">送出</string>
+    <string name="reviewTitle">撰寫評論</string>
+
 </resources>

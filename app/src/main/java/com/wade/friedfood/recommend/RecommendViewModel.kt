@@ -49,6 +49,23 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    private val _navigateToSelectedShop = MutableLiveData<Shop>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToSelectedShop: LiveData<Shop>
+        get() = _navigateToSelectedShop
+
+    fun displayShopDetails(shop: Shop) {
+        _navigateToSelectedShop.value = shop
+    }
+
+    fun displayShopDetailsComplete() {
+        _navigateToSelectedShop.value = null
+    }
+
+
+
 
     init {
         Logger.i("------------------------------------")

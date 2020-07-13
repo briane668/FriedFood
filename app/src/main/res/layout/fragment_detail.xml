@@ -14,6 +14,7 @@
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/warm_grey_two"
         tools:context=".detail.DetailFragment">
 
 
@@ -30,13 +31,27 @@
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_placeholder"
                     app:imageUrl="@{viewModel.shop.image}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/backImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/back" />
 
                 <TextView
                     android:id="@+id/name"
@@ -115,29 +130,38 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/otherImage"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:orientation="horizontal"
                     app:imageData="@{viewModel.shop.otherImage}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.473"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/menuImage" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                    app:spanCount="1"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/item_detail_image" />
 
-                <ImageView
-                    android:id="@+id/menuImage"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:scaleType="centerCrop"
-                    app:imageUrl="@{viewModel.shop.menuImage}"
-                    app:layout_constraintBottom_toTopOf="@+id/otherImage"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/distance"
-                    app:srcCompat="@drawable/ic_placeholder" />
+                    app:layout_constraintTop_toBottomOf="@+id/distance">
+
+                    <ImageView
+                        android:id="@+id/menuImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{viewModel.shop.menuImage}"
+                        app:srcCompat="@drawable/ic_placeholder" />
+                </androidx.cardview.widget.CardView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

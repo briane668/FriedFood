@@ -90,20 +90,41 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 
 
 
-viewModel.shop.observe(viewLifecycleOwner, Observer {
-    viewModel.shop.value.let {
-        if (it != null) {
-            for (i in it){
-                val x= i.latitude?.toDouble()
-                val y= i.longitude?.toDouble()
-                val z=i.name
-                val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
-                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
+//viewModel.shop.observe(viewLifecycleOwner, Observer {
+//    viewModel.shop.value.let {
+//        if (it != null) {
+//            for (i in it){
+//                val x= i.latitude?.toDouble()
+//                val y= i.longitude?.toDouble()
+//                val z=i.name
+//                val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
+//                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
+//
+//            }
+//        }
+//    }
+//})
 
+
+        viewModel.shop.observe(viewLifecycleOwner, Observer {
+            viewModel.shop.value.let {
+                if (it != null) {
+                    for (i in it){
+
+                        val x= i.location?.latitude
+                        val y= i.location?.longitude
+                        val z=i.name
+                        val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
+                        map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
+
+                    }
+                }
             }
-        }
-    }
-})
+        })
+
+
+
+
 
 
         val sydney = LatLng(24.972569, 121.517274)
@@ -171,7 +192,20 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
-        binding.mapView.adapter=MapAdapter()
+
+        binding.mapView.adapter=MapAdapter(MapAdapter.OnClickListener{
+            viewModel.displayShopDetails(it)
+        })
+
+        viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
+            if ( it != null ) {
+                // Must find the NavController from the Fragment
+                this.findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(it))
+                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                viewModel.displayShopDetailsComplete()
+            }
+        })
+
 
 
         binding.viewMap.onCreate(savedInstanceState)
@@ -290,6 +324,8 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
         }
         super.onSaveInstanceState(outState)
     }
+
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.wade.friedfood.detail.review.ReviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".profile.comment.OnShipFragment">
+
+
+        <ImageView
+            android:id="@+id/backImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <Button
+            android:id="@+id/reviewButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FF9800"
+            android:text="@string/sendReview"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:hint="請輸入評論"
+            android:inputType="textEmailAddress"
+            android:text="@={viewModel.comment}"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/review_star_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintStart_toStartOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:starPos="@{1}" />
+
+        <ImageView
+            android:id="@+id/review_star_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/review_star_1"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:starPos="@{2}" />
+
+        <ImageView
+            android:id="@+id/review_star_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/review_star_2"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:starPos="@{3}" />
+
+        <ImageView
+            android:id="@+id/review_star_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/review_star_3"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:starPos="@{4}" />
+
+        <ImageView
+            android:id="@+id/review_star_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/review_star_4"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:starPos="@{5}" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/reviewTitle"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/backImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
