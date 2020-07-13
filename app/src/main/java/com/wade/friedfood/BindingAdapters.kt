@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.detail.DeatailAdapter
+import com.wade.friedfood.map.MapAdapter
+import com.wade.friedfood.map.MapViewModel
 
 import com.wade.friedfood.recommend.ShopAdapter
 
@@ -32,9 +35,37 @@ import com.wade.friedfood.recommend.ShopAdapter
  */
 @BindingAdapter("ShopData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Shop>?) {
-    val adapter = recyclerView.adapter as ShopAdapter
+
+    recyclerView.adapter.apply {
+        when (this) {
+            is ShopAdapter -> submitList(data)
+            is MapAdapter -> submitList(data)
+        }
+    }
+}
+
+@BindingAdapter("imageData")
+fun bindRecyclerViewImage(recyclerView: RecyclerView, data: List<String>?) {
+    val adapter = recyclerView.adapter as DeatailAdapter
     adapter.submitList(data)
 }
+
+
+//    val shop = data!!.filter {
+//        it.name == viewModel.selectedShop.value
+////[shop]
+//    }
+//
+////    創造一個list 去裝? 然後submitlist??bo
+//    for (shop in data) {
+//    if (shop.name == viewModel.selectedShop.value) {
+//
+//        val position = data!!.indexOf(shop)
+//        viewModel.Position.value=position
+//    }
+//}
+//    .sort
+
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]

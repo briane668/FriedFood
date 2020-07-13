@@ -32,7 +32,11 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
+
+        binding.star.text="${viewModel.shop.value?.star}顆星"
         binding.viewModel=viewModel
+
+        binding.otherImage.adapter= DeatailAdapter()
 
 
 

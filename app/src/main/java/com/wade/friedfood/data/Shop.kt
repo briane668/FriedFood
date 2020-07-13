@@ -15,6 +15,8 @@ data class Shop(
     val image:String ="",
     val recommend:String="",
     val star:String="",
-    val address:String=""
+    val address:String="",
+    val menuImage:String ="",
+    var otherImage:List<String> = listOf()
 
     ) : Parcelable

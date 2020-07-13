@@ -86,3 +86,18 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+//val shop = data!!.filter {
+//    it.name == "awesome"
+//}
+//for ((index, shop) in data.withIndex()) {
+//    if (shop.name == "awesome") {
+//
+//        val position = index
+//    }
+//}
+//for (shop in data) {
+//    if (shop.name == "awesome") {
+//
+//        val position = data!!.indexOf(shop)
+//    }
+//}

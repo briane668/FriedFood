@@ -11,28 +11,32 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="406dp"
+        android:layout_height="309dp">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@{shopItem.name}"
-            app:layout_constraintStart_toEndOf="@+id/photo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photo"
+            tools:text="阿郎鹹酥雞" />
 
         <TextView
             android:id="@+id/recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
             android:text="@{shopItem.recommend}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/star" />
+            app:layout_constraintStart_toEndOf="@+id/star"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="10則評論" />
 
         <TextView
             android:id="@+id/distance"
@@ -41,6 +45,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="TextView"
+            tools:text="10公里"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -48,33 +53,33 @@
             android:id="@+id/star"
             android:layout_width="wrap_content"
             android:layout_height="19dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="@{shopItem.star}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/photo" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="5顆星" />
 
         <ImageView
             android:id="@+id/photo"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{shopItem.image}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{shopItem.image}"
             app:srcCompat="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/photo"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{shopItem.address}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/star"
+            tools:text="新北勢新店區安民街193號10樓" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

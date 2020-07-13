@@ -33,7 +33,9 @@ object PublisherRemoteDataSource : PublisherDataSource {
                     val list = mutableListOf<Shop>()
                     for (document in task.result!!) {
                         Logger.d(document.id + " => " + document.data)
+//有問題??
 
+//Could not deserialize object. Class com.wade.friedfood.data.Shop does not define a no-argument constructor. If you are using ProGuard, make sure these constructors are not stripped
                         val article = document.toObject(Shop::class.java)
                         list.add(article)
                     }

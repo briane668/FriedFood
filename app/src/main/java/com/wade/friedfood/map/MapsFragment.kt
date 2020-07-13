@@ -43,7 +43,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 
     private val viewModel by viewModels<MapViewModel> { getVmFactory() }
 
-
+    lateinit var binding: FragmentMapsBinding
 
     private var marker1 : Marker? = null
     private var map: GoogleMap? = null
@@ -98,7 +98,7 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
                 val y= i.longitude?.toDouble()
                 val z=i.name
                 val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
-                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("i am here") })
+                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
 
             }
         }
@@ -112,7 +112,7 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 //        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
-//
+
 
 
         map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
@@ -164,13 +164,14 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding:FragmentMapsBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_maps,container,false
         )
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
+        binding.mapView.adapter=MapAdapter()
 
 
         binding.viewMap.onCreate(savedInstanceState)
@@ -187,6 +188,13 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
+
+
+
+
+
+
+
 
 
 
@@ -235,26 +243,19 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
         // TODO Auto-generated method stub
         // googleMap.clear();
 
+        Log.d("Wade-Marker", "onMarkerClick, marker=${marker.toString()}")
+
         if (marker != null) {
-            for (i in viewModel.shop.value!!){
-                if (marker.title == i.name){
+            val markerName = marker.title
 
-                    findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(i))
-
-
-
-
-
-                    Toast.makeText(
-                        requireContext(), i.name,
-                        Toast.LENGTH_LONG
-                    ).show()
-
+            viewModel.shop.value?.let {
+                for ((index, shop) in it.withIndex()) {
+                    if (shop.name == markerName) {
+                        binding.mapView.smoothScrollToPosition(index)
+                        break
+                    }
                 }
             }
-
-
-
 
         }
         return false
@@ -262,6 +263,16 @@ viewModel.shop.observe(viewLifecycleOwner, Observer {
 
 
     override fun onInfoWindowClick(marker: Marker) {
+
+
+        for (i in viewModel.shop.value!!){
+            if (marker.title == i.name){
+
+                findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(i))
+
+            }
+        }
+
         Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
     }
 
