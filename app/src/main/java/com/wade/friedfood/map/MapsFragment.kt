@@ -116,12 +116,11 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
                         val z=i.name
                         val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                         map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
-
                     }
                 }
             }
         })
-
+// filter
 
 
 
@@ -137,6 +136,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 
 
         map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
 
 
 
@@ -274,11 +274,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-        // TODO Auto-generated method stub
         // googleMap.clear();
-
-        Log.d("Wade-Marker", "onMarkerClick, marker=${marker.toString()}")
-
         if (marker != null) {
             val markerName = marker.title
 
@@ -290,7 +286,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
                     }
                 }
             }
-
         }
         return false
     }
@@ -486,6 +481,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
+                        MapViewModel.userPosition.value=lastKnownLocation
                         if (lastKnownLocation != null) {
                             map?.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(

@@ -23,8 +23,10 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.wade.friedfood.data.Comment
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.detail.DeatailAdapter
+import com.wade.friedfood.detail.DetailCommentAdapter
 import com.wade.friedfood.map.MapAdapter
 import com.wade.friedfood.map.MapViewModel
 
@@ -59,6 +61,12 @@ fun setStar(imageView: ImageView, getStar:Int , starPos : Int) {
         imageView.setImageResource(android.R.drawable.btn_star_big_off)
 }
 
+@BindingAdapter("commentData")
+fun bindCommentView(recyclerView: RecyclerView, data: List<Comment>?) {
+    val adapter = recyclerView.adapter as DetailCommentAdapter
+    adapter.submitList(data)
+}
+
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
@@ -76,6 +84,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .into(imgView)
     }
 }
+
+
 
 
 

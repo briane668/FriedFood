@@ -1,5 +1,6 @@
 package com.wade.friedfood.map
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +27,6 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 //
 //    val shop: LiveData<List<Shop>>
 //        get() = _shop
-
 
 
     var selectedShop = MutableLiveData<String>()
@@ -121,6 +121,9 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         }
     }
 
+    companion object {
+        val userPosition = MutableLiveData<Location>()
+    }
 
 
 }

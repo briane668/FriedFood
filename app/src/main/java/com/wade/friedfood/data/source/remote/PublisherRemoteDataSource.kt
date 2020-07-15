@@ -1,4 +1,4 @@
-package app.appworks.school.publisher.data.source.remote
+package com.wade.friedfood.data.source.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
 

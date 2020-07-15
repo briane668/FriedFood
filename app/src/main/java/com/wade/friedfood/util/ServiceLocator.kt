@@ -6,7 +6,7 @@ import app.appworks.school.publisher.data.source.DefaultPublisherRepository
 import app.appworks.school.publisher.data.source.PublisherDataSource
 import app.appworks.school.publisher.data.source.PublisherRepository
 import app.appworks.school.publisher.data.source.local.PublisherLocalDataSource
-import app.appworks.school.publisher.data.source.remote.PublisherRemoteDataSource
+import com.wade.friedfood.data.source.remote.PublisherRemoteDataSource
 
 /**
  * Created by Wayne Chen on 2020-01-15.

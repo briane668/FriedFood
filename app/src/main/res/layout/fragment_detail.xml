@@ -99,22 +99,29 @@
 
                 <Button
                     android:id="@+id/recommendButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="發表您對這間店的評價"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/otherImage" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="408dp"
+                    android:id="@+id/recyclerDetailComment"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recommendButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/recommendButton"
+                    app:spanCount="1"
+                    app:commentData="@{viewModel.shop.comment}"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_detail_comment" />
 
 
                 <TextView

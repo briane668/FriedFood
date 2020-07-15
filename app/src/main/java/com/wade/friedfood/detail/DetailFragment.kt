@@ -48,7 +48,7 @@ class DetailFragment : Fragment() {
         }
 
         binding.otherImage.adapter= DeatailAdapter()
-
+        binding.recyclerDetailComment.adapter  =DetailCommentAdapter()
 
 
         return binding.root
