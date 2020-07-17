@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -37,15 +38,15 @@ import com.wade.friedfood.detail.DetailFragmentArgs
 import com.wade.friedfood.ext.getVmFactory
 import kotlinx.android.synthetic.main.fragment_maps.*
 
-class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.OnMarkerClickListener {
-
+class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
+    GoogleMap.OnMarkerClickListener {
 
 
     private val viewModel by viewModels<MapViewModel> { getVmFactory() }
 
     lateinit var binding: FragmentMapsBinding
 
-    private var marker1 : Marker? = null
+    private var marker1: Marker? = null
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
@@ -83,44 +84,35 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
         this.map?.setOnInfoWindowClickListener(this)
 
 
-         viewModel.shop.observe(viewLifecycleOwner, Observer {
-             Log.d("Wade","$it")
-         })
+//        viewModel.shop.observe(viewLifecycleOwner, Observer {
+//            Log.d("Wade", "$it")
+//        })
 
 
 
-
-//viewModel.shop.observe(viewLifecycleOwner, Observer {
-//    viewModel.shop.value.let {
-//        if (it != null) {
-//            for (i in it){
-//                val x= i.latitude?.toDouble()
-//                val y= i.longitude?.toDouble()
-//                val z=i.name
-//                val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
-//                map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
-//
-//            }
-//        }
-//    }
-//})
-
-
+// 按下去後 call funtion 叫出資料 先clear 在畫出來
         viewModel.shop.observe(viewLifecycleOwner, Observer {
             viewModel.shop.value.let {
                 if (it != null) {
-                    for (i in it){
+                    for (i in it) {
 
-                        val x= i.location?.latitude
-                        val y= i.location?.longitude
-                        val z=i.name
+                        val x = i.location?.latitude
+                        val y = i.location?.longitude
+                        val z = i.name
                         val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
-                        map!!.addMarker(sydney?.let { it1 -> MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星") })
+                        map!!.addMarker(sydney?.let { it1 ->
+                            MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星")
+                        })
                     }
                 }
             }
         })
-// filter
+
+
+
+
+
+
 
 
 
@@ -132,7 +124,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 //        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
-
 
 
         map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
@@ -148,8 +139,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
 
             override fun getInfoContents(marker: Marker): View {
                 // Inflate the layouts for the info window, title and snippet.
-                val infoWindow = layoutInflater.inflate(R.layout.custom_info_contents,
-                    view_map, false)
+                val infoWindow = layoutInflater.inflate(
+                    R.layout.custom_info_contents,
+                    view_map, false
+                )
                 val title = infoWindow.findViewById<TextView>(R.id.title)
                 title.text = marker.title
                 val snippet = infoWindow.findViewById<TextView>(R.id.snippet)
@@ -157,10 +150,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
                 return infoWindow
             }
         })
-
-
-
-
 
 
         // Prompt the user for permission.
@@ -175,8 +164,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
         getDeviceLocation();
 
 
-
-
     }
 
     override fun onCreateView(
@@ -186,21 +173,22 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_maps,container,false
+            inflater, R.layout.fragment_maps, container, false
         )
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
-        binding.mapView.adapter=MapAdapter(MapAdapter.OnClickListener{
+        binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
             viewModel.displayShopDetails(it)
         })
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
-            if ( it != null ) {
+            if (it != null) {
                 // Must find the NavController from the Fragment
-                this.findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(it))
+                this.findNavController()
+                    .navigate(NavigationDirections.actionGlobalDetailFragment(it))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayShopDetailsComplete()
             }
@@ -214,9 +202,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
         binding.viewMap.getMapAsync(callback)
 
 
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            Places.initialize(requireContext(), getString(R.string.maps_api_key))
-            placesClient = Places.createClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+        Places.initialize(requireContext(), getString(R.string.maps_api_key))
+        placesClient = Places.createClient(requireContext())
 
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
@@ -224,6 +213,27 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
         }
 
 
+
+
+
+        binding.chicken.setOnClickListener {
+            this.map?.clear()
+            viewModel.shop.value=null
+            viewModel.getFriedChicken()
+
+        }
+
+
+        binding.refresh.setOnClickListener {
+            this.map?.clear()
+            viewModel.shop.value=null
+            viewModel.getShop()
+        }
+
+
+        viewModel.menus.observe(viewLifecycleOwner, Observer {
+            viewModel.getSelectedShop(it)
+        })
 
 
 
@@ -272,7 +282,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
     }
 
 
-
     override fun onMarkerClick(marker: Marker?): Boolean {
         // googleMap.clear();
         if (marker != null) {
@@ -294,8 +303,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
     override fun onInfoWindowClick(marker: Marker) {
 
 
-        for (i in viewModel.shop.value!!){
-            if (marker.title == i.name){
+        for (i in viewModel.shop.value!!) {
+            if (marker.title == i.name) {
 
                 findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(i))
 
@@ -306,12 +315,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
     }
 
 
-
-
-
-
-
-
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->
             outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
@@ -319,8 +322,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
         }
         super.onSaveInstanceState(outState)
     }
-
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -402,11 +403,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
     }
 
 
-
-
-
-
-
     private fun openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         val listener =
@@ -481,7 +477,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
-                        MapViewModel.userPosition.value=lastKnownLocation
+                        MapViewModel.userPosition.value = lastKnownLocation
                         if (lastKnownLocation != null) {
                             map?.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(
@@ -507,20 +503,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,GoogleMap.O
             Log.e("Exception: %s", e.message, e)
         }
     }
-
-
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//
-//
-//        val mapFragment =
-//            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-//        mapFragment?.getMapAsync(callback)
-//
-//    }
-
 
 
 }

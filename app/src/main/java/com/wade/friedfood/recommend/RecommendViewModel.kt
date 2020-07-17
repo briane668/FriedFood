@@ -3,7 +3,7 @@ package com.wade.friedfood.recommend
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.data.source.PublisherRepository
+import com.wade.friedfood.data.source.PublisherRepository
 import app.appworks.school.publisher.network.LoadApiStatus
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
@@ -78,7 +78,7 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     }
 
 
-    fun getShop() {
+    private fun getShop() {
 
         coroutineScope.launch {
 

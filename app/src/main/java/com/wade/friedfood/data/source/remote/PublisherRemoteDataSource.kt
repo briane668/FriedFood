@@ -2,10 +2,12 @@ package com.wade.friedfood.data.source.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
 
-import app.appworks.school.publisher.data.source.PublisherDataSource
+import com.wade.friedfood.data.source.PublisherDataSource
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
+import com.wade.friedfood.data.Comment
+import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Shop
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -23,8 +25,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
 //    private const val KEY_CREATED_TIME = "createdTime"
 
 
-
-    override suspend fun getShop(): Result<List<Shop>> = suspendCoroutine { continuation ->
+    override suspend fun getShops(): Result<List<Shop>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection("vender")
             .get()
@@ -33,9 +34,6 @@ object PublisherRemoteDataSource : PublisherDataSource {
                     val list = mutableListOf<Shop>()
                     for (document in task.result!!) {
                         Logger.d(document.id + " => " + document.data)
-//有問題??
-
-//Could not deserialize object. Class com.wade.friedfood.data.Shop does not define a no-argument constructor. If you are using ProGuard, make sure these constructors are not stripped
                         val article = document.toObject(Shop::class.java)
                         list.add(article)
                     }
@@ -53,9 +51,137 @@ object PublisherRemoteDataSource : PublisherDataSource {
     }
 
 
+    override suspend fun getComments(shop: Shop): Result<List<Comment>> =
+        suspendCoroutine { continuation ->
+            Logger.d("getComments, shop=$shop")
+            FirebaseFirestore.getInstance()
+                .collection("vender").document(shop.id).collection("comment")
+                .get()
+                .addOnCompleteListener { task ->
+                    Logger.d("addOnCompleteListener, task=$task")
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Comment>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+                            val comment = document.toObject(Comment::class.java)
+                            list.add(comment)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                    }
+                }
+        }
+
+    override suspend fun getFriedChicken(): Result<List<Menu>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection("menu").whereEqualTo("name","鹽酥雞")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Menu>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " menu=> " + document.data)
+                        val menu = document.toObject(Menu::class.java)
+                        list.add(menu)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
 
 
 
 
+    override suspend fun getSelectedShop(menus:List<Menu>): Result<List<Shop>> = suspendCoroutine { continuation ->
+        val menusId : MutableList<String?> = mutableListOf()
+            for (i in menus ){
+                menusId += i.venderId
+            }
+            FirebaseFirestore.getInstance()
+                .collection("vender").whereIn("id", menusId)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Shop>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+                            val article = document.toObject(Shop::class.java)
+                            list.add(article)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
 
-}
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                    }
+                }
+
+    }
+
+
+//    override suspend fun getFriedChicken(): Result<List<Shop>> = suspendCoroutine { continuation ->
+//        FirebaseFirestore.getInstance()
+//            .collection("vender")
+//            .get()
+//            .addOnCompleteListener { task ->
+//                Logger.d("getFriedChicken ,addOnCompleteListener, task=$task")
+//                if (task.isSuccessful) {
+//
+//                    val list = mutableListOf<Shop>()
+//                    for (document in task.result!!) {
+//
+//                        FirebaseFirestore.getInstance()
+//                            .collection("vender")
+//                            .document(document.id)
+//                            .collection("menu")
+//                            .whereEqualTo("name", "鹹酥雞")
+//                            .get()
+//                            .addOnCompleteListener {
+//                                for (document in it.result!!) {
+//                                    Logger.d(document.id + " =>get menu " + document.data)
+//                                    FirebaseFirestore.getInstance().collection("vender")
+//                                        .document(document.id).collection("menu").whereArrayContains("id","document.id")
+//                                }
+//                            }
+//
+//                        val shop = document.toObject(Shop::class.java)
+//                        list.add(shop)
+//                    }
+//                    continuation.resume(Result.Success(list))
+//                } else {
+//                    task.exception?.let {
+//
+//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+//                        continuation.resume(Result.Error(it))
+//                        return@addOnCompleteListener
+//                    }
+//                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+//                }
+//            }
+//    }
+
+
+
+    }
+
+
+

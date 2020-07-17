@@ -19,11 +19,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 class DetailFragment : Fragment() {
 
 
-
-    private val viewModel by viewModels<DetailViewModel> { getVmFactory(DetailFragmentArgs.fromBundle(requireArguments()).shopKey) }
-
-
-
+    private val viewModel by viewModels<DetailViewModel> {
+        getVmFactory(
+            DetailFragmentArgs.fromBundle(
+                requireArguments()
+            ).shopKey
+        )
+    }
 
 
     override fun onCreateView(
@@ -32,23 +34,22 @@ class DetailFragment : Fragment() {
     ): View? {
 
 
-
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         binding.backImage.setOnClickListener {
             findNavController().navigateUp()
         }
-        binding.star.text="${viewModel.shop.value?.star}顆星"
-        binding.viewModel=viewModel
+        binding.star.text = "${viewModel.shop.value?.star}顆星"
+        binding.viewModel = viewModel
 
         binding.recommendButton.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalReviewFragment())
 
         }
 
-        binding.otherImage.adapter= DeatailAdapter()
-        binding.recyclerDetailComment.adapter  =DetailCommentAdapter()
+        binding.otherImage.adapter = DeatailAdapter()
+        binding.recyclerDetailComment.adapter = DetailCommentAdapter()
 
 
         return binding.root
@@ -70,8 +71,6 @@ class DetailFragment : Fragment() {
 
         super.onDestroy()
     }
-
-
 
 
 }

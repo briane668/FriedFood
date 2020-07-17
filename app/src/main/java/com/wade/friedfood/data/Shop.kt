@@ -1,6 +1,7 @@
 package com.wade.friedfood.data
 
 import android.os.Parcelable
+import android.view.Menu
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
@@ -21,6 +22,7 @@ data class Shop(
     val menuImage:String ="",
     var otherImage:List<String> = listOf(),
     val location: @RawValue GeoPoint? = null,
-    val comment: @RawValue List<Comment> = listOf()
+    val comment: @RawValue List<Comment> = listOf(),
+    val menu: @RawValue List<Food> = listOf()
 
     ) : Parcelable

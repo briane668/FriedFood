@@ -1,8 +1,11 @@
-package app.appworks.school.publisher.data.source
+package com.wade.friedfood.data.source
 
-import androidx.lifecycle.MutableLiveData
+import com.wade.friedfood.data.Comment
+import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.source.PublisherDataSource
+import com.wade.friedfood.data.source.PublisherRepository
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -15,7 +18,20 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
 
 
     override suspend fun getShop(): Result<List<Shop>> {
-        return remoteDataSource.getShop()
+        return remoteDataSource.getShops()
     }
+
+    override suspend fun getComments(shop: Shop): Result<List<Comment>> {
+        return remoteDataSource.getComments(shop)
+    }
+
+    override suspend fun getFriedChicken(): Result<List<Menu>> {
+        return remoteDataSource.getFriedChicken()
+    }
+
+    override suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>> {
+        return remoteDataSource.getSelectedShop(menus)
+    }
+
 
 }

@@ -2,10 +2,10 @@ package app.appworks.school.publisher.util
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
-import app.appworks.school.publisher.data.source.DefaultPublisherRepository
-import app.appworks.school.publisher.data.source.PublisherDataSource
-import app.appworks.school.publisher.data.source.PublisherRepository
-import app.appworks.school.publisher.data.source.local.PublisherLocalDataSource
+import com.wade.friedfood.data.source.DefaultPublisherRepository
+import com.wade.friedfood.data.source.PublisherDataSource
+import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.local.PublisherLocalDataSource
 import com.wade.friedfood.data.source.remote.PublisherRemoteDataSource
 
 /**

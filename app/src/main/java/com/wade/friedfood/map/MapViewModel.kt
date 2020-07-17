@@ -4,12 +4,12 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.data.source.PublisherRepository
+import com.wade.friedfood.data.source.PublisherRepository
 import app.appworks.school.publisher.network.LoadApiStatus
 import app.appworks.school.publisher.util.Logger
-import app.appworks.school.publisher.util.ServiceLocator.repository
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
+import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,9 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
 
- val shop = MutableLiveData<List<Shop>>()
+    val shop = MutableLiveData<List<Shop>>()
+
+    val menus = MutableLiveData<List<Menu>>()
 
 //
 //    val shop: LiveData<List<Shop>>
@@ -73,6 +75,9 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         _navigateToSelectedShop.value = null
     }
 
+    companion object {
+        val userPosition = MutableLiveData<Location>()
+    }
 
 
 
@@ -87,7 +92,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-    fun getShop() {
+     fun getShop() {
 
         coroutineScope.launch {
 
@@ -121,9 +126,84 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         }
     }
 
-    companion object {
-        val userPosition = MutableLiveData<Location>()
+
+
+
+
+     fun getFriedChicken() {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getFriedChicken()
+
+            menus.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
     }
+
+
+    fun getSelectedShop(menus:List<Menu>) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getSelectedShop(menus)
+
+            shop.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
+
+
+
+
+
+
 
 
 }

@@ -1,7 +1,9 @@
-package app.appworks.school.publisher.data.source
+package com.wade.friedfood.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.wade.friedfood.data.Comment
+import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.data.Result
 import kotlin.coroutines.Continuation
@@ -14,7 +16,13 @@ import kotlin.coroutines.Continuation
 interface PublisherDataSource {
 
 
-    suspend fun getShop(): Result<List<Shop>>
+    suspend fun getShops(): Result<List<Shop>>
 
+
+    suspend fun getComments(shop: Shop): Result<List<Comment>>
+
+    suspend fun getFriedChicken(): Result<List<Menu>>
+
+    suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>>
 
 }

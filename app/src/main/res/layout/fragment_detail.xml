@@ -119,7 +119,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recommendButton"
                     app:spanCount="1"
-                    app:commentData="@{viewModel.shop.comment}"
+                    app:commentData="@{viewModel.comment}"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_detail_comment" />
 

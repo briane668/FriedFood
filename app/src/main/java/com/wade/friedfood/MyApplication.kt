@@ -1,7 +1,7 @@
 package com.wade.friedfood
 
 import android.app.Application
-import app.appworks.school.publisher.data.source.PublisherRepository
+import com.wade.friedfood.data.source.PublisherRepository
 import app.appworks.school.publisher.util.ServiceLocator
 
 import kotlin.properties.Delegates

@@ -11,6 +11,7 @@ import androidx.navigation.Navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.databinding.ActivityMainBinding
 import kotlin.math.*
 
@@ -52,6 +53,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("vender")
+//            .get()
+//            .addOnSuccessListener { documents ->
+
+
+
+
+
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
@@ -111,21 +123,7 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-//val shop = data!!.filter {
-//    it.name == "awesome"
-//}
-//for ((index, shop) in data.withIndex()) {
-//    if (shop.name == "awesome") {
-//
-//        val position = index
-//    }
-//}
-//for (shop in data) {
-//    if (shop.name == "awesome") {
-//
-//        val position = data!!.indexOf(shop)
-//    }
-//}
+
 
 fun getDistance(
     lat1: Double,

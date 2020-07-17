@@ -4,7 +4,7 @@ package com.wade.friedfood.detail.review
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.data.source.PublisherRepository
+import com.wade.friedfood.data.source.PublisherRepository
 import app.appworks.school.publisher.network.LoadApiStatus
 
 import kotlinx.coroutines.CoroutineScope

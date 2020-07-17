@@ -2,7 +2,7 @@ package com.wade.friedfood.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import app.appworks.school.publisher.data.source.PublisherRepository
+import com.wade.friedfood.data.source.PublisherRepository
 
 import com.wade.friedfood.detail.review.ReviewViewModel
 import com.wade.friedfood.map.MapViewModel
