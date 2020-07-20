@@ -23,9 +23,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.databinding.ItemShopBinding
-
+import com.wade.friedfood.getDistance
+import com.wade.friedfood.map.MapViewModel
+import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 
 /**
@@ -33,17 +37,53 @@ import com.wade.friedfood.databinding.ItemShopBinding
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class ShopAdapter(private val onClickListener: OnClickListener) : ListAdapter<Shop, ShopAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class ShopAdapter(private val onClickListener: OnClickListener,val recommendViewModel: RecommendViewModel) : ListAdapter<Shop, ShopAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
      */
     class MarsPropertyViewHolder( var binding: ItemShopBinding):
             RecyclerView.ViewHolder(binding.root) {
-        fun bind(shop: Shop) {
+        fun bind(shop: Shop,recommendViewModel: RecommendViewModel) {
+
+
+            val x = MapViewModel.userPosition.value?.latitude
+            val y = MapViewModel.userPosition.value?.longitude
+            val r = shop.location?.latitude
+            val s = shop.location?.longitude
+
+            val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+            val k = m.roundToInt()
+
+
+
+
+
+            recommendViewModel.coroutineScope.launch {
+
+                val commentCount =recommendViewModel.getCommentsByShop(shop)
+                Logger.w("shop=${shop.name}, commentCount=$commentCount")
+
+                binding.recommend.text="$commentCount 則評論"
+                binding.executePendingBindings()
+            }
+
+            recommendViewModel.coroutineScope.launch {
+
+                val rating =recommendViewModel.getRatingByShop(shop)
+                Logger.w("shop=${shop.name}, commentCount=$rating")
+
+                binding.star.text="$rating 顆星"
+                binding.executePendingBindings()
+            }
+
+
+
+            binding.distance.text = "${k}公尺"
+
             binding.shopItem = shop
-            binding.star.text="${shop.star}顆星"
-            binding.recommend.text="${shop.recommend}則評論"
+
+
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
@@ -83,7 +123,7 @@ class ShopAdapter(private val onClickListener: OnClickListener) : ListAdapter<Sh
             onClickListener.onClick(marsProperty)
         }
 
-        holder.bind(marsProperty )
+        holder.bind(marsProperty, recommendViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

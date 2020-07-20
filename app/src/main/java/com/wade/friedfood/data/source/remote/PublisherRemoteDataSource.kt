@@ -6,12 +6,10 @@ import com.wade.friedfood.data.source.PublisherDataSource
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Menu
-import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import com.wade.friedfood.data.Result
+import kotlin.math.roundToInt
 
 
 /**
@@ -143,13 +141,46 @@ object PublisherRemoteDataSource : PublisherDataSource {
             .collection("vender").document(shop.id).collection("comment")
             .get()
             .addOnCompleteListener { task ->
-                var number = 0
+                var count = 0
                 if (task.isSuccessful) {
                     for (document in task.result!!) {
                         Logger.d(document.id + " => " + document.data)
-                        number ++
+                        count ++
                     }
-                    continuation.resume(Result.Success(number))
+                    continuation.resume(Result.Success(count))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+
+    override suspend fun getRating(shop: Shop): Result<Int> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection("vender").document(shop.id).collection("comment")
+            .get()
+            .addOnCompleteListener { task ->
+                var rating = 0
+                var count = 0
+                var averageRating: Int
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " => " + document.data)
+                        count ++
+
+                        val comment = document.toObject(Comment::class.java)
+
+                        rating += comment.rating
+
+                    }
+                    averageRating = (rating / count)
+                    continuation.resume(Result.Success(averageRating))
                 } else {
                     task.exception?.let {
 
@@ -164,7 +195,26 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
 
-    }
+//    result 設為 1 代表成功
+    override suspend fun sendReview(shop: Shop,review: Review): Result<Int> = suspendCoroutine { continuation ->
+        val comment =FirebaseFirestore
+            .getInstance()
+            .collection("vender")
+            .document(shop.id)
+            .collection("comment")
+            .document()
+
+
+        comment.set(review)
+        continuation.resume(Result.Success(1))
+                }
+
+
+
+
+}
+
+
 
 
 

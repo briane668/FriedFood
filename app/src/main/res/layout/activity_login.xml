@@ -73,7 +73,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="136dp"
-        android:textSize="70"
+        android:textSize="60sp"
         android:text="Find鹽酥雞" />
 
 </RelativeLayout>

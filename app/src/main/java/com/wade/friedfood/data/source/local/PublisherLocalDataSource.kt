@@ -1,11 +1,8 @@
 package com.wade.friedfood.data.source.local
 
 import android.content.Context
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Menu
-import com.wade.friedfood.data.Result
+import com.wade.friedfood.data.*
 import com.wade.friedfood.data.source.PublisherDataSource
-import com.wade.friedfood.data.Shop
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -33,6 +30,14 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
     }
 
     override suspend fun getHowManyComments(shop: Shop): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getRating(shop: Shop): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun sendReview(shop: Shop, review: Review): Result<Int> {
         TODO("Not yet implemented")
     }
 

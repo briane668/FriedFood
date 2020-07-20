@@ -20,9 +20,8 @@ class DetailFragment : Fragment() {
 
     private val viewModel by viewModels<DetailViewModel> {
         getVmFactory(
-            DetailFragmentArgs.fromBundle(
-                requireArguments()
-            ).shopKey
+            DetailFragmentArgs
+                .fromBundle(requireArguments()).shopKey
         )
     }
 
@@ -43,7 +42,7 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.recommendButton.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalReviewFragment())
+            findNavController().navigate(NavigationDirections.actionGlobalReviewFragment(viewModel.shop.value!!))
 
         }
 

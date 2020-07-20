@@ -58,7 +58,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
     // Internally, we use a MutableLiveData to handle navigation to the selected property
@@ -203,41 +203,96 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-    fun getHowManyComments(shop:Shop) {
+//    fun getHowManyComments(shop:Shop) {
+//
+//        coroutineScope.launch {
+//
+//            _status.value = LoadApiStatus.LOADING
+//
+//            val result = repository.getHowManyComments(shop)
+//
+//             when (result) {
+//                is Result.Success -> {
+//                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+//                    result.data
+//                }
+//                is Result.Fail -> {
+//                    _error.value = result.error
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                is Result.Error -> {
+//                    _error.value = result.exception.toString()
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                else -> {
+//                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//            }
+//            _refreshStatus.value = false
+//        }
+//    }
 
-        coroutineScope.launch {
+    suspend fun getCommentsByShop(shop:Shop): Int {
 
-            _status.value = LoadApiStatus.LOADING
+        val result = repository.getHowManyComments(shop)
 
-            val result = repository.getHowManyComments(shop)
-
-            HowManyComments.value = when (result) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    result.data
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                else -> {
-                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
             }
-            _refreshStatus.value = false
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
         }
     }
 
 
+    suspend fun getRatingByShop(shop:Shop): Int {
+
+        val result = repository.getRating(shop)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+        }
+    }
 
 
 

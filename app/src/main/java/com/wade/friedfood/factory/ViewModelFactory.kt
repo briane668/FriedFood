@@ -27,8 +27,7 @@ class ViewModelFactory constructor(
                 isAssignableFrom(MapViewModel::class.java) ->
                     MapViewModel(repository)
 
-                isAssignableFrom(ReviewViewModel::class.java) ->
-                    ReviewViewModel(repository)
+
 
 
                 else ->

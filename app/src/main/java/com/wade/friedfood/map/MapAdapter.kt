@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.publisher.util.Logger
 import com.bumptech.glide.Glide.init
 
 import com.wade.friedfood.data.Shop
@@ -20,6 +21,7 @@ import com.wade.friedfood.databinding.ItemShopBinding
 import com.wade.friedfood.getDistance
 
 import com.wade.friedfood.map.MapViewModel.Companion.userPosition
+import kotlinx.coroutines.launch
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -29,7 +31,7 @@ import kotlin.math.roundToInt
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class MapAdapter(private val onClickListener: OnClickListener,val mapViewModel: MapViewModel,val fragment: Fragment) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class MapAdapter(private val onClickListener: OnClickListener,val mapViewModel: MapViewModel) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
@@ -40,7 +42,7 @@ class MapAdapter(private val onClickListener: OnClickListener,val mapViewModel: 
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(shop: Shop,mapViewModel: MapViewModel,fragment:Fragment) {
+        fun bind(shop: Shop,mapViewModel: MapViewModel) {
 
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
@@ -50,23 +52,42 @@ class MapAdapter(private val onClickListener: OnClickListener,val mapViewModel: 
             val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
             val k = m.roundToInt()
 
-            mapViewModel.getHowManyComments(shop)
+//            mapViewModel.getHowManyComments(shop)
+//
+//            mapViewModel.HowManyComments.observe(fragment.viewLifecycleOwner, Observer {
+//                binding.mapItem = shop
+//                binding.star.text="${shop.star}顆星"
+//                binding.recommend.text="${mapViewModel.HowManyComments.value}則評論"
+//                binding.distance.text = "${k}公尺"
+//                binding.executePendingBindings()
+//            })
+            mapViewModel.coroutineScope.launch {
 
-            mapViewModel.HowManyComments.observe(fragment.viewLifecycleOwner, Observer {
-                binding.mapItem = shop
-                binding.star.text="${shop.star}顆星"
-                binding.recommend.text="${mapViewModel.HowManyComments.value}則評論"
-                binding.distance.text = "${k}公尺"
+                val commentCount =mapViewModel.getCommentsByShop(shop)
+                Logger.w("shop=${shop.name}, commentCount=$commentCount")
+
+                binding.recommend.text="$commentCount 則評論"
                 binding.executePendingBindings()
-            })
+            }
+
+            mapViewModel.coroutineScope.launch {
+
+                val rating =mapViewModel.getRatingByShop(shop)
+                Logger.w("shop=${shop.name}, commentCount=$rating")
+
+                binding.star.text="$rating 顆星"
+                binding.executePendingBindings()
+            }
 
 
 
 
 
-            // This is important, because it forces the data binding to execute immediately,
-            // which allows the RecyclerView to make the correct view size measurements
 
+
+            binding.mapItem = shop
+            binding.distance.text = "${k}公尺"
+            binding.executePendingBindings()
         }
     }
 
@@ -110,7 +131,7 @@ class MapAdapter(private val onClickListener: OnClickListener,val mapViewModel: 
 
 
 
-        holder.bind(marsProperty ,mapViewModel,fragment)
+        holder.bind(marsProperty ,mapViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

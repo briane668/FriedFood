@@ -1,6 +1,7 @@
 package com.wade.friedfood.detail.review
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,9 @@ import com.wade.friedfood.ext.getVmFactory
  */
 class ReviewFragment : DialogFragment() {
 
-    private val viewModel by viewModels<ReviewViewModel> { getVmFactory() }
+    private val viewModel by viewModels<ReviewViewModel> {
+        getVmFactory(ReviewFragmentArgs
+            .fromBundle(requireArguments()).shopkey) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragm
@@ -54,6 +57,8 @@ class ReviewFragment : DialogFragment() {
 //        傳進點下去button的位子
         binding.reviewButton.setOnClickListener {
 
+            viewModel.prepareSendReview()
+
         }
 
         viewModel.reviewFinish.observe(viewLifecycleOwner, Observer {
@@ -61,6 +66,16 @@ class ReviewFragment : DialogFragment() {
                 dismiss()
             }
         })
+
+
+        viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
+            findNavController().navigateUp()
+            Log.d("sendSuccess","sendSuccess$it")
+            it.apply {
+                0
+            }
+        })
+
 
 
         return binding.root

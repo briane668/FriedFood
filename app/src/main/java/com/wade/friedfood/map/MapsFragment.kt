@@ -168,7 +168,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
 
             viewModel.displayShopDetails(it)
-        },viewModel,this)
+        },viewModel)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {

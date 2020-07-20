@@ -1,9 +1,6 @@
 package com.wade.friedfood.data.source
 
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Menu
-import com.wade.friedfood.data.Result
-import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.*
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -35,5 +32,13 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
         return remoteDataSource.getHowManyComments(shop)
     }
 
+    override suspend fun  getRating(shop: Shop): Result<Int> {
+        return remoteDataSource.getRating(shop)
+    }
+
+
+    override suspend fun sendReview(shop: Shop,review: Review): Result<Int> {
+        return remoteDataSource.sendReview(shop,review)
+    }
 
 }

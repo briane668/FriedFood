@@ -35,7 +35,7 @@ class RecommendFragment : Fragment() {
 
         binding.recommendView.adapter= ShopAdapter(ShopAdapter.OnClickListener{
             viewModel.displayShopDetails(it)
-        })
+        },viewModel)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if ( it != null ) {

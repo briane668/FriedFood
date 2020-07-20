@@ -8,6 +8,6 @@ data class Comment(
     val user_id:String="",
     val name:String="",
     val picture:String="",
-    val rating: Int? = null,
+    val rating: Int = 0,
     val comment:String=""
 ): Parcelable

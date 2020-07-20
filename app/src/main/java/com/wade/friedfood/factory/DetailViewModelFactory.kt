@@ -6,6 +6,7 @@ import com.wade.friedfood.data.source.PublisherRepository
 
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.detail.DetailViewModel
+import com.wade.friedfood.detail.review.ReviewViewModel
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -24,6 +25,8 @@ class DetailViewModelFactory(
                 isAssignableFrom(DetailViewModel::class.java) ->
                     DetailViewModel(repository, shop)
 
+                isAssignableFrom(ReviewViewModel::class.java) ->
+                    ReviewViewModel(repository,shop)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

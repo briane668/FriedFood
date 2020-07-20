@@ -2,10 +2,7 @@ package com.wade.friedfood.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Menu
-import com.wade.friedfood.data.Result
-import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.*
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -25,5 +22,8 @@ interface PublisherRepository {
 
     suspend fun getHowManyComments(shop: Shop): Result<Int>
 
+    suspend fun getRating(shop: Shop): Result<Int>
+
+    suspend fun sendReview(shop: Shop,review: Review): Result<Int>
 
 }

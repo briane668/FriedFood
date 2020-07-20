@@ -34,7 +34,11 @@
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.wade.friedfood.detail.review.ReviewFragment"
-        android:label="ReviewFragment" />
+        android:label="ReviewFragment" >
+        <argument
+            android:name="shopkey"
+            app:argType="com.wade.friedfood.data.Shop" />
+    </fragment>
     <action android:id="@+id/action_global_reviewFragment" app:destination="@id/reviewFragment" />
     <activity
         android:id="@+id/loginActivity"
