@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.wade.friedfood.NavigationDirections
 
-import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -48,7 +47,7 @@ class DetailFragment : Fragment() {
 
         }
 
-        binding.otherImage.adapter = DeatailAdapter()
+        binding.otherImage.adapter = DetailAdapter()
         binding.recyclerDetailComment.adapter = DetailCommentAdapter()
 
 

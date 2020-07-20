@@ -84,7 +84,7 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getShop()
+            val result = repository.getShops()
 
             _shop.value = when (result) {
                 is Result.Success -> {

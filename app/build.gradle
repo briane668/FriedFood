@@ -58,6 +58,15 @@ android {
 }
 
 dependencies {
+
+    // Firebase核心
+    implementation 'com.google.firebase:firebase-core:17.4.4'
+// Firebase Authentication (帳號驗證模組)
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
+// Firebase Auth UI (第三方登入畫面模組)
+    implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.libraries.places:places:2.3.0'

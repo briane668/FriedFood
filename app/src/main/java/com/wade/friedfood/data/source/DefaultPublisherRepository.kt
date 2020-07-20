@@ -4,8 +4,6 @@ import com.wade.friedfood.data.Comment
 import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
-import com.wade.friedfood.data.source.PublisherDataSource
-import com.wade.friedfood.data.source.PublisherRepository
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -17,7 +15,7 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
 ) : PublisherRepository {
 
 
-    override suspend fun getShop(): Result<List<Shop>> {
+    override suspend fun getShops(): Result<List<Shop>> {
         return remoteDataSource.getShops()
     }
 
@@ -25,12 +23,16 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
         return remoteDataSource.getComments(shop)
     }
 
-    override suspend fun getFriedChicken(): Result<List<Menu>> {
-        return remoteDataSource.getFriedChicken()
+    override suspend fun getMenu(food:String): Result<List<Menu>> {
+        return remoteDataSource.getMenu(food)
     }
 
     override suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>> {
         return remoteDataSource.getSelectedShop(menus)
+    }
+
+    override suspend fun getHowManyComments(shop: Shop): Result<Int> {
+        return remoteDataSource.getHowManyComments(shop)
     }
 
 

@@ -97,30 +97,6 @@ class MainActivity : AppCompatActivity() {
         private const val  EARTH_RADIUS = 6378.137
     }
 
-    fun GetDistance(
-        lat1: Double,
-        lng1: Double,
-        lat2: Double,
-        lng2: Double
-    ): Double {
-        val radLat1: Double = rad(lat1)
-        val radLat2: Double = rad(lat2)
-        val a = radLat1 - radLat2
-        val b: Double = rad(lng1) - rad(lng2)
-        var s: Double = 2 * asin(
-            sqrt(
-                sin(a / 2).pow(2) +
-                        cos(radLat1) * cos(radLat2) * sin(b / 2).pow(2)
-            )
-        )
-        s *= EARTH_RADIUS
-
-        s= ((s * 10000).roundToInt() /10000).toDouble()
-        return s
-    }
-
-
-
 
 }
 
@@ -139,37 +115,7 @@ fun getDistance(
 
 
 
-    private const val  EARTH_RADIUS = 6378.137
 
 
-fun GetDistance(
-    lat1: Double,
-    lng1: Double,
-    lat2: Double,
-    lng2: Double
-): Double {
-    val radLat1: Double = rad(lat1)
-    val radLat2: Double = rad(lat2)
-    val a = radLat1 - radLat2
-    val b: Double = rad(lng1) - rad(lng2)
-    var s: Double = 2 * asin(
-        sqrt(
-            sin(a / 2).pow(2) +
-                    cos(radLat1) * cos(radLat2) * sin(b / 2).pow(2)
-        )
-    )
-    s *= EARTH_RADIUS
-
-    s= ((s * 10000).roundToLong() /10000).toDouble()
-    return s
-}
-
-
-
-
-
-private  fun rad(d: Double): Double {
-    return d * Math.PI / 180.0
-}
 
 

@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
@@ -26,7 +27,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
     val menus = MutableLiveData<List<Menu>>()
 
-//
+    val HowManyComments  = MutableLiveData<Int>()
 //    val shop: LiveData<List<Shop>>
 //        get() = _shop
 
@@ -77,6 +78,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
     companion object {
         val userPosition = MutableLiveData<Location>()
+
     }
 
 
@@ -87,18 +89,19 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         Logger.i("------------------------------------")
 
 
-        getShop()
+        getShops()
+
 
     }
 
 
-     fun getShop() {
+     fun getShops() {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getShop()
+            val result = repository.getShops()
 
             shop.value = when (result) {
                 is Result.Success -> {
@@ -130,13 +133,13 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
 
-     fun getFriedChicken() {
+     fun getMenu(food:String) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getFriedChicken()
+            val result = repository.getMenu(food)
 
             menus.value = when (result) {
                 is Result.Success -> {
@@ -199,6 +202,40 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         }
     }
 
+
+    fun getHowManyComments(shop:Shop) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getHowManyComments(shop)
+
+            HowManyComments.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
 
 
 

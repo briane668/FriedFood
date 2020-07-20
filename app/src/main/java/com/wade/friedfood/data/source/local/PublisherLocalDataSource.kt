@@ -24,11 +24,15 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFriedChicken(): Result<List<Menu>> {
+    override suspend fun getMenu(food:String): Result<List<Menu>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getHowManyComments(shop: Shop): Result<Int> {
         TODO("Not yet implemented")
     }
 

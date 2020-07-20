@@ -79,9 +79,9 @@ object PublisherRemoteDataSource : PublisherDataSource {
                 }
         }
 
-    override suspend fun getFriedChicken(): Result<List<Menu>> = suspendCoroutine { continuation ->
+    override suspend fun getMenu(food:String): Result<List<Menu>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
-            .collection("menu").whereEqualTo("name","鹽酥雞")
+            .collection("menu").whereEqualTo("name",food)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -138,46 +138,29 @@ object PublisherRemoteDataSource : PublisherDataSource {
     }
 
 
-//    override suspend fun getFriedChicken(): Result<List<Shop>> = suspendCoroutine { continuation ->
-//        FirebaseFirestore.getInstance()
-//            .collection("vender")
-//            .get()
-//            .addOnCompleteListener { task ->
-//                Logger.d("getFriedChicken ,addOnCompleteListener, task=$task")
-//                if (task.isSuccessful) {
-//
-//                    val list = mutableListOf<Shop>()
-//                    for (document in task.result!!) {
-//
-//                        FirebaseFirestore.getInstance()
-//                            .collection("vender")
-//                            .document(document.id)
-//                            .collection("menu")
-//                            .whereEqualTo("name", "鹹酥雞")
-//                            .get()
-//                            .addOnCompleteListener {
-//                                for (document in it.result!!) {
-//                                    Logger.d(document.id + " =>get menu " + document.data)
-//                                    FirebaseFirestore.getInstance().collection("vender")
-//                                        .document(document.id).collection("menu").whereArrayContains("id","document.id")
-//                                }
-//                            }
-//
-//                        val shop = document.toObject(Shop::class.java)
-//                        list.add(shop)
-//                    }
-//                    continuation.resume(Result.Success(list))
-//                } else {
-//                    task.exception?.let {
-//
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-//                        continuation.resume(Result.Error(it))
-//                        return@addOnCompleteListener
-//                    }
-//                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
-//                }
-//            }
-//    }
+    override suspend fun getHowManyComments(shop: Shop): Result<Int> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection("vender").document(shop.id).collection("comment")
+            .get()
+            .addOnCompleteListener { task ->
+                var number = 0
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " => " + document.data)
+                        number ++
+                    }
+                    continuation.resume(Result.Success(number))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
 
 
 

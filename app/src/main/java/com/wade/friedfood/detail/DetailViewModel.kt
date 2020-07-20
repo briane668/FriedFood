@@ -29,6 +29,7 @@ class DetailViewModel(
         value = shop
     }
 
+
     val shop: LiveData<Shop>
         get() = _shop
 
@@ -38,6 +39,10 @@ class DetailViewModel(
 
     val comment: LiveData<List<Comment>>
         get() = _comment
+
+
+
+//    val HowManyComments : Int = comment.value?.size ?: 0
 
 
     // Create a Coroutine scope using a job to be able to cancel when needed

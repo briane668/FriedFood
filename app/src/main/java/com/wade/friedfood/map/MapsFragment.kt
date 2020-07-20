@@ -16,7 +16,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -34,7 +33,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentMapsBinding
-import com.wade.friedfood.detail.DetailFragmentArgs
 import com.wade.friedfood.ext.getVmFactory
 import kotlinx.android.synthetic.main.fragment_maps.*
 
@@ -84,13 +82,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         this.map?.setOnInfoWindowClickListener(this)
 
 
-//        viewModel.shop.observe(viewLifecycleOwner, Observer {
-//            Log.d("Wade", "$it")
-//        })
 
 
-
-// 按下去後 call funtion 叫出資料 先clear 在畫出來
         viewModel.shop.observe(viewLifecycleOwner, Observer {
             viewModel.shop.value.let {
                 if (it != null) {
@@ -107,15 +100,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                 }
             }
         })
-
-
-
-
-
-
-
-
-
 
 
         val sydney = LatLng(24.972569, 121.517274)
@@ -180,9 +164,11 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         binding.viewModel = viewModel
 
+
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
+
             viewModel.displayShopDetails(it)
-        })
+        },viewModel,this)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -218,16 +204,32 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         binding.chicken.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value=null
-            viewModel.getFriedChicken()
-
+            viewModel.shop.value = null
+            viewModel.getMenu("鹽酥雞")
         }
+
+        binding.egg.setOnClickListener {
+            this.map?.clear()
+            viewModel.shop.value = null
+            viewModel.getMenu("炸皮蛋")
+        }
+
+        binding.sweetNotHot.setOnClickListener {
+            this.map?.clear()
+            viewModel.shop.value = null
+            viewModel.getMenu("甜不辣")
+        }
+
+
+
+
+
 
 
         binding.refresh.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value=null
-            viewModel.getShop()
+            viewModel.shop.value = null
+            viewModel.getShops()
         }
 
 

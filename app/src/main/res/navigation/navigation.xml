@@ -36,5 +36,10 @@
         android:name="com.wade.friedfood.detail.review.ReviewFragment"
         android:label="ReviewFragment" />
     <action android:id="@+id/action_global_reviewFragment" app:destination="@id/reviewFragment" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.wade.friedfood.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 </navigation>

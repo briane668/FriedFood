@@ -68,14 +68,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="chicken" />
+                    android:text="找鹽酥雞"
+                    tools:ignore="HardcodedText" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/egg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="找皮蛋"
+                    tools:ignore="HardcodedText" />
+                <Button
+                    android:id="@+id/sweetNotHot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="找甜不辣"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </ScrollView>
 

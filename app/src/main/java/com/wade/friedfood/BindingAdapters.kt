@@ -25,10 +25,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wade.friedfood.data.Comment
 import com.wade.friedfood.data.Shop
-import com.wade.friedfood.detail.DeatailAdapter
+import com.wade.friedfood.detail.DetailAdapter
 import com.wade.friedfood.detail.DetailCommentAdapter
 import com.wade.friedfood.map.MapAdapter
-import com.wade.friedfood.map.MapViewModel
 
 import com.wade.friedfood.recommend.ShopAdapter
 
@@ -48,7 +47,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Shop>?) {
 
 @BindingAdapter("imageData")
 fun bindRecyclerViewImage(recyclerView: RecyclerView, data: List<String>?) {
-    val adapter = recyclerView.adapter as DeatailAdapter
+    val adapter = recyclerView.adapter as DetailAdapter
     adapter.submitList(data)
 }
 

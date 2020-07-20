@@ -12,5 +12,6 @@
     <color name="pinkish_grey">#cccccc</color>
     <color name="scarlet">#d0021b</color>
     <color name="white_two">#f0f0f0</color>
+    <color name="colorWhite">#FFFFFF</color>
 
 </resources>

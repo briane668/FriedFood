@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wade.friedfood.databinding.ItemDetailImageBinding
 
 
-class DeatailAdapter : ListAdapter<String, DeatailAdapter.DetailViewHolder>(DiffCallback) {
+class DetailAdapter : ListAdapter<String, DetailAdapter.DetailViewHolder>(DiffCallback) {
 
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
