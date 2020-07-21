@@ -9,7 +9,9 @@ import com.wade.friedfood.data.User
 object UserManager {
 
 
-    val ProfileData = MutableLiveData<User>()
+//    val ProfileData = MutableLiveData<User>()
+
+    var ProfileData = User()
 
 
 }

@@ -14,7 +14,7 @@
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/warm_grey_two"
+        android:background="#8B4513"
         tools:context=".detail.DetailFragment">
 
 
@@ -72,7 +72,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:text="5顆星"
+                    android:text="Loading..."
+                    android:textColor="#000000"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -83,9 +85,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:text="@{viewModel.shop.address}"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/star"
-                    tools:text="新北勢新店區安民街193號10樓" />
+                    tools:text="新北市新店區安民街193號10樓" />
 
                 <TextView
                     android:id="@+id/time"
@@ -93,7 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:text="現正營業: 12:00-00:00"
+                    android:text="營業時間 : 每日 16:00-23:00"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
 
@@ -109,20 +115,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/otherImage" />
 
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerDetailComment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
+                    app:commentData="@{viewModel.comment}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recommendButton"
+                    app:layout_constraintTop_toBottomOf="@+id/recommend"
                     app:spanCount="1"
-                    app:commentData="@{viewModel.comment}"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_detail_comment" />
-
 
                 <TextView
                     android:id="@+id/distance"
@@ -131,6 +138,8 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:text="距離100公尺"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/time" />
 
@@ -169,6 +178,18 @@
                         app:imageUrl="@{viewModel.shop.menuImage}"
                         app:srcCompat="@drawable/ic_placeholder" />
                 </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="32sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recommendButton" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

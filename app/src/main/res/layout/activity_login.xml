@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8B4513"
     tools:context=".LoginActivity">
 
 <!--    <ImageView android:layout_above="@+id/signin_layout"-->
@@ -13,57 +14,64 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        android:src="@drawable/googleimage"/>-->
 
-    <LinearLayout android:id="@+id/signin_layout"
+    <LinearLayout
+        android:id="@+id/signin_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="266dp"
         android:orientation="vertical">
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
-            <EditText android:id="@+id/email_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="email"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:inputType="textPassword"
-                android:id="@+id/password_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="password"/>
+            <!--            <EditText android:id="@+id/email_edittext"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:hint="email"/>-->
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button android:id="@+id/email_login_button"
-            android:text="signin_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <!--            <EditText android:inputType="textPassword"-->
+            <!--                android:id="@+id/password_edittext"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:hint="password"/>-->
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <Button android:id="@+id/email_login_button"-->
+        <!--            android:text="signin_email"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:layout_marginRight="20dp"-->
+        <!--            android:layout_marginBottom="35dp"/>-->
+        <!--        <Button android:id="@+id/facebook_login_button"-->
+        <!--            android:text="signin_facebook"-->
+        <!--            android:textColor="@color/colorWhite"-->
+        <!--            android:background="@drawable/btn_signin_facebook"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:layout_marginRight="20dp"-->
+        <!--            android:layout_marginBottom="5dp"/>-->
+        <Button
+            android:id="@+id/google_sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="35dp"/>
-        <Button android:id="@+id/facebook_login_button"
-            android:text="signin_facebook"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/btn_signin_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"/>
-        <Button android:id="@+id/google_sign_in_button"
-            android:text="signin_google"
-            android:textColor="@color/colorWhite"
+            android:layout_marginBottom="80dp"
             android:background="@drawable/btn_signin_google"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="80dp"/>
+            android:text="signin_google"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
     <TextView
@@ -72,8 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="136dp"
-        android:textSize="60sp"
-        android:text="Find鹽酥雞" />
+        android:layout_marginTop="166dp"
+        android:text="Find 鹽酥雞"
+        android:textSize="64sp" />
 
 </RelativeLayout>

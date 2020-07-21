@@ -49,7 +49,7 @@ class DetailViewModel(
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -116,6 +116,67 @@ class DetailViewModel(
                 }
             }
             _refreshStatus.value = false
+        }
+    }
+
+
+
+
+
+    suspend fun getCommentsByShop(shop:Shop): Int {
+
+        val result = repository.getHowManyComments(shop)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+        }
+    }
+
+
+    suspend fun getRatingByShop(shop:Shop): Int {
+
+        val result = repository.getRating(shop)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
         }
     }
 

@@ -28,6 +28,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.wade.friedfood.profile.ProfileViewModel
+import com.wade.friedfood.util.UserManager
 import com.wade.friedfood.util.UserManager.ProfileData
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -46,18 +47,18 @@ class LoginActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         auth = FirebaseAuth.getInstance()
-        email_login_button.setOnClickListener {
-            signinAndSignup()
-
-        }
+//        email_login_button.setOnClickListener {
+//            signinAndSignup()
+//
+//        }
         google_sign_in_button.setOnClickListener {
             //First step
             googleLogin()
         }
-        facebook_login_button.setOnClickListener {
-            //First step
-            facebookLogin()
-        }
+//        facebook_login_button.setOnClickListener {
+//            //First step
+//            facebookLogin()
+//        }
         var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("298524614147-2p3a8qd9ebpbl2gt0s436u18s6ca034f.apps.googleusercontent.com")
             .requestEmail()
@@ -162,48 +163,51 @@ class LoginActivity() : AppCompatActivity() {
             }
     }
 
-    fun signinAndSignup() {
-        auth?.createUserWithEmailAndPassword(
-            email_edittext.text.toString(),
-            password_edittext.text.toString()
-        )
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    //Creating a user account
-                    moveMainPage(task.result?.user)
-                } else if (task.exception?.message.isNullOrEmpty()) {
-                    //Show the error message
-                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
-                } else {
-                    //Login if you have account
-                    signinEmail()
-                }
-            }
-    }
+//    fun signinAndSignup() {
+//        auth?.createUserWithEmailAndPassword(
+//            email_edittext.text.toString(),
+//            password_edittext.text.toString()
+//        )
+//            ?.addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    //Creating a user account
+//                    moveMainPage(task.result?.user)
+//                } else if (task.exception?.message.isNullOrEmpty()) {
+//                    //Show the error message
+//                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+//                } else {
+//                    //Login if you have account
+//                    signinEmail()
+//                }
+//            }
+//    }
 
-    fun signinEmail() {
-        auth?.signInWithEmailAndPassword(
-            email_edittext.text.toString(),
-            password_edittext.text.toString()
-        )
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    //Login
-                    moveMainPage(task.result?.user)
-                } else {
-                    //Show the error message
-                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
-                }
-            }
-    }
+//    fun signinEmail() {
+//        auth?.signInWithEmailAndPassword(
+//            email_edittext.text.toString(),
+//            password_edittext.text.toString()
+//        )
+//            ?.addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    //Login
+//                    moveMainPage(task.result?.user)
+//                } else {
+//                    //Show the error message
+//                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//    }
 
 //    這邊拿資料
     fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
 
 
-            ProfileData.value?.picture ?: user.photoUrl
+            ProfileData.name = user.displayName.toString()
+            ProfileData.picture = user.photoUrl.toString()
+            ProfileData.id = user.providerId
 
+            Log.d("wadePhoto",user.photoUrl.toString())
 
             startActivity(Intent(this, MainActivity::class.java))
             finish()

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wade.friedfood.data.source.PublisherRepository
 
-import com.wade.friedfood.detail.review.ReviewViewModel
 import com.wade.friedfood.map.MapViewModel
+import com.wade.friedfood.profile.ProfileViewModel
 import com.wade.friedfood.recommend.RecommendViewModel
 
 /**
@@ -27,7 +27,8 @@ class ViewModelFactory constructor(
                 isAssignableFrom(MapViewModel::class.java) ->
                     MapViewModel(repository)
 
-
+                isAssignableFrom(ProfileViewModel::class.java) ->
+                    ProfileViewModel(repository)
 
 
                 else ->

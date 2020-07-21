@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.wade.friedfood.NavigationDirections
 
 import com.wade.friedfood.databinding.FragmentReviewBinding
 import com.wade.friedfood.ext.getVmFactory
@@ -67,9 +68,9 @@ class ReviewFragment : DialogFragment() {
             }
         })
 
-
+//navigateup 不會重新創造fragment
         viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
-            findNavController().navigateUp()
+            findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shop.value!!))
             Log.d("sendSuccess","sendSuccess$it")
             it.apply {
                 0

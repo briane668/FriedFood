@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import app.appworks.school.publisher.util.Logger
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -35,6 +36,7 @@ import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentMapsBinding
 import com.wade.friedfood.ext.getVmFactory
 import kotlinx.android.synthetic.main.fragment_maps.*
+import kotlinx.coroutines.launch
 
 class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     GoogleMap.OnMarkerClickListener {
@@ -89,14 +91,19 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                 if (it != null) {
                     for (i in it) {
 
+                        viewModel.coroutineScope.launch {
+
+                            val rating =viewModel.getRatingByShop(i)
+
                         val x = i.location?.latitude
                         val y = i.location?.longitude
                         val z = i.name
                         val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                         map!!.addMarker(sydney?.let { it1 ->
-                            MarkerOptions().position(it1).title(z).snippet("評價${i.star}顆星")
+                            MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
                         })
                     }
+                }
                 }
             }
         })
@@ -313,7 +320,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             }
         }
 
-        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
     }
 
 

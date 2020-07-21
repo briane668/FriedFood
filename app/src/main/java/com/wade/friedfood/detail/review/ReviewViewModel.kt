@@ -11,6 +11,7 @@ import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Review
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.util.UserManager.ProfileData
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -78,9 +79,9 @@ class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : 
 
     fun prepareSendReview() {
         val review = Review(
-             user_id= "",
-             name= "",
-             picture= "",
+             user_id= ProfileData.id,
+             name= ProfileData.name,
+             picture= ProfileData.picture,
              rating= rating.value!!,
              comment=  comment.value!!
         )
