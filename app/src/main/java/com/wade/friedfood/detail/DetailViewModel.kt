@@ -11,6 +11,7 @@ import com.wade.friedfood.data.Comment
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.source.PublisherRepository
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -40,6 +41,8 @@ class DetailViewModel(
     val comment: LiveData<List<Comment>>
         get() = _comment
 
+
+    val collectDone =MutableLiveData<Int>()
 
 
 //    val HowManyComments : Int = comment.value?.size ?: 0
@@ -180,6 +183,40 @@ class DetailViewModel(
         }
     }
 
+
+     fun collectShop(user: User,shop: Shop) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.collectShop(user,shop)
+
+            collectDone.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
 
 
 

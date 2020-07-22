@@ -41,4 +41,16 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun login(user: User): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun collectShop(user: User, shop: Shop): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserData(user: User): Result<User> {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -1,9 +1,12 @@
 package com.wade.friedfood.data.source.remote
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 
 import com.wade.friedfood.data.source.PublisherDataSource
 import app.appworks.school.publisher.util.Logger
+import com.google.firebase.firestore.FieldValue
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
@@ -208,6 +211,83 @@ object PublisherRemoteDataSource : PublisherDataSource {
         comment.set(review)
         continuation.resume(Result.Success(1))
                 }
+
+
+
+    override suspend fun login(user: User): Result<Int> = suspendCoroutine { continuation ->
+        val login =FirebaseFirestore
+            .getInstance()
+            .collection("users")
+            .document()
+
+
+        login.set(user)
+
+    }
+
+//遇到一個阻攔物 就用whereequalto 去解決一層
+    override suspend fun collectShop(user: User,shop: Shop): Result<Int> = suspendCoroutine { continuation ->
+            FirebaseFirestore
+            .getInstance()
+            .collection("users")
+            .whereEqualTo("id",user.id).get().addOnCompleteListener {
+            task ->
+        if (task.isSuccessful) {
+            for (document in task.result!!) {
+                val collect = FirebaseFirestore
+                    .getInstance().collection("users").document(document.id)
+                collect.update("collect", FieldValue.arrayUnion(shop))
+
+            }
+            continuation.resume(Result.Success(1))
+        } else {
+            task.exception?.let {
+
+                Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                continuation.resume(Result.Error(it))
+                return@addOnCompleteListener
+            }
+            continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+        }
+    }
+    }
+
+
+
+    override suspend fun getUserData(user: User): Result<User> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .whereEqualTo("id",user.id)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userData = MutableLiveData<User>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " getUserData=> " + document.data)
+                        val userDatas = document.toObject(User::class.java)
+                        userData.apply {
+                            value=userDatas
+                        }
+                    }
+
+                    continuation.resume(Result.Success(userData.value!!))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
+
+
+
+
+
 
 
 

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,7 +17,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import app.appworks.school.publisher.util.Logger
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -83,11 +81,21 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         this.map!!.setOnMarkerClickListener(this)
         this.map?.setOnInfoWindowClickListener(this)
 
+        this.map!!.setMinZoomPreference(14.0f)
 
+
+
+//        只能縮放到如何
+//        this.map!!.setMaxZoomPreference(14.0f)
 
 
         viewModel.shop.observe(viewLifecycleOwner, Observer {
-            viewModel.shop.value.let {
+            viewModel.calculateDistance(it)
+        })
+
+
+        viewModel.naerShop.observe(viewLifecycleOwner, Observer {
+            viewModel.naerShop.value.let {
                 if (it != null) {
                     for (i in it) {
 
@@ -95,18 +103,20 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
                             val rating =viewModel.getRatingByShop(i)
 
-                        val x = i.location?.latitude
-                        val y = i.location?.longitude
-                        val z = i.name
-                        val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
-                        map!!.addMarker(sydney?.let { it1 ->
-                            MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
-                        })
+                            val x = i.location?.latitude
+                            val y = i.location?.longitude
+                            val z = i.name
+                            val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
+                            map!!.addMarker(sydney?.let { it1 ->
+                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
+                            })
+                        }
                     }
-                }
                 }
             }
         })
+
+
 
 
         val sydney = LatLng(24.972569, 121.517274)
@@ -117,7 +127,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 //        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 
 
-        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 
 
@@ -211,20 +221,24 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         binding.chicken.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value = null
+            viewModel.naerShop.value = null
+            binding.mapView.visibility= View.INVISIBLE
             viewModel.getMenu("鹽酥雞")
         }
 
         binding.egg.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value = null
+            viewModel.naerShop.value = null
+            binding.mapView.visibility= View.INVISIBLE
             viewModel.getMenu("炸皮蛋")
         }
 
         binding.sweetNotHot.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value = null
+            viewModel.naerShop.value = null
+            binding.mapView.visibility= View.INVISIBLE
             viewModel.getMenu("甜不辣")
+
         }
 
 
@@ -235,8 +249,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         binding.refresh.setOnClickListener {
             this.map?.clear()
-            viewModel.shop.value = null
+            viewModel.naerShop.value = null
             viewModel.getShops()
+            binding.mapView.visibility= View.INVISIBLE
         }
 
 
@@ -277,7 +292,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
     companion object {
         private val TAG = MapsFragment::class.java.simpleName
-        private const val DEFAULT_ZOOM = 15
+        private const val DEFAULT_ZOOM = 17
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         // Keys for storing activity state.
@@ -295,6 +310,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         // googleMap.clear();
         if (marker != null) {
             val markerName = marker.title
+            binding.mapView.visibility= View.VISIBLE
 
             viewModel.shop.value?.let {
                 for ((index, shop) in it.withIndex()) {
@@ -488,13 +504,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                         lastKnownLocation = task.result
                         MapViewModel.userPosition.value = lastKnownLocation
                         if (lastKnownLocation != null) {
-                            map?.moveCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    LatLng(
-                                        lastKnownLocation!!.latitude,
-                                        lastKnownLocation!!.longitude
-                                    ), DEFAULT_ZOOM.toFloat()
-                                )
+                            map?.moveCamera(CameraUpdateFactory.
+                            newLatLngZoom(LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude),
+                                DEFAULT_ZOOM.toFloat())
                             )
                         }
                     } else {

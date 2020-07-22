@@ -13,13 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
-import com.google.android.gms.common.util.IOUtils.toByteArray
 import android.content.pm.PackageManager
-import android.content.pm.PackageInfo
-import androidx.fragment.app.FragmentActivity
 import android.util.Base64
 import android.util.Log
-import androidx.navigation.findNavController
+import androidx.activity.viewModels
+import app.appworks.school.stylish.ext.getVmFactory
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -27,18 +25,20 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
-import com.wade.friedfood.profile.ProfileViewModel
-import com.wade.friedfood.util.UserManager
 import com.wade.friedfood.util.UserManager.ProfileData
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 
 class LoginActivity() : AppCompatActivity() {
+
     var auth: FirebaseAuth? = null
     var googleSignInClient: GoogleSignInClient? = null
     var GOOGLE_LOGIN_CODE = 9001
     var callbackManager: CallbackManager? = null
+    private val viewModel by viewModels<LoginViewModel> { getVmFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -66,6 +66,28 @@ class LoginActivity() : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         //printHashKey()
         callbackManager = CallbackManager.Factory.create()
+
+
+        viewModel.notAlreadySign.observe(this, androidx.lifecycle.Observer {
+            Log.d("alredySign", "$it")
+
+            it?.let {
+                if (it == true) {
+                    viewModel.coroutineScope.launch {
+                        viewModel.login(ProfileData)
+
+                    }
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+            }
+        }
+        )
+
+
     }
 
     override fun onStart() {
@@ -133,7 +155,7 @@ class LoginActivity() : AppCompatActivity() {
             }
     }
 
-//    這邊拿資料
+    //    這邊拿資料
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager?.onActivityResult(requestCode, resultCode, data)
@@ -199,18 +221,29 @@ class LoginActivity() : AppCompatActivity() {
 //    }
 
 //    這邊拿資料
+
+//    先寫個where equal 找有沒有這個使者 沒有在家
+
     fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
 
 
             ProfileData.name = user.displayName.toString()
             ProfileData.picture = user.photoUrl.toString()
-            ProfileData.id = user.providerId
+            ProfileData.id = user.uid
+            viewModel.addAble(ProfileData)
+//            viewModel.alreadySign.observe(this, androidx.lifecycle.Observer {
+//                viewModel.coroutineScope.launch {
+//                    viewModel.login(ProfileData)
+//                }
+//
+//            })
 
-            Log.d("wadePhoto",user.photoUrl.toString())
 
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            Log.d("wadePhoto", user.photoUrl.toString())
+
         }
     }
+
+
 }

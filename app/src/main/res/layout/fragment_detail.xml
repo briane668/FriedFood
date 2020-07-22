@@ -14,13 +14,16 @@
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#8B4513"
+        android:background="#938BC34A"
         tools:context=".detail.DetailFragment">
 
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="62dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayout2"
@@ -103,30 +106,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
 
+
                 <Button
                     android:id="@+id/recommendButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="發表您對這間店的評價"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#9EFF9800"
+                    android:drawableStart="@drawable/comment"
+                    android:text="發 表 您 對 這 間 店 的 評 價   "
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/otherImage" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/recommend" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerDetailComment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     app:commentData="@{viewModel.comment}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recommend"
+                    app:layout_constraintTop_toBottomOf="@+id/recommendButton"
                     app:spanCount="1"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_detail_comment" />
@@ -181,15 +187,32 @@
 
                 <TextView
                     android:id="@+id/recommend"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:background="#FFFFFF"
                     android:text="TextView"
+                    android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="32sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recommendButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/collectButton" />
+
+                <Button
+                    android:id="@+id/collectButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#9EFF9800"
+                    android:drawableStart="@drawable/star"
+                    android:text="收 藏 店 家         "
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/otherImage" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

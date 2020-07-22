@@ -2,6 +2,7 @@ package com.wade.friedfood.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.wade.friedfood.LoginViewModel
 import com.wade.friedfood.data.source.PublisherRepository
 
 import com.wade.friedfood.map.MapViewModel
@@ -29,6 +30,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(ProfileViewModel::class.java) ->
                     ProfileViewModel(repository)
+
+                isAssignableFrom(LoginViewModel::class.java) ->
+                    LoginViewModel(repository)
 
 
                 else ->

@@ -59,6 +59,8 @@ android {
 
 dependencies {
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     // Firebase核心
     implementation 'com.google.firebase:firebase-core:17.4.4'
 // Firebase Authentication (帳號驗證模組)

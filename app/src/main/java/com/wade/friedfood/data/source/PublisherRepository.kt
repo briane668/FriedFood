@@ -26,4 +26,10 @@ interface PublisherRepository {
 
     suspend fun sendReview(shop: Shop,review: Review): Result<Int>
 
+    suspend fun login(user: User): Result<Int>
+
+    suspend fun collectShop(user: User,shop: Shop): Result<Int>
+
+    suspend fun getUserData(user: User): Result<User>
+
 }

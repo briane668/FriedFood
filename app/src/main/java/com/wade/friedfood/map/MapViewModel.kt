@@ -12,11 +12,13 @@ import com.wade.friedfood.R
 import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.getDistance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
@@ -24,6 +26,9 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
     val shop = MutableLiveData<List<Shop>>()
+
+    val naerShop= MutableLiveData<List<Shop>>()
+
 
     val menus = MutableLiveData<List<Menu>>()
 
@@ -90,6 +95,8 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
         getShops()
+
+
 
 
     }
@@ -292,6 +299,31 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
                 0
             }
         }
+    }
+
+
+    fun calculateDistance(shops:List<Shop>){
+
+        val list = mutableListOf<Shop>()
+        for (shop in shops){
+
+            val x = userPosition.value?.latitude
+            val y = userPosition.value?.longitude
+            val r = shop.location?.latitude
+            val s = shop.location?.longitude
+
+            val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+            val k = m.roundToInt()
+
+            if ( k <80 ){
+
+                list.add(shop)
+            }
+        }
+
+        naerShop.value =list
+
+
     }
 
 

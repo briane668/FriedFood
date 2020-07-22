@@ -16,6 +16,7 @@ import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.getDistance
 import com.wade.friedfood.map.MapViewModel
+import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -50,6 +51,13 @@ class DetailFragment : Fragment() {
             findNavController().navigate(NavigationDirections.actionGlobalReviewFragment(viewModel.shop.value!!))
 
         }
+
+        binding.collectButton.setOnClickListener {
+            viewModel.shop
+
+            viewModel.shop.value?.let { it1 -> viewModel.collectShop(ProfileData, it1) }
+        }
+
 
         binding.otherImage.adapter = DetailAdapter()
 

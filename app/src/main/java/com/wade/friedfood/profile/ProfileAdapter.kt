@@ -1,4 +1,4 @@
-package com.wade.friedfood.map
+package com.wade.friedfood.profile
 
 
 import android.view.LayoutInflater
@@ -12,13 +12,10 @@ import app.appworks.school.publisher.util.Logger
 
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.databinding.ItemMapBinding
-import com.wade.friedfood.databinding.ItemShopBinding
 import com.wade.friedfood.getDistance
 
 import com.wade.friedfood.map.MapViewModel.Companion.userPosition
-import com.wade.friedfood.profile.ProfileViewModel
 import kotlinx.coroutines.launch
-import kotlin.math.pow
 import kotlin.math.roundToInt
 
 
@@ -27,9 +24,9 @@ import kotlin.math.roundToInt
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class MapAdapter(private val onClickListener: OnClickListener,
-                 val mapViewModel: MapViewModel
-) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class ProfileAdapter(private val onClickListener: OnClickListener,
+                 val profileViewModel: ProfileViewModel
+) : ListAdapter<Shop, ProfileAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
@@ -40,7 +37,7 @@ class MapAdapter(private val onClickListener: OnClickListener,
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(shop: Shop,mapViewModel: MapViewModel) {
+        fun bind(shop: Shop, profileViewModel: ProfileViewModel) {
 
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
@@ -59,18 +56,18 @@ class MapAdapter(private val onClickListener: OnClickListener,
 //                binding.distance.text = "${k}公尺"
 //                binding.executePendingBindings()
 //            })
-            mapViewModel.coroutineScope.launch {
+            profileViewModel.coroutineScope.launch {
 
-                val commentCount =mapViewModel.getCommentsByShop(shop)
+                val commentCount =profileViewModel.getCommentsByShop(shop)
                 Logger.w("shop=${shop.name}, commentCount=$commentCount")
 
                 binding.recommend.text="$commentCount 則評論"
                 binding.executePendingBindings()
             }
 
-            mapViewModel.coroutineScope.launch {
+            profileViewModel.coroutineScope.launch {
 
-                val rating =mapViewModel.getRatingByShop(shop)
+                val rating =profileViewModel.getRatingByShop(shop)
                 Logger.w("shop=${shop.name}, commentCount=$rating")
 
                 binding.star.text="$rating 顆星"
@@ -129,7 +126,7 @@ class MapAdapter(private val onClickListener: OnClickListener,
 
 
 
-        holder.bind(marsProperty ,mapViewModel)
+        holder.bind(marsProperty ,profileViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

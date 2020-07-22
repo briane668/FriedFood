@@ -28,6 +28,7 @@ import com.wade.friedfood.data.Shop
 import com.wade.friedfood.detail.DetailAdapter
 import com.wade.friedfood.detail.DetailCommentAdapter
 import com.wade.friedfood.map.MapAdapter
+import com.wade.friedfood.profile.ProfileAdapter
 
 import com.wade.friedfood.recommend.ShopAdapter
 
@@ -86,7 +87,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 
 
 
-
+@BindingAdapter("collectData")
+fun bindCllectView(recyclerView: RecyclerView, data: List<Shop>?) {
+    val adapter = recyclerView.adapter as ProfileAdapter
+    adapter.submitList(data)
+}
 
 
 
