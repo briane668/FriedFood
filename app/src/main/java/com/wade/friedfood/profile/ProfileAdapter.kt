@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.appworks.school.publisher.util.Logger
 
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.databinding.ItemCollectBinding
 import com.wade.friedfood.databinding.ItemMapBinding
 import com.wade.friedfood.getDistance
 
@@ -33,7 +34,7 @@ class ProfileAdapter(private val onClickListener: OnClickListener,
      */
 
 
-    class MarsPropertyViewHolder( var binding: ItemMapBinding):
+    class MarsPropertyViewHolder( var binding: ItemCollectBinding):
         RecyclerView.ViewHolder(binding.root) {
 
 
@@ -109,7 +110,7 @@ class ProfileAdapter(private val onClickListener: OnClickListener,
 
 //parent ,false 橫向recycleview 會影響?
 //多載
-        return MarsPropertyViewHolder(ItemMapBinding.inflate(LayoutInflater.from(parent.context), parent ,false))
+        return MarsPropertyViewHolder(ItemCollectBinding.inflate(LayoutInflater.from(parent.context), parent ,false))
     }
 
     /**

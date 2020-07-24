@@ -84,7 +84,7 @@ class MapAdapter(private val onClickListener: OnClickListener,
 
 
             binding.mapItem = shop
-            binding.distance.text = "${k}公尺"
+            binding.distance.text = "距離:${k}公尺"
             binding.executePendingBindings()
         }
     }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -53,9 +54,10 @@ class DetailFragment : Fragment() {
         }
 
         binding.collectButton.setOnClickListener {
-            viewModel.shop
 
             viewModel.shop.value?.let { it1 -> viewModel.collectShop(ProfileData, it1) }
+
+            Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -81,7 +83,7 @@ class DetailFragment : Fragment() {
             val commentCount = viewModel.shop.value?.let { viewModel.getCommentsByShop(it) }
 
 
-            binding.recommend.text="一共有 $commentCount 則評論"
+            binding.recommend.text="$commentCount 則評論"
             binding.executePendingBindings()
         }
 
@@ -89,15 +91,20 @@ class DetailFragment : Fragment() {
 
             val rating = viewModel.shop.value?.let { viewModel.getRatingByShop(it) }
 
+            if (rating != null) {
+                binding.ratingBar2.rating =rating.toFloat()
+            }
 
+                binding.star.text="$rating 顆星"
 
-            binding.star.text="評價 : $rating 顆星"
             binding.executePendingBindings()
         }
 
 
 
-        binding.distance.text = "${k}公尺"
+
+
+        binding.distance.text = "距離 ${k} 公尺"
 
 
 

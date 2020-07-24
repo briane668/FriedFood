@@ -306,24 +306,17 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
         val list = mutableListOf<Shop>()
         for (shop in shops){
-
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
             val r = shop.location?.latitude
             val s = shop.location?.longitude
-
             val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
             val k = m.roundToInt()
-
-            if ( k <80 ){
-
+            if ( k <10000000 ){
                 list.add(shop)
             }
         }
-
         naerShop.value =list
-
-
     }
 
 

@@ -28,6 +28,7 @@
             android:id="@+id/mapView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             android:visibility="invisible"
             app:ShopData="@{viewModel.naerShop}"

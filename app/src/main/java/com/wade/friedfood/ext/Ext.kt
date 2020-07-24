@@ -1,9 +1,13 @@
 package app.appworks.school.stylish.ext
 
 import android.graphics.Rect
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.TouchDelegate
 import android.view.View
+import androidx.annotation.RequiresApi
+import java.util.*
 
 
 /**
@@ -28,6 +32,12 @@ fun View.setTouchDelegate() {
         parent.touchDelegate = TouchDelegate(rect, this)
     }
 }
+
+
+fun Long.toDisplayFormat(): String {
+    return SimpleDateFormat("yyyy.MM.dd hh:mm", Locale.TAIWAN).format(this)
+}
+
 
 //fun Number.toDp(): Float {
 //    return this.toFloat() / (StylishApplication.instance.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)

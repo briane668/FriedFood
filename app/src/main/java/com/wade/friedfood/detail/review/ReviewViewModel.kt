@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wade.friedfood.data.source.PublisherRepository
 import app.appworks.school.publisher.network.LoadApiStatus
+import com.google.firebase.Timestamp
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
@@ -17,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : ViewModel() {
@@ -79,11 +81,13 @@ class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : 
 
     fun prepareSendReview() {
         val review = Review(
-             user_id= ProfileData.id,
-             name= ProfileData.name,
-             picture= ProfileData.picture,
-             rating= rating.value!!,
-             comment=  comment.value!!
+             user_id = ProfileData.id,
+             name = ProfileData.name,
+             picture = ProfileData.picture,
+             rating = rating.value!!,
+             comment =  comment.value!!,
+            time = Calendar.getInstance()
+                .timeInMillis
         )
 
         shop.value?.let { sendReview(it,review) }

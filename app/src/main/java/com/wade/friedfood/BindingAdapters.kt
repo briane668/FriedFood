@@ -18,9 +18,11 @@
 package com.wade.friedfood
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.stylish.ext.toDisplayFormat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wade.friedfood.data.Comment
@@ -93,6 +95,10 @@ fun bindCllectView(recyclerView: RecyclerView, data: List<Shop>?) {
     adapter.submitList(data)
 }
 
+@BindingAdapter("timeToDisplayFormat")
+fun bindDisplayFormatTime(textView: TextView, time: Long?) {
+    textView.text = time?.toDisplayFormat()
+}
 
 
 

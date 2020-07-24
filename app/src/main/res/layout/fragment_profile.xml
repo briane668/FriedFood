@@ -16,7 +16,6 @@
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#938BC34A"
         tools:context=".detail.DetailFragment">
 
 
@@ -37,11 +36,6 @@
                     android:id="@+id/cardView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +53,6 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="8dp"
                             android:scaleType="centerCrop"
-                            app:civ_border_color="#FF000000"
                             app:civ_border_width="2dp"
                             app:imageUrl="@{UserManager.INSTANCE.profileData.picture}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +67,7 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="68dp"
+                            android:layout_marginStart="144dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="16dp"
                             android:text="@{UserManager.INSTANCE.profileData.name}"
@@ -88,58 +81,15 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <View
-                    android:id="@+id/imageView2"
-                    android:layout_width="411dp"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/brownish_grey"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView"
-                    tools:srcCompat="@color/brownish_grey" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/collectLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView4">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerCollect"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        app:collectData="@{viewModel.userData.collect}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:spanCount="1"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_collect" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2">
+                    app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/beforeLayout3"
@@ -213,6 +163,36 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/collectLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerCollect"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:collectData="@{viewModel.userData.collect}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:spanCount="1"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_collect" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
