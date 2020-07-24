@@ -1,5 +1,6 @@
 package com.wade.friedfood.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,6 +42,11 @@ class DetailViewModel(
     val comment: LiveData<List<Comment>>
         get() = _comment
 
+
+    private val _sortedComment  =  MutableLiveData<List<Comment>>()
+
+    val sortedComment: LiveData<List<Comment>>
+        get() = _sortedComment
 
     val collectDone =MutableLiveData<Int>()
 
@@ -218,6 +224,19 @@ class DetailViewModel(
         }
     }
 
+
+    fun sortComment(comment: List<Comment>){
+
+
+        val sortedComment =comment.sortedByDescending { comment ->
+            comment.time
+        }
+        Log.d("CommentSOrt","$comment")
+        _sortedComment.value.apply {
+            sortedComment
+            Log.d("CommentSOrt","$sortedComment")
+        }
+    }
 
 
 

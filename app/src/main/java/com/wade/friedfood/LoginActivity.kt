@@ -75,17 +75,33 @@ class LoginActivity() : AppCompatActivity() {
                 if (it == true) {
                     viewModel.coroutineScope.launch {
                         viewModel.login(ProfileData)
-
                     }
+                } else if (it == false) {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
-                } else {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                }else{
+
                 }
             }
         }
         )
+
+
+        viewModel.signInSuccess.observe(this,androidx.lifecycle.Observer{
+            if (it == 1){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+
+            }
+
+
+        })
+
+
+
+
+
+
 
 
     }
@@ -222,7 +238,7 @@ class LoginActivity() : AppCompatActivity() {
 
 //    這邊拿資料
 
-//    先寫個where equal 找有沒有這個使者 沒有在家
+//    先寫個where equal 找有沒有這個使用者 沒有在家
 
     fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
@@ -230,17 +246,10 @@ class LoginActivity() : AppCompatActivity() {
 
             ProfileData.name = user.displayName.toString()
             ProfileData.picture = user.photoUrl.toString()
+            ProfileData.email = user.email.toString()
             ProfileData.id = user.uid
             viewModel.addAble(ProfileData)
-//            viewModel.alreadySign.observe(this, androidx.lifecycle.Observer {
-//                viewModel.coroutineScope.launch {
-//                    viewModel.login(ProfileData)
-//                }
-//
-//            })
 
-
-            Log.d("wadePhoto", user.photoUrl.toString())
 
         }
     }

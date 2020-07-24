@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.NavigationDirections
@@ -67,6 +68,7 @@ class DetailFragment : Fragment() {
 
 
 
+
         val x = MapViewModel.userPosition.value?.latitude
         val y = MapViewModel.userPosition.value?.longitude
         val r = viewModel.shop.value?.location?.latitude
@@ -100,11 +102,19 @@ class DetailFragment : Fragment() {
             binding.executePendingBindings()
         }
 
-
-
-
-
         binding.distance.text = "距離 ${k} 公尺"
+
+
+        viewModel.comment.observe(viewLifecycleOwner, Observer {
+            viewModel.sortComment(it)
+
+        })
+
+
+
+
+
+
 
 
 

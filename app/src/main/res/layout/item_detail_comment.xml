@@ -33,13 +33,14 @@
                 android:layout_height="wrap_content"
                 android:background="#98FFFFFF">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/comment_head_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
+                    app:civ_border_width="2dp"
                     app:imageUrl="@{review.picture}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -50,9 +51,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
                     android:text="@{review.name}"
                     android:textColor="#000000"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/comment_head_image"
                     app:layout_constraintTop_toTopOf="@+id/comment_head_image"
@@ -62,75 +64,18 @@
                     android:id="@+id/comment_comment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
                     android:text="沒有評論"
                     android:textColor="#000000"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/comment_head_image"
                     tools:text="評論" />
-
-                <ImageView
-                    android:id="@+id/comment_star_1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="centerCrop"
-                    app:getStar="@{review.rating}"
-                    app:layout_constraintBottom_toBottomOf="@+id/comment_head_image"
-                    app:layout_constraintStart_toStartOf="@+id/comment_name"
-                    app:layout_constraintTop_toBottomOf="@+id/comment_name"
-                    app:starPos="@{1}"
-                    tools:src="@android:drawable/btn_star_big_off" />
-
-                <ImageView
-                    android:id="@+id/comment_star_2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:getStar="@{review.rating}"
-                    app:layout_constraintStart_toEndOf="@+id/comment_star_1"
-                    app:layout_constraintTop_toTopOf="@+id/comment_star_1"
-                    app:starPos="@{2}"
-                    tools:src="@android:drawable/btn_star_big_off" />
-
-                <ImageView
-                    android:id="@+id/comment_star_3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:getStar="@{review.rating}"
-                    app:layout_constraintStart_toEndOf="@+id/comment_star_2"
-                    app:layout_constraintTop_toTopOf="@+id/comment_star_2"
-                    app:starPos="@{3}"
-                    tools:src="@android:drawable/btn_star_big_off" />
-
-                <ImageView
-                    android:id="@+id/comment_star_4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:getStar="@{review.rating}"
-                    app:layout_constraintStart_toEndOf="@+id/comment_star_3"
-                    app:layout_constraintTop_toTopOf="@+id/comment_star_3"
-                    app:starPos="@{4}"
-                    tools:src="@android:drawable/btn_star_big_off" />
-
-                <ImageView
-                    android:id="@+id/comment_star_5"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:getStar="@{review.rating}"
-                    app:layout_constraintStart_toEndOf="@+id/comment_star_4"
-                    app:layout_constraintTop_toTopOf="@+id/comment_star_4"
-                    app:starPos="@{5}"
-                    tools:src="@android:drawable/btn_star_big_off" />
 
                 <TextView
                     android:id="@+id/time"
@@ -139,9 +84,23 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
 
+                    android:textColor="#000000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:timeToDisplayFormat="@{review.time}" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar3"
+                    style="@android:style/Widget.Material.Light.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#FFFFFF"
+                    android:progressTint="#FF9800"
+                    android:rating="@{review.rating}"
+                    app:layout_constraintStart_toEndOf="@+id/comment_head_image"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

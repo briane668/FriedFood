@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import app.appworks.school.publisher.network.LoadApiStatus
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.User
 import com.wade.friedfood.data.source.PublisherRepository
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +19,11 @@ class LoginViewModel (private val repository: PublisherRepository) : ViewModel()
 
 
     var notAlreadySign=MutableLiveData<Boolean>().apply {
-        value=false
+        value=null
+    }
+
+    var signInSuccess=MutableLiveData<Int>().apply {
+        value=0
     }
 
 
@@ -60,20 +65,48 @@ fun addAble (user: User){
             notAlreadySign.value=it.isEmpty
         }
         .addOnFailureListener {
-            notAlreadySign.value= true
+            notAlreadySign.value= false
         }
 }
 
      suspend fun login(user: User) {
 
-        repository.login(user)
+         val result = repository.login(user)
 
-    }
+         _status.value = LoadApiStatus.LOADING
 
-
-
-
+         signInSuccess.value = when (result) {
+             is Result.Success -> {
+                 _error.value = null
+                 _status.value = LoadApiStatus.DONE
+                 result.data
+             }
+             is Result.Fail -> {
+                 _error.value = result.error
+                 _status.value = LoadApiStatus.ERROR
+                 null
+             }
+             is Result.Error -> {
+                 _error.value = result.exception.toString()
+                 _status.value = LoadApiStatus.ERROR
+                 null
+             }
+             else -> {
+                 _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                 _status.value = LoadApiStatus.ERROR
+                 null
+             }
+         }
+         _refreshStatus.value = false
+     }
 
 
 
 }
+
+
+
+
+
+
+

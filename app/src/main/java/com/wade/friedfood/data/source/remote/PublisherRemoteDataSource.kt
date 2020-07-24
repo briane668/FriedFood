@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.data.source.PublisherDataSource
 import app.appworks.school.publisher.util.Logger
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
@@ -56,7 +57,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
         suspendCoroutine { continuation ->
             Logger.d("getComments, shop=$shop")
             FirebaseFirestore.getInstance()
-                .collection("vender").document(shop.id).collection("comment")
+                .collection("vender").document(shop.id).collection("comment").orderBy("time", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     Logger.d("addOnCompleteListener, task=$task")
@@ -222,7 +223,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
         login.set(user)
-
+        continuation.resume(Result.Success(1))
     }
 
 //遇到一個阻攔物 就用whereequalto 去解決一層
