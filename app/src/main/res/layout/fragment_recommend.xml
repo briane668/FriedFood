@@ -19,12 +19,13 @@
             android:id="@+id/recommendView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="32dp"
             app:ShopData="@{viewModel.shop}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recommendTitle"
+            app:layout_constraintTop_toBottomOf="@+id/spinner"
             app:spanCount="1"
             tools:itemCount="16" />
 
@@ -33,14 +34,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/recommendTtitle"
             android:textColor="#000000"
             android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/recommendView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/searchWhat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recommendTitle" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

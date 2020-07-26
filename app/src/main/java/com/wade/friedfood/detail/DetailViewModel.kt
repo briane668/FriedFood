@@ -228,14 +228,36 @@ class DetailViewModel(
     fun sortComment(comment: List<Comment>){
 
 
-        val sortedComment =comment.sortedByDescending { comment ->
-            comment.time
+//        val sortedComment = comment.sortedByDescending { comment ->
+//            comment.time
+//        }
+//        Log.d("CommentSOrt","$comment")
+//        _sortedComment.value.apply {
+//            sortedComment
+//            Log.d("CommentSOrt","$sortedComment")
+//        }
+
+
+        _sortedComment.value = comment.sortedByDescending {
+            it.time
         }
-        Log.d("CommentSOrt","$comment")
-        _sortedComment.value.apply {
-            sortedComment
-            Log.d("CommentSOrt","$sortedComment")
-        }
+
+//        val list = comment.toMutableList()
+//
+//        Log.i("Sort Info","comments before sort")
+//        list.forEach {
+//            Log.i("Sort Info","comment=${it.time}")
+//        }
+//
+//        list.sortBy {
+//            it.time
+//        }
+//
+//        Log.d("Sort Info","comments after sort")
+//        list.forEach {
+//            Log.d("Sort Info","comment=${it.time}")
+//        }
+
     }
 
 

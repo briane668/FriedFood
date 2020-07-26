@@ -53,4 +53,8 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun sendRating(shop: Shop, rating: Int): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
 }

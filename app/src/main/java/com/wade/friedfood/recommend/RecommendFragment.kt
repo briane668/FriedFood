@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,6 +19,8 @@ class RecommendFragment : Fragment() {
 
     private val viewModel by viewModels<RecommendViewModel> { getVmFactory() }
 
+
+//    這整個是一個funtion 最終被return後 才會運作
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +34,31 @@ class RecommendFragment : Fragment() {
 
 
 
+        binding.spinner .onItemSelectedListener=
+            object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (position) {
+                        0 -> {
+
+                            viewModel.sortShop(viewModel.shop)
+                        }
+                        else -> {
+                            viewModel.sortShop(viewModel.shop)
+                        }
+                    }
+                }
+
+
+            }
 
 
         binding.recommendView.adapter= ShopAdapter(ShopAdapter.OnClickListener{
@@ -45,9 +73,6 @@ class RecommendFragment : Fragment() {
                 viewModel.displayShopDetailsComplete()
             }
         })
-
-
-
 
 
         return binding.root

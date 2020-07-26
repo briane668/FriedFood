@@ -54,6 +54,9 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
         return remoteDataSource.getUserData(user)
     }
 
+    override suspend fun sendRating(shop: Shop, rating: Int): Result<Int> {
+        return remoteDataSource.sendRating(shop,rating)
+    }
 
 
 }

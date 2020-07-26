@@ -1,6 +1,8 @@
 package com.wade.friedfood.detail
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,12 +14,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.publisher.util.Logger
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.wade.friedfood.NavigationDirections
 
 import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.getDistance
 import com.wade.friedfood.map.MapViewModel
+import com.wade.friedfood.map.MapsFragment
 import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
@@ -31,6 +39,31 @@ class DetailFragment : Fragment() {
             DetailFragmentArgs
                 .fromBundle(requireArguments()).shopKey
         )
+    }
+    private var map: GoogleMap? = null
+
+    private val callback = OnMapReadyCallback { googleMap ->
+
+
+        val x = viewModel.shop.value?.location?.latitude
+        val y = viewModel.shop.value?.location?.longitude
+
+
+
+
+        val sydney = LatLng(x!!, y!!)
+
+        this.map = googleMap
+        this.map!!.setMinZoomPreference(14.0f)
+
+
+        map!!.addMarker(MarkerOptions().position(sydney))
+
+                map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+
+
+
     }
 
 
@@ -54,6 +87,12 @@ class DetailFragment : Fragment() {
 
         }
 
+        binding.menuBotton.setOnClickListener {
+            findNavController().navigate(NavigationDirections.actionGlobalMenuFragment(viewModel.shop.value!!))
+
+        }
+
+
         binding.collectButton.setOnClickListener {
 
             viewModel.shop.value?.let { it1 -> viewModel.collectShop(ProfileData, it1) }
@@ -67,14 +106,13 @@ class DetailFragment : Fragment() {
         binding.recyclerDetailComment.adapter = DetailCommentAdapter()
 
 
-
-
         val x = MapViewModel.userPosition.value?.latitude
         val y = MapViewModel.userPosition.value?.longitude
         val r = viewModel.shop.value?.location?.latitude
         val s = viewModel.shop.value?.location?.longitude
 
-        val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+        val m =
+            getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
         val k = m.roundToInt()
 
 
@@ -85,7 +123,7 @@ class DetailFragment : Fragment() {
             val commentCount = viewModel.shop.value?.let { viewModel.getCommentsByShop(it) }
 
 
-            binding.recommend.text="$commentCount 則評論"
+            binding.recommend.text = "$commentCount 則評論"
             binding.executePendingBindings()
         }
 
@@ -94,10 +132,10 @@ class DetailFragment : Fragment() {
             val rating = viewModel.shop.value?.let { viewModel.getRatingByShop(it) }
 
             if (rating != null) {
-                binding.ratingBar2.rating =rating.toFloat()
+                binding.ratingBar2.rating = rating.toFloat()
             }
 
-                binding.star.text="$rating 顆星"
+            binding.star.text = "$rating 顆星"
 
             binding.executePendingBindings()
         }
@@ -110,6 +148,18 @@ class DetailFragment : Fragment() {
 
         })
 
+
+        binding.button2.setOnClickListener {
+            val gmmIntentUri =
+                Uri.parse("google.navigation:q=$r,$s")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
+
+
+
+        binding.mapView2.getMapAsync()
 
 
 
@@ -132,6 +182,7 @@ class DetailFragment : Fragment() {
 //
 //    }
 //
+////評價的頁面比較晚被destroy
 //
 //    override fun onDestroy() {
 //

@@ -57,7 +57,8 @@ object PublisherRemoteDataSource : PublisherDataSource {
         suspendCoroutine { continuation ->
             Logger.d("getComments, shop=$shop")
             FirebaseFirestore.getInstance()
-                .collection("vender").document(shop.id).collection("comment").orderBy("time", Query.Direction.ASCENDING)
+                .collection("vender").document(shop.id).collection("comment")
+                .orderBy("time", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     Logger.d("addOnCompleteListener, task=$task")
@@ -286,6 +287,16 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
 
+
+    override suspend fun sendRating(shop: Shop,rating: Int): Result<Int> = suspendCoroutine { continuation ->
+        val comment =FirebaseFirestore
+            .getInstance()
+            .collection("vender")
+            .document(shop.id)
+
+        comment.update("star",rating )
+        continuation.resume(Result.Success(1))
+    }
 
 
 

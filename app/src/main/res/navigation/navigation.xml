@@ -45,5 +45,14 @@
         android:name="com.wade.friedfood.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.wade.friedfood.detail.MenuFragment"
+        android:label="MenuFragment" >
+        <argument
+            android:name="shopKey"
+            app:argType="com.wade.friedfood.data.Shop" />
+    </fragment>
+    <action android:id="@+id/action_global_menuFragment" app:destination="@id/menuFragment" />
 
 </navigation>

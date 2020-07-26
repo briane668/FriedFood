@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.wade.friedfood.NavigationDirections
 
 import com.wade.friedfood.databinding.FragmentReviewBinding
 import com.wade.friedfood.ext.getVmFactory
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * A simple [Fragment] subclass.
@@ -81,5 +83,22 @@ class ReviewFragment : DialogFragment() {
 
         return binding.root
     }
+
+
+//
+//        override fun onCreate(savedInstanceState: Bundle?) {
+//        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
+//        super.onCreate(savedInstanceState)
+//
+//
+//    }
+//
+//
+//    override fun onDestroy() {
+//
+//        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
+//
+//        super.onDestroy()
+//    }
 
 }

@@ -59,23 +59,54 @@ class ShopAdapter(private val onClickListener: OnClickListener,val recommendView
 
 
 
+//            recommendViewModel.coroutineScope.launch {
+//
+//                val commentCount =recommendViewModel.getCommentsByShop(shop)
+//                Logger.w("shop=${shop.name}, commentCount=$commentCount")
+//
+//                binding.recommend.text="$commentCount 則評論"
+//                binding.executePendingBindings()
+//            }
+//
+//            recommendViewModel.coroutineScope.launch {
+//
+//                val rating =recommendViewModel.getRatingByShop(shop)
+//                Logger.w("shop=${shop.name}, commentCount=$rating")
+//
+//                binding.star.text="$rating 顆星"
+//                binding.executePendingBindings()
+//            }
+
+
+
+
+
             recommendViewModel.coroutineScope.launch {
 
-                val commentCount =recommendViewModel.getCommentsByShop(shop)
-                Logger.w("shop=${shop.name}, commentCount=$commentCount")
+                shop.recommend =recommendViewModel.getCommentsByShop(shop)
 
-                binding.recommend.text="$commentCount 則評論"
+
+                binding.recommend.text="${shop.recommend} 則評論"
                 binding.executePendingBindings()
             }
 
             recommendViewModel.coroutineScope.launch {
 
-                val rating =recommendViewModel.getRatingByShop(shop)
-                Logger.w("shop=${shop.name}, commentCount=$rating")
+                shop.star =recommendViewModel.getRatingByShop(shop)
 
-                binding.star.text="$rating 顆星"
+
+                binding.star.text="${shop.star} 顆星"
                 binding.executePendingBindings()
             }
+
+
+
+
+
+
+
+
+
 
 
 

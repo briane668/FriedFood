@@ -60,7 +60,6 @@ class MapAdapter(private val onClickListener: OnClickListener,
 //                binding.executePendingBindings()
 //            })
             mapViewModel.coroutineScope.launch {
-
                 val commentCount =mapViewModel.getCommentsByShop(shop)
                 Logger.w("shop=${shop.name}, commentCount=$commentCount")
 
