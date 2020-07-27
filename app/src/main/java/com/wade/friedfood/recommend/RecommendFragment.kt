@@ -48,11 +48,14 @@ class RecommendFragment : Fragment() {
                 ) {
                     when (position) {
                         0 -> {
-
-                            viewModel.sortShop(viewModel.shop)
+                        }
+                        1 -> {
+                            viewModel.sortShopByRate(viewModel.shop)
+                            binding.recommendView.smoothScrollToPosition(0)
                         }
                         else -> {
-                            viewModel.sortShop(viewModel.shop)
+                            viewModel.sortShopByComment(viewModel.shop)
+                            binding.recommendView.smoothScrollToPosition(0)
                         }
                     }
                 }
@@ -73,6 +76,20 @@ class RecommendFragment : Fragment() {
                 viewModel.displayShopDetailsComplete()
             }
         })
+
+
+
+    viewModel._shop.observe(viewLifecycleOwner, Observer {
+
+        viewModel.addRatingComment(viewModel._shop)
+
+    })
+
+
+
+
+
+
 
 
         return binding.root

@@ -23,6 +23,7 @@ data class Shop(
     var otherImage:List<String> = listOf(),
     val location: @RawValue GeoPoint? = null,
     val comment: @RawValue List<Comment> = listOf(),
-    val menu: @RawValue List<Food> = listOf()
+    val menu: @RawValue List<Food> = listOf(),
+    val phone:String = ""
 
     ) : Parcelable

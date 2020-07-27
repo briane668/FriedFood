@@ -111,6 +111,13 @@
             app:layout_constraintTop_toBottomOf="@+id/scrollView2"
             app:srcCompat="@drawable/refresh" />
 
+        <SearchView
+            android:layout_width="324dp"
+            android:layout_height="62dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
 
         <!--        <EditText-->
 <!--            android:id="@+id/editText"-->

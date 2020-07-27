@@ -14,6 +14,7 @@ import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentProfileBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.map.MapAdapter
+import com.wade.friedfood.util.UserManager
 
 class ProfileFragment : Fragment() {
 
@@ -46,6 +47,8 @@ class ProfileFragment : Fragment() {
                 viewModel.displayShopDetailsComplete()
             }
         })
+
+        binding.textView2.text= UserManager.ProfileData.howManyComments.toString()
 
 
 

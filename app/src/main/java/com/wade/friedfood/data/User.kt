@@ -8,5 +8,6 @@ data class User
     var name:String= "",
     var email:String= "",
     var picture: String="",
-    var collect: @RawValue List<Shop> = listOf()
+    var collect: @RawValue List<Shop> = listOf(),
+    var howManyComments : Int =0
 )

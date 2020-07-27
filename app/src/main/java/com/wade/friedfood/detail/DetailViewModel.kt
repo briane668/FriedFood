@@ -1,6 +1,9 @@
 package com.wade.friedfood.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -260,7 +263,13 @@ class DetailViewModel(
 
     }
 
-
+//    fun dialPhoneNumber(phoneNumber: String) {
+//        val intent = Intent(Intent.ACTION_DIAL).apply {
+//            data = Uri.parse("tel:$phoneNumber")
+//        }
+//            startActivity(intent)
+//    }
+//
 
 
 

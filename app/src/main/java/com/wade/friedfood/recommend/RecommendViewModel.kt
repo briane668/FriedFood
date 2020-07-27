@@ -19,11 +19,14 @@ import com.wade.friedfood.data.Result
 
 class RecommendViewModel(private val repository: PublisherRepository) : ViewModel() {
 
-    private val _shop = MutableLiveData<List<Shop>>()
+    val _shop = MutableLiveData<List<Shop>>()
+
+    private val readyShop = MutableLiveData<List<Shop>>()
+
 
     // The external LiveData interface to the property is immutable, so only this class can modify
     val shop: LiveData<List<Shop>>
-        get() = _shop
+        get() = readyShop
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -170,11 +173,36 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     }
 
 
-    fun sortShop(shop: LiveData<List<Shop>>){
+    fun sortShopByRate(shop: LiveData<List<Shop>>){
 
         _shop.value = shop.value?.sortedByDescending {
             it.star
         }
     }
+    fun sortShopByComment(shop: LiveData<List<Shop>>){
+
+        _shop.value = shop.value?.sortedByDescending {
+            it.recommend
+        }
+    }
+
+
+
+
+    fun addRatingComment(shops: MutableLiveData<List<Shop>>){
+
+        for (shop in shops.value!!){
+            coroutineScope.launch {
+                shop.recommend =getCommentsByShop(shop)
+            }
+            coroutineScope.launch {
+                shop.star =getRatingByShop(shop)
+            }
+        }
+        readyShop.value = shops.value
+
+    }
+
+
 
 }

@@ -4,32 +4,29 @@ package com.wade.friedfood.detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import app.appworks.school.publisher.util.Logger
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.wade.friedfood.NavigationDirections
-
 import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.getDistance
 import com.wade.friedfood.map.MapViewModel
-import com.wade.friedfood.map.MapsFragment
 import com.wade.friedfood.util.UserManager.ProfileData
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+
 
 class DetailFragment : Fragment() {
 
@@ -53,15 +50,20 @@ class DetailFragment : Fragment() {
 
         val sydney = LatLng(x!!, y!!)
 
-        this.map = googleMap
-        this.map!!.setMinZoomPreference(14.0f)
+//        this.map = googleMap
+//        this.map!!.setMinZoomPreference(14.0f)
+//
+//
+//        this.map!!.addMarker(MarkerOptions().position(sydney))
+//
+//        this.map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        googleMap.setMinZoomPreference(15.0f)
 
 
-        map!!.addMarker(MarkerOptions().position(sydney))
+        googleMap.addMarker(MarkerOptions().position(sydney))
 
-                map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
-
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 
     }
@@ -149,7 +151,15 @@ class DetailFragment : Fragment() {
         })
 
 
-        binding.button2.setOnClickListener {
+
+
+
+        binding.mapView2.onCreate(savedInstanceState)
+        binding.mapView2.onResume();
+        binding.mapView2.getMapAsync(callback)
+
+
+        binding.view.setOnClickListener {
             val gmmIntentUri =
                 Uri.parse("google.navigation:q=$r,$s")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -157,13 +167,12 @@ class DetailFragment : Fragment() {
             startActivity(mapIntent)
         }
 
+        binding.callButton.setOnClickListener {
 
+                val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
+                startActivity(intent)
 
-        binding.mapView2.getMapAsync()
-
-
-
-
+        }
 
 
 

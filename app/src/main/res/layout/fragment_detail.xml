@@ -151,25 +151,6 @@
                         app:layout_constraintStart_toEndOf="@+id/star"
                         app:layout_constraintTop_toBottomOf="@+id/name" />
 
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
-                        android:layout_marginEnd="33dp"
-                        android:text="Button"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.gms.maps.MapView
-                        android:id="@+id/mapView2"
-                        android:layout_width="112dp"
-                        android:layout_height="102dp"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginEnd="30dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -187,42 +168,55 @@
                         android:id="@+id/recommendButton"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="24dp"
                         android:background="#FFFFFF"
                         android:drawableTop="@drawable/comment"
                         android:text="評價"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/menuBotton"
                         app:layout_constraintEnd_toStartOf="@+id/menuBotton"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/callButton"
+                        app:layout_constraintTop_toTopOf="@+id/menuBotton" />
 
                     <Button
                         android:id="@+id/menuBotton"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
                         android:background="#FFFFFF"
                         android:drawableTop="@drawable/list"
                         android:text="菜單"
+                        app:layout_constraintBottom_toBottomOf="@+id/collectButton"
                         app:layout_constraintEnd_toStartOf="@+id/collectButton"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/recommendButton"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/collectButton" />
 
                     <Button
                         android:id="@+id/collectButton"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
                         android:background="#FFFFFF"
                         android:drawableTop="@drawable/collect"
                         android:text="收藏"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/menuBotton"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/callButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:drawableTop="@drawable/phonecall"
+                        android:text="打電話"
+                        app:layout_constraintBottom_toBottomOf="@+id/recommendButton"
+                        app:layout_constraintEnd_toStartOf="@+id/recommendButton"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/recommendButton" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -233,9 +227,9 @@
                     android:layout_marginTop="8dp"
                     android:background="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+                    app:layout_constraintTop_toBottomOf="@+id/view">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/otherImage"
@@ -302,6 +296,26 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
