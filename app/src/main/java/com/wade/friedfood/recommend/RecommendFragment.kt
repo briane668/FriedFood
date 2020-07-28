@@ -51,17 +51,23 @@ class RecommendFragment : Fragment() {
                         }
                         1 -> {
                             viewModel.sortShopByRate(viewModel.shop)
-                            binding.recommendView.smoothScrollToPosition(0)
                         }
                         else -> {
                             viewModel.sortShopByComment(viewModel.shop)
-                            binding.recommendView.smoothScrollToPosition(0)
                         }
                     }
                 }
-
-
             }
+
+    viewModel.shop.observe(viewLifecycleOwner, Observer {
+//        binding.recommendView.smoothScrollToPosition(0)
+
+        binding.recommendView.adapter?.notifyDataSetChanged()
+
+    })
+
+
+
 
 
         binding.recommendView.adapter= ShopAdapter(ShopAdapter.OnClickListener{

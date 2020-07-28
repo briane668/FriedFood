@@ -175,13 +175,14 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
 
     fun sortShopByRate(shop: LiveData<List<Shop>>){
 
-        _shop.value = shop.value?.sortedByDescending {
+        readyShop.value = shop.value?.sortedByDescending {
             it.star
         }
+
     }
     fun sortShopByComment(shop: LiveData<List<Shop>>){
 
-        _shop.value = shop.value?.sortedByDescending {
+        readyShop.value = shop.value?.sortedByDescending {
             it.recommend
         }
     }

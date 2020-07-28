@@ -25,6 +25,8 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
 
+    val search = MutableLiveData<String>()
+
     val shop = MutableLiveData<List<Shop>>()
 
     val naerShop= MutableLiveData<List<Shop>>()

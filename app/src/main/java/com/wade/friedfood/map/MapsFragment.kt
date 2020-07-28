@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -45,7 +46,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     lateinit var binding: FragmentMapsBinding
 
     private var marker1: Marker? = null
-    private var map: GoogleMap? = null
+     var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
     // The entry point to the Places API.
@@ -81,7 +82,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         this.map!!.setOnMarkerClickListener(this)
         this.map?.setOnInfoWindowClickListener(this)
 
-        this.map!!.setMinZoomPreference(14.0f)
+        this.map!!.setMinZoomPreference(15.0f)
 
 
 
@@ -219,27 +220,50 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
 
-        binding.chicken.setOnClickListener {
-            this.map?.clear()
-            viewModel.naerShop.value = null
-            binding.mapView.visibility= View.INVISIBLE
-            viewModel.getMenu("鹽酥雞")
-        }
+//        binding.chicken.setOnClickListener {
+//            this.map?.clear()
+//            viewModel.naerShop.value = null
+//            binding.mapView.visibility= View.INVISIBLE
+//            viewModel.getMenu("鹽酥雞")
+//        }
+//
+//        binding.egg.setOnClickListener {
+//            this.map?.clear()
+//            viewModel.naerShop.value = null
+//            binding.mapView.visibility= View.INVISIBLE
+//            viewModel.getMenu("炸皮蛋")
+//        }
+//
+//        binding.sweetNotHot.setOnClickListener {
+//            this.map?.clear()
+//            viewModel.naerShop.value = null
+//            binding.mapView.visibility= View.INVISIBLE
+//            viewModel.getMenu("甜不辣")
+//
+//        }
 
-        binding.egg.setOnClickListener {
-            this.map?.clear()
-            viewModel.naerShop.value = null
-            binding.mapView.visibility= View.INVISIBLE
-            viewModel.getMenu("炸皮蛋")
-        }
+        binding.search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
 
-        binding.sweetNotHot.setOnClickListener {
-            this.map?.clear()
-            viewModel.naerShop.value = null
-            binding.mapView.visibility= View.INVISIBLE
-            viewModel.getMenu("甜不辣")
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
-        }
+                if (query != null) {
+                    map?.clear()
+                    viewModel.naerShop.value = null
+                    binding.mapView.visibility= View.INVISIBLE
+                    viewModel.getMenu(query)
+                }
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+
+        })
+
+
 
 
 

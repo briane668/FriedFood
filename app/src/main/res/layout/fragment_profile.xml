@@ -84,14 +84,14 @@
                             app:layout_constraintStart_toEndOf="@+id/photo"
                             app:layout_constraintTop_toBottomOf="@+id/name" />
 
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="48dp"
-                            android:layout_marginEnd="48dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="48dp"-->
+<!--                            android:layout_marginEnd="48dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -100,46 +100,45 @@
                     android:id="@+id/cardView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/beforeLayout3"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp">
+                    <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                        android:id="@+id/beforeLayout3"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="64dp">-->
 
-                        <ImageView
-                            android:id="@+id/before"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="16dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/before"
-                            app:layout_constraintBottom_toBottomOf="@+id/beforeText"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/beforeText" />
+                    <!--                        <ImageView-->
+                    <!--                            android:id="@+id/before"-->
+                    <!--                            android:layout_width="40dp"-->
+                    <!--                            android:layout_height="40dp"-->
+                    <!--                            android:layout_marginStart="16dp"-->
+                    <!--                            android:scaleType="centerCrop"-->
+                    <!--                            android:src="@drawable/before"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="@+id/beforeText"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="@+id/beforeText" />-->
 
-                        <TextView
-                            android:id="@+id/beforeText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="@string/before"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/before"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <!--                        <TextView-->
+                    <!--                            android:id="@+id/beforeText"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_marginStart="16dp"-->
+                    <!--                            android:text="@string/before"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintStart_toEndOf="@+id/before"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView3">

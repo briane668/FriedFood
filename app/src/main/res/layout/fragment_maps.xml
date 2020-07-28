@@ -51,72 +51,81 @@
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:srcCompat="@drawable/googleimage" />-->
 
-        <ScrollView
-            android:id="@+id/scrollView2"
+<!--        <ScrollView-->
+<!--            android:id="@+id/scrollView2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="56dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/view_map">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:visibility="visible">-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/chicken"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:backgroundTint="#FFFFFF"-->
+<!--                    android:text="找鹽酥雞"-->
+<!--                    android:textColor="#000000"-->
+<!--                    tools:ignore="HardcodedText" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/egg"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:backgroundTint="#FFFFFF"-->
+<!--                    android:text="找皮蛋"-->
+<!--                    android:textColor="#000000"-->
+<!--                    tools:ignore="HardcodedText" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/sweetNotHot"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:backgroundTint="#FFFFFF"-->
+<!--                    android:text="找甜不辣"-->
+<!--                    android:textColor="#000000"-->
+<!--                    tools:ignore="HardcodedText" />-->
+
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
+
+        <SearchView
+            android:id="@+id/search"
             android:layout_width="0dp"
+
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="48dp"
+            android:queryHint="輸入欲搜尋品項"
+            android:searchHintIcon="@drawable/search"
+            android:searchIcon="@drawable/search"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view_map">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <Button
-                    android:id="@+id/chicken"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="找鹽酥雞"
-                    android:textColor="#000000"
-                    tools:ignore="HardcodedText" />
-
-                <Button
-                    android:id="@+id/egg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="找皮蛋"
-                    android:textColor="#000000"
-                    tools:ignore="HardcodedText" />
-
-                <Button
-                    android:id="@+id/sweetNotHot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="找甜不辣"
-                    android:textColor="#000000"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintStart_toStartOf="@+id/view_map"
+            app:layout_constraintTop_toTopOf="@+id/view_map" />
 
         <ImageView
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/search"
             app:srcCompat="@drawable/refresh" />
-
-        <SearchView
-            android:layout_width="324dp"
-            android:layout_height="62dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 
         <!--        <EditText-->

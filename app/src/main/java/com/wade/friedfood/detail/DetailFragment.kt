@@ -168,11 +168,10 @@ class DetailFragment : Fragment() {
         }
 
         binding.callButton.setOnClickListener {
-
-                val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
-                startActivity(intent)
-
+        val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
+        startActivity(intent)
         }
+
 
 
 
@@ -200,5 +199,13 @@ class DetailFragment : Fragment() {
 //        super.onDestroy()
 //    }
 
+
+
+fun intent2FriendList(message: String) {
+    val intent = Intent()
+    intent.action = Intent.ACTION_VIEW
+    intent.data = Uri.parse("line://msg/text/?$message")
+    startActivity(intent)
+}
 
 }

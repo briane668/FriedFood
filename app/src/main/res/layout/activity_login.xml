@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8B4513"
+    android:background="#FFFFFF"
     tools:context=".LoginActivity">
 
-<!--    <ImageView android:layout_above="@+id/signin_layout"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/googleimage"/>-->
+    <!--    <ImageView android:layout_above="@+id/signin_layout"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:src="@drawable/googleimage"/>-->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="23dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/title" />
 
     <LinearLayout
         android:id="@+id/signin_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="266dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-3dp"
+        android:layout_marginBottom="185dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -74,14 +87,13 @@
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="166dp"
-        android:text="Find 鹽酥雞"
-        android:textSize="64sp" />
+        android:layout_marginTop="309dp" />
 
 </RelativeLayout>
