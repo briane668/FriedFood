@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wade.friedfood.data.source.PublisherRepository
-import app.appworks.school.publisher.network.LoadApiStatus
+import com.wade.friedfood.network.LoadApiStatus
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
@@ -17,7 +17,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){

@@ -7,6 +7,9 @@ import android.util.DisplayMetrics
 import android.view.TouchDelegate
 import android.view.View
 import androidx.annotation.RequiresApi
+import com.google.firebase.firestore.GeoPoint
+import com.wade.friedfood.data.ParcelableShop
+import com.wade.friedfood.data.Shop
 import java.util.*
 
 
@@ -42,3 +45,31 @@ fun Long.toDisplayFormat(): String {
 //fun Number.toDp(): Float {
 //    return this.toFloat() / (StylishApplication.instance.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
 //}
+
+
+//fun Shop.toParcelableShop(): ParcelableShop {
+//
+//    return Shop()
+//}
+
+fun ParcelableShop.toShop(): Shop {
+
+    var geoPoint : GeoPoint? = GeoPoint(this.latitude!!, this.longitude!!)
+
+    return Shop(
+        id = this.id,
+        name = this.name,
+        location = geoPoint  ,
+        latitude = 0,
+        longitude = 0,
+        image = this.image,
+        recommend = this.recommend,
+        star = this.star,
+        address = this.address,
+        menuImage = this.menuImage,
+        otherImage = this.otherImage,
+        comment = this.comment,
+        menu = this.menu,
+        phone= this.phone
+    )
+}

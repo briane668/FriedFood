@@ -13,12 +13,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.ext.toShop
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.GeoPoint
 import com.wade.friedfood.NavigationDirections
+import com.wade.friedfood.data.ParcelableShop
+import com.wade.friedfood.data.Shop
 import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.getDistance
@@ -42,8 +46,8 @@ class DetailFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
 
 
-        val x = viewModel.shop.value?.location?.latitude
-        val y = viewModel.shop.value?.location?.longitude
+        val x = viewModel.shop.value?.latitude
+        val y = viewModel.shop.value?.longitude
 
 
 
@@ -97,7 +101,20 @@ class DetailFragment : Fragment() {
 
         binding.collectButton.setOnClickListener {
 
-            viewModel.shop.value?.let { it1 -> viewModel.collectShop(ProfileData, it1) }
+
+
+
+
+
+            viewModel.shop.value?.let {
+
+                val shop: Shop = it.toShop()
+//
+//                val pShop: ParcelableShop = shop.toParcelableShop()
+
+
+
+                viewModel.collectShop(ProfileData, shop) }
 
             Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show()
         }
@@ -110,8 +127,8 @@ class DetailFragment : Fragment() {
 
         val x = MapViewModel.userPosition.value?.latitude
         val y = MapViewModel.userPosition.value?.longitude
-        val r = viewModel.shop.value?.location?.latitude
-        val s = viewModel.shop.value?.location?.longitude
+        val r = viewModel.shop.value?.latitude
+        val s = viewModel.shop.value?.longitude
 
         val m =
             getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
@@ -122,7 +139,13 @@ class DetailFragment : Fragment() {
 
         viewModel.coroutineScope.launch {
 
-            val commentCount = viewModel.shop.value?.let { viewModel.getCommentsByShop(it) }
+
+
+            val commentCount = viewModel.shop.value?.let {
+                val shop: Shop = it.toShop()
+
+
+                viewModel.getCommentsByShop(shop) }
 
 
             binding.recommend.text = "$commentCount 則評論"
@@ -131,7 +154,11 @@ class DetailFragment : Fragment() {
 
         viewModel.coroutineScope.launch {
 
-            val rating = viewModel.shop.value?.let { viewModel.getRatingByShop(it) }
+            val rating = viewModel.shop.value?.let {
+
+                val shop: Shop = it.toShop()
+
+                viewModel.getRatingByShop(shop) }
 
             if (rating != null) {
                 binding.ratingBar2.rating = rating.toFloat()
@@ -165,6 +192,7 @@ class DetailFragment : Fragment() {
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
+
         }
 
         binding.callButton.setOnClickListener {
@@ -174,13 +202,13 @@ class DetailFragment : Fragment() {
 
 
 
-
-
-
-
         return binding.root
 
     }
+
+
+
+
 
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -208,4 +236,10 @@ fun intent2FriendList(message: String) {
     startActivity(intent)
 }
 
-}
+
+
+
+
+    }
+
+

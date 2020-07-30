@@ -3,11 +3,10 @@ package com.wade.friedfood.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.network.LoadApiStatus
+import com.wade.friedfood.network.LoadApiStatus
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
-import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.data.User

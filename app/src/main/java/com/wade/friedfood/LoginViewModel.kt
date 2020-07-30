@@ -3,7 +3,7 @@ package com.wade.friedfood
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.network.LoadApiStatus
+import com.wade.friedfood.network.LoadApiStatus
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.data.Result

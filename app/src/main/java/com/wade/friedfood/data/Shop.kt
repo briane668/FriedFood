@@ -1,10 +1,12 @@
 package com.wade.friedfood.data
 
+import android.os.Parcel
 import android.os.Parcelable
-import android.view.Menu
 import com.google.firebase.firestore.GeoPoint
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
+
 
 /**
  * Created by Wayne Chen on 2020-01-15.
@@ -26,4 +28,21 @@ data class Shop(
     val menu: @RawValue List<Food> = listOf(),
     val phone:String = ""
 
-    ) : Parcelable
+    ) : Parcelable{
+
+//        private var geoPoint: GeoPoint? = null
+//
+//     override fun writeToParcel(parcel: Parcel, i: Int) {
+//        parcel.writeDouble(geoPoint!!.latitude)
+//        parcel.writeDouble(geoPoint!!.longitude)
+//    }
+//
+//    fun shop(`in`: Parcel) {
+//        val lat = `in`.readDouble()
+//        val lng = `in`.readDouble()
+//        geoPoint = GeoPoint(lat, lng)
+//    }
+
+
+}
+

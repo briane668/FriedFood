@@ -53,11 +53,11 @@ object PublisherRemoteDataSource : PublisherDataSource {
     }
 
 
-    override suspend fun getComments(shop: Shop): Result<List<Comment>> =
+    override suspend fun getComments(id: String): Result<List<Comment>> =
         suspendCoroutine { continuation ->
-            Logger.d("getComments, shop=$shop")
+
             FirebaseFirestore.getInstance()
-                .collection("vender").document(shop.id).collection("comment")
+                .collection("vender").document(id).collection("comment")
                 .orderBy("time", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener { task ->

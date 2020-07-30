@@ -29,7 +29,7 @@
         android:label="DetailFragment" >
         <argument
             android:name="shopKey"
-            app:argType="com.wade.friedfood.data.Shop" />
+            app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment><action android:id="@+id/action_global_detailFragment" app:destination="@id/detailFragment"/>
     <fragment
         android:id="@+id/reviewFragment"
@@ -37,7 +37,7 @@
         android:label="ReviewFragment" >
         <argument
             android:name="shopkey"
-            app:argType="com.wade.friedfood.data.Shop" />
+            app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
     <action android:id="@+id/action_global_reviewFragment" app:destination="@id/reviewFragment" />
     <activity
@@ -51,7 +51,7 @@
         android:label="MenuFragment" >
         <argument
             android:name="shopKey"
-            app:argType="com.wade.friedfood.data.Shop" />
+            app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
     <action android:id="@+id/action_global_menuFragment" app:destination="@id/menuFragment" />
 

@@ -1,41 +1,35 @@
 package com.wade.friedfood.detail
 
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.publisher.network.LoadApiStatus
+import com.wade.friedfood.network.LoadApiStatus
 import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Result
+import com.wade.friedfood.data.*
 import com.wade.friedfood.data.source.PublisherRepository
-import com.wade.friedfood.data.Shop
-import com.wade.friedfood.data.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+
 class DetailViewModel(
 //    repository在底下的    val result = repository.getComments(shop) 用到
     private val repository: PublisherRepository,
-    shop: Shop
+    shop: ParcelableShop
 ) : ViewModel() {
 
 
 //這邊的寫法
 
-    private val _shop = MutableLiveData<Shop>().apply {
+    private val _shop = MutableLiveData<ParcelableShop>().apply {
         value = shop
     }
 
 
-    val shop: LiveData<Shop>
+    val shop: LiveData<ParcelableShop>
         get() = _shop
 
 
@@ -97,13 +91,13 @@ class DetailViewModel(
 
 
 
-    private fun getComments(shop: Shop) {
+    private fun getComments(shop: ParcelableShop) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getComments(shop)
+            val result = repository.getComments(shop.id)
 
             _comment.value = when (result) {
                 is Result.Success -> {
@@ -271,6 +265,18 @@ class DetailViewModel(
 //    }
 //
 
+//    private var geoPoint: GeoPoint? = null
+//
+//     override fun writeToParcel(parcel: Parcel, i: Int) {
+//        parcel.writeDouble(geoPoint!!.latitude)
+//        parcel.writeDouble(geoPoint!!.longitude)
+//    }
+//
+//    fun Restaurant(`in`: Parcel) {
+//        val lat = `in`.readDouble()
+//        val lng = `in`.readDouble()
+//        geoPoint = GeoPoint(lat, lng)
+//    }
 
 
 

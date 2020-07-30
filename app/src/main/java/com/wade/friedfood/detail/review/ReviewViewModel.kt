@@ -4,11 +4,12 @@ package com.wade.friedfood.detail.review
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.appworks.school.stylish.ext.toShop
 import com.wade.friedfood.data.source.PublisherRepository
-import app.appworks.school.publisher.network.LoadApiStatus
-import com.google.firebase.Timestamp
+import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
+import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Review
 import com.wade.friedfood.data.Shop
@@ -21,7 +22,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : ViewModel() {
+class ReviewViewModel(private val repository: PublisherRepository,
+                      shop: ParcelableShop
+) : ViewModel() {
 
     val rating = MutableLiveData<Int>().apply {
         value = 0
@@ -39,10 +42,10 @@ class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : 
     var sendSuccess = MutableLiveData<Int>()
 
 
-    private val _shop = MutableLiveData<Shop>().apply {
+    private val _shop = MutableLiveData<ParcelableShop>().apply {
         value = shop
     }
-    val shop: LiveData<Shop>
+    val shop: LiveData<ParcelableShop>
         get() = _shop
 
 
@@ -90,7 +93,11 @@ class ReviewViewModel(private val repository: PublisherRepository,shop: Shop) : 
                 .timeInMillis
         )
 
-        shop.value?.let { sendReview(it,review) }
+        shop.value?.let {
+            val shop =it.toShop()
+
+
+            sendReview(shop,review) }
 
     }
 

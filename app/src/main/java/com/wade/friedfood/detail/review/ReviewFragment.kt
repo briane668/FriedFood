@@ -72,14 +72,14 @@ class ReviewFragment : DialogFragment() {
         })
 
 //navigateup 不會重新創造fragment
-        viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shop.value!!))
-            Toast.makeText(context, "評價成功", Toast.LENGTH_SHORT).show()
-            Log.d("sendSuccess","sendSuccess$it")
-            it.apply {
-                0
-            }
-        })
+//        viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
+//            findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shop.value!!))
+//            Toast.makeText(context, "評價成功", Toast.LENGTH_SHORT).show()
+//            Log.d("sendSuccess","sendSuccess$it")
+//            it.apply {
+//                0
+//            }
+//        })
 
 
 

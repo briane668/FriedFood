@@ -17,7 +17,7 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getComments(shop: Shop): Result<List<Comment>> {
+    override suspend fun getComments( id: String): Result<List<Comment>> {
         TODO("Not yet implemented")
     }
 

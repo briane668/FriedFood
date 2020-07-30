@@ -7,6 +7,7 @@ import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
@@ -32,8 +33,12 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.R
+import com.wade.friedfood.data.Comment
+import com.wade.friedfood.data.Food
+import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.databinding.FragmentMapsBinding
 import com.wade.friedfood.ext.getVmFactory
+import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.coroutines.launch
 
@@ -191,8 +196,29 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 // Must find the NavController from the Fragment
+
+                val parcelableShop = ParcelableShop(
+                    id =it.id,
+                 name = it.name,
+                 latitude= it.location?.latitude,
+                 longitude = it.location?.longitude,
+                 image=it.image,
+                recommend=it.recommend,
+                 star=it.star,
+                 address=it.address,
+                 menuImage =it.menuImage,
+                 otherImage = it.otherImage,
+                 comment= it.comment,
+                 menu = it.menu,
+                 phone= it.phone
+                )
+
+
+
+
+
                 this.findNavController()
-                    .navigate(NavigationDirections.actionGlobalDetailFragment(it))
+                    .navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayShopDetailsComplete()
             }
@@ -352,10 +378,27 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     override fun onInfoWindowClick(marker: Marker) {
 
 
-        for (i in viewModel.shop.value!!) {
-            if (marker.title == i.name) {
+        for (it in viewModel.shop.value!!) {
+            if (marker.title == it.name) {
 
-                findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(i))
+                val parcelableShop = ParcelableShop(
+                    id =it.id,
+                    name = it.name,
+                    latitude= it.location?.latitude,
+                    longitude = it.location?.longitude,
+                    image=it.image,
+                    recommend=it.recommend,
+                    star=it.star,
+                    address=it.address,
+                    menuImage =it.menuImage,
+                    otherImage = it.otherImage,
+                    comment= it.comment,
+                    menu = it.menu,
+                    phone= it.phone
+                )
+
+
+                findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
 
             }
         }

@@ -14,7 +14,7 @@ interface PublisherRepository {
 
     suspend fun getShops(): Result<List<Shop>>
 
-    suspend fun getComments(shop: Shop): Result<List<Comment>>
+    suspend fun getComments(id: String): Result<List<Comment>>
 
     suspend fun getMenu(food:String): Result<List<Menu>>
 

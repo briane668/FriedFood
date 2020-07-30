@@ -2,9 +2,9 @@ package com.wade.friedfood.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.data.source.PublisherRepository
 
-import com.wade.friedfood.data.Shop
 import com.wade.friedfood.detail.DetailViewModel
 import com.wade.friedfood.detail.review.ReviewViewModel
 
@@ -16,17 +16,17 @@ import com.wade.friedfood.detail.review.ReviewViewModel
 @Suppress("UNCHECKED_CAST")
 class DetailViewModelFactory(
     private val repository: PublisherRepository,
-    private val shop: Shop
+    private val parcelableShop: ParcelableShop
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
                 isAssignableFrom(DetailViewModel::class.java) ->
-                    DetailViewModel(repository, shop)
+                    DetailViewModel(repository, parcelableShop)
 
                 isAssignableFrom(ReviewViewModel::class.java) ->
-                    ReviewViewModel(repository,shop)
+                    ReviewViewModel(repository,parcelableShop)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
