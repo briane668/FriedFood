@@ -20,6 +20,7 @@ buildscript {
         version_gms = "4.2.0"
     }
     repositories {
+        mavenCentral()
         google()
         jcenter()
         maven {

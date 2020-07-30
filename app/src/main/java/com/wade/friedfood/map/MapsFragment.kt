@@ -22,11 +22,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.*
 
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
@@ -83,6 +80,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
+
+        this.map?.isMyLocationEnabled   = true
+
         this.map = googleMap
         this.map!!.setOnMarkerClickListener(this)
         this.map?.setOnInfoWindowClickListener(this)
@@ -114,7 +114,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                             val z = i.name
                             val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                             map!!.addMarker(sydney?.let { it1 ->
-                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
+                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星").icon(
+                                    BitmapDescriptorFactory.fromResource(R.drawable.store)
+                                )
+
                             })
                         }
                     }
@@ -130,7 +133,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 //        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
-//        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
+        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 
 
 //        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))

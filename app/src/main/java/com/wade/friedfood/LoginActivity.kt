@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import app.appworks.school.stylish.ext.getVmFactory
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -97,7 +98,7 @@ class LoginActivity() : AppCompatActivity() {
 
         })
 
-
+        permission()
 
 
 
@@ -253,6 +254,14 @@ class LoginActivity() : AppCompatActivity() {
 
         }
     }
+
+    fun permission(){
+        ActivityCompat.requestPermissions(this, arrayOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
+    }
+
 
 
 }
