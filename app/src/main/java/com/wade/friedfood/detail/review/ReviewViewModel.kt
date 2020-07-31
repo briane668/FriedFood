@@ -82,7 +82,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
 
 
 
-    fun prepareSendReview() {
+    fun prepareSendReview(image:String) {
         val review = Review(
              user_id = ProfileData.id,
              name = ProfileData.name,
@@ -90,7 +90,8 @@ class ReviewViewModel(private val repository: PublisherRepository,
              rating = rating.value!!,
              comment =  comment.value!!,
             time = Calendar.getInstance()
-                .timeInMillis
+                .timeInMillis,
+            image =image
         )
 
         shop.value?.let {
@@ -139,6 +140,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
             _refreshStatus.value = false
         }
     }
+
 
 
 

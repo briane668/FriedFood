@@ -33,7 +33,6 @@ android {
     }
 
 
-
     dataBinding {
         //noinspection DataBindingWithoutKapt
         enabled = true
@@ -71,6 +70,7 @@ android {
 
 dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.7.0-SNAPSHOT@aar') {
         transitive = true;

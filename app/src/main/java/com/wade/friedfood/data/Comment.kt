@@ -11,5 +11,6 @@ data class Comment(
     val picture:String="",
     val rating: Int = 0,
     val comment:String="",
-    val time: Long =0
+    val time: Long =0,
+    val image : String =""
 ): Parcelable

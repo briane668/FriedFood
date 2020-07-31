@@ -114,9 +114,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                             val z = i.name
                             val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                             map!!.addMarker(sydney?.let { it1 ->
-                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星").icon(
-                                    BitmapDescriptorFactory.fromResource(R.drawable.store)
-                                )
+                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
 
                             })
                         }

@@ -3,18 +3,23 @@ package com.wade.friedfood.detail
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.ext.toShop
@@ -25,9 +30,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import com.wade.friedfood.NavigationDirections
+import com.wade.friedfood.R
 import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.source.remote.PublisherRemoteDataSource
 import com.wade.friedfood.databinding.FragmentDetailBinding
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.getDistance
@@ -36,13 +45,15 @@ import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.util.*
 import kotlin.math.roundToInt
 
 
 class DetailFragment : Fragment() {
 
-    lateinit var saveUri: Uri
+
     private val viewModel by viewModels<DetailViewModel> {
         getVmFactory(
             DetailFragmentArgs
@@ -91,7 +102,7 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.backImage.setOnClickListener {
-            findNavController().navigate(NavigationDirections.actionGlobalMapsFragment())
+            findNavController().navigateUp()
         }
 
         binding.viewModel = viewModel
@@ -195,34 +206,19 @@ class DetailFragment : Fragment() {
 
 
         binding.view.setOnClickListener {
-//            val gmmIntentUri =
-//                Uri.parse("google.navigation:q=$r,$s")
-//            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-//            mapIntent.setPackage("com.google.android.apps.maps")
-//            startActivity(mapIntent)
-
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-              //外部定義變數
-
-            val tmpFile = File(Environment.getExternalStorageDirectory().toString(), System.currentTimeMillis().toString() + ".jpg")
-            val uriForCamera = FileProvider.getUriForFile(requireContext(), "com.wade.friedfood.fileprovider", tmpFile)
-
-            //將 Uri 存進變數供後續 onActivityResult 使用
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForCamera)
-
-            if (uriForCamera != null) {
-                saveUri = uriForCamera
-            }
-
-            startActivityForResult(intent, PHOTO_FROM_CAMERA)
-
+            val gmmIntentUri =
+                Uri.parse("google.navigation:q=$r,$s")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
 
         }
 
         binding.callButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivityForResult(intent, PHOTO_FROM_GALLERY)
+
+        val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
+        startActivity(intent)
+
         }
 
 
@@ -235,10 +231,6 @@ class DetailFragment : Fragment() {
 
 
 
-    private companion object {
-        val PHOTO_FROM_GALLERY = 1
-        val PHOTO_FROM_CAMERA = 2
-    }
 
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -266,33 +258,15 @@ fun intent2FriendList(message: String) {
     startActivity(intent)
 }
 //
-//    val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
-//    startActivity(intent)
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            PHOTO_FROM_GALLERY -> {
-                when (resultCode) {
-                    Activity.RESULT_OK -> {
-                        val uri = data!!.data
-                        imageView5.setImageURI(uri)
-                    }
-                    Activity.RESULT_CANCELED -> { }
-                }
-            }
-
-            PHOTO_FROM_CAMERA -> {
-                when (resultCode) {
-                    Activity.RESULT_OK -> { Glide.with(this).load(saveUri).into(imageView5)}
-                    Activity.RESULT_CANCELED -> { }
-                }
-            }
-        }
-    }
 
 
 
-    }
+
+
+
+
+
+
+}
 
 

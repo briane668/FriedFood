@@ -30,7 +30,11 @@
         <argument
             android:name="shopKey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
-    </fragment><action android:id="@+id/action_global_detailFragment" app:destination="@id/detailFragment"/>
+    </fragment>
+    <action
+        android:id="@+id/action_global_detailFragment"
+        app:destination="@id/detailFragment"
+        app:popUpTo="@id/mapsFragment" />
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.wade.friedfood.detail.review.ReviewFragment"

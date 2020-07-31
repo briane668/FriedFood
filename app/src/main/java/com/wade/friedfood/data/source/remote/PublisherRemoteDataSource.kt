@@ -1,19 +1,25 @@
 package com.wade.friedfood.data.source.remote
 
-import androidx.lifecycle.LiveData
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.FirebaseFirestore
-
-import com.wade.friedfood.data.source.PublisherDataSource
 import app.appworks.school.publisher.util.Logger
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
+import com.google.firebase.storage.StorageReference
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
+import com.wade.friedfood.data.source.PublisherDataSource
+import java.io.ByteArrayOutputStream
+import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.roundToInt
 
 
 /**
@@ -25,7 +31,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 //    private const val PATH_ARTICLES = "vender"
 //    private const val KEY_CREATED_TIME = "createdTime"
-
+//var mStorageRef: StorageReference? = null
 
     override suspend fun getShops(): Result<List<Shop>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
@@ -297,6 +303,44 @@ object PublisherRemoteDataSource : PublisherDataSource {
         comment.update("star",rating )
         continuation.resume(Result.Success(1))
     }
+
+
+fun sendImage(imageView :ImageView){
+    val storage = FirebaseStorage.getInstance();
+
+// Create a storage reference from our app
+    val storageRef = storage.reference
+
+// Create a reference to "mountains.jpg"
+    val mountainsRef = storageRef.child("mountains.jpg")
+
+// Create a reference to 'images/mountains.jpg'
+    val mountainImagesRef = storageRef.child("images/mountains.jpg")
+
+// While the file names are the same, the references point to different files
+    mountainsRef.name == mountainImagesRef.name // true
+    mountainsRef.path == mountainImagesRef.path // false
+// Get the data from an ImageView as bytes
+    imageView.isDrawingCacheEnabled = true
+    imageView.buildDrawingCache()
+    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+    val baos = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+    val data = baos.toByteArray()
+
+    var uploadTask = mountainsRef.putBytes(data)
+    uploadTask.addOnFailureListener {
+        // Handle unsuccessful uploads
+    }.addOnSuccessListener {
+        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+        // ...
+    }
+}
+
+
+
+
+
 
 
 
