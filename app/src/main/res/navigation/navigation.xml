@@ -16,13 +16,29 @@
         android:name="com.wade.friedfood.recommend.RecommendFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_recommend" />
-    <action android:id="@+id/action_global_mapsFragment" app:destination="@id/mapsFragment"/><action android:id="@+id/action_global_recommendFragment" app:destination="@id/recommendFragment"/>
+    <action android:id="@+id/action_global_mapsFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:destination="@id/mapsFragment"/>
+    <action android:id="@+id/action_global_recommendFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:destination="@id/recommendFragment"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.wade.friedfood.profile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/fragment_profile" />
-    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <action android:id="@+id/action_global_profileFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:destination="@id/profileFragment" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.wade.friedfood.detail.DetailFragment"
@@ -33,6 +49,10 @@
     </fragment>
     <action
         android:id="@+id/action_global_detailFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
         app:destination="@id/detailFragment"
         app:popUpTo="@id/mapsFragment" />
     <fragment
@@ -43,7 +63,12 @@
             android:name="shopkey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
-    <action android:id="@+id/action_global_reviewFragment" app:destination="@id/reviewFragment" />
+    <action android:id="@+id/action_global_reviewFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:destination="@id/reviewFragment" />
     <activity
         android:id="@+id/loginActivity"
         android:name="com.wade.friedfood.LoginActivity"
@@ -57,6 +82,11 @@
             android:name="shopKey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
-    <action android:id="@+id/action_global_menuFragment" app:destination="@id/menuFragment" />
+    <action android:id="@+id/action_global_menuFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:destination="@id/menuFragment" />
 
 </navigation>
