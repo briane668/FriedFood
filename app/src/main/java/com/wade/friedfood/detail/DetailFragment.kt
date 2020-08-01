@@ -163,9 +163,7 @@ class DetailFragment : Fragment() {
             val commentCount = viewModel.shop.value?.let {
                 val shop: Shop = it.toShop()
 
-
                 viewModel.getCommentsByShop(shop) }
-
 
             binding.recommend.text = "$commentCount 則評論"
             binding.executePendingBindings()

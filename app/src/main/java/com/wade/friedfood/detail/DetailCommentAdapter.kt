@@ -17,6 +17,10 @@ class DetailCommentAdapter (): ListAdapter<Comment, DetailCommentAdapter.DetailC
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: Comment) {
             binding.review = comment
+            if (comment.image == ""){
+                binding.commentImage.visibility=View.GONE
+            }
+            binding.commentImage.visibility
             binding.executePendingBindings()
         }
     }

@@ -36,6 +36,8 @@ import java.util.*
 class ReviewFragment : DialogFragment() {
 
     var uploadImage :String = ""
+
+
     lateinit var saveUri: Uri
 
     private val viewModel by viewModels<ReviewViewModel> {
@@ -76,7 +78,7 @@ class ReviewFragment : DialogFragment() {
 //        傳進點下去button的位子
         binding.reviewButton.setOnClickListener {
 
-            viewModel.prepareSendReview()
+            viewModel.prepareSendReview(uploadImage)
 
         }
 

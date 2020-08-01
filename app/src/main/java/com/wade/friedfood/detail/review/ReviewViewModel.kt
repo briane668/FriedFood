@@ -39,6 +39,9 @@ class ReviewViewModel(private val repository: PublisherRepository,
     val comment = MutableLiveData<String>()
 
 
+    val nullImage :String = ""
+
+
     var sendSuccess = MutableLiveData<Int>()
 
 

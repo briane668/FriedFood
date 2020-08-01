@@ -4,9 +4,13 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="review"
                 type="com.wade.friedfood.data.Comment" />
+        <variable
+            name="viewModel"
+            type="com.wade.friedfood.detail.review.ReviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +75,7 @@
                     android:text="沒有評論"
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/commentImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/comment_head_image"
@@ -101,6 +105,20 @@
                     android:rating="@{review.rating}"
                     app:layout_constraintStart_toEndOf="@+id/comment_head_image"
                     app:layout_constraintTop_toBottomOf="@+id/comment_name" />
+
+                <ImageView
+                    android:id="@+id/commentImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:imageUrl="@{review.image}"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_comment"
+                    app:srcCompat="@drawable/placeholder" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
