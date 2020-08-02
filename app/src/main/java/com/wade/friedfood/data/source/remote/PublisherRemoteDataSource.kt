@@ -1,23 +1,14 @@
 package com.wade.friedfood.data.source.remote
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
-import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
-import app.appworks.school.publisher.util.Logger
+import com.wade.friedfood.util.Logger
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageMetadata
-import com.google.firebase.storage.StorageReference
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
 import com.wade.friedfood.data.source.PublisherDataSource
-import java.io.ByteArrayOutputStream
-import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -305,47 +296,30 @@ object PublisherRemoteDataSource : PublisherDataSource {
     }
 
 
-fun sendImage(imageView :ImageView){
-    val storage = FirebaseStorage.getInstance();
+    override suspend fun getUserCommentsCount(user_id: String): Result<Int> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collectionGroup("comment")
+            .whereEqualTo("user_id",user_id)
+            .get()
+            .addOnCompleteListener { task ->
+                var count = 0
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " getUserCommentsCount=> " + document.data)
+                        count ++
+                    }
+                    continuation.resume(Result.Success(count))
+                } else {
+                    task.exception?.let {
 
-// Create a storage reference from our app
-    val storageRef = storage.reference
-
-// Create a reference to "mountains.jpg"
-    val mountainsRef = storageRef.child("mountains.jpg")
-
-// Create a reference to 'images/mountains.jpg'
-    val mountainImagesRef = storageRef.child("images/mountains.jpg")
-
-// While the file names are the same, the references point to different files
-    mountainsRef.name == mountainImagesRef.name // true
-    mountainsRef.path == mountainImagesRef.path // false
-// Get the data from an ImageView as bytes
-    imageView.isDrawingCacheEnabled = true
-    imageView.buildDrawingCache()
-    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-    val baos = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-    val data = baos.toByteArray()
-
-    var uploadTask = mountainsRef.putBytes(data)
-    uploadTask.addOnFailureListener {
-        // Handle unsuccessful uploads
-    }.addOnSuccessListener {
-        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-        // ...
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
     }
-}
-
-
-
-
-
-
-
-
-
-
 
 
 }

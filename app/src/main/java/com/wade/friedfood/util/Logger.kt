@@ -1,4 +1,4 @@
-package app.appworks.school.publisher.util
+package com.wade.friedfood.util
 
 import android.util.Log
 
@@ -9,7 +9,7 @@ import com.wade.friedfood.BuildConfig
  */
 object Logger {
 
-    private const val TAG = "Wayne-Publisher"
+    private const val TAG = "Wade_fried_food"
 
     fun v(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.v(TAG, content) }
     fun d(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.d(TAG, content) }

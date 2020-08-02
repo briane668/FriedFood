@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wade.friedfood.network.LoadApiStatus
-import app.appworks.school.publisher.util.Logger
+import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
@@ -26,9 +26,10 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
 
     val _userData = MutableLiveData<User>()
 
+    val counts = MutableLiveData<Int>()
+
     val userData: LiveData<User>
         get() = _userData
-
 
 
     val shop = MutableLiveData<List<Shop>>()
@@ -84,8 +85,9 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
         getUserData(ProfileData)
 
 
-    }
+        getUserCommentsCount(ProfileData.id)
 
+    }
 
 
     fun getUserData(user: User) {
@@ -123,7 +125,7 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
     }
 
 
-    suspend fun getCommentsByShop(shop:Shop): Int {
+    suspend fun getCommentsByShop(shop: Shop): Int {
 
         val result = repository.getHowManyComments(shop)
 
@@ -152,7 +154,7 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
     }
 
 
-    suspend fun getRatingByShop(shop:Shop): Int {
+    suspend fun getRatingByShop(shop: Shop): Int {
 
         val result = repository.getRating(shop)
 
@@ -180,6 +182,40 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
         }
     }
 
+
+    fun getUserCommentsCount(user_id: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUserCommentsCount(user_id)
+
+            counts.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
 
 
 

@@ -33,4 +33,6 @@ interface PublisherRepository {
     suspend fun getUserData(user: User): Result<User>
 
     suspend fun sendRating(shop: Shop,rating: Int) :Result<Int>
+
+    suspend fun getUserCommentsCount(user_id: String): Result<Int>
 }

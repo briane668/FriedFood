@@ -57,4 +57,8 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUserCommentsCount(user_id: String): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
 }

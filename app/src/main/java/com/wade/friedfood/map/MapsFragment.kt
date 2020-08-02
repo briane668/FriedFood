@@ -126,12 +126,12 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
 
-        val sydney = LatLng(24.972569, 121.517274)
+//        val sydney = LatLng(24.972569, 121.517274)
 
 //        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
-        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
+//        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 
 
 //        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))

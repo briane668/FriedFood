@@ -58,5 +58,9 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
         return remoteDataSource.sendRating(shop,rating)
     }
 
+    override suspend fun getUserCommentsCount(user_id: String): Result<Int> {
+        return remoteDataSource.getUserCommentsCount(user_id)
+    }
+
 
 }

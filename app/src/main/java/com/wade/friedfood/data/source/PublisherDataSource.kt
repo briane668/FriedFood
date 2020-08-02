@@ -35,4 +35,5 @@ interface PublisherDataSource {
 
     suspend fun sendRating(shop: Shop,rating: Int) :Result<Int>
 
+    suspend fun getUserCommentsCount(user_id: String): Result<Int>
 }

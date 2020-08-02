@@ -23,7 +23,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.appworks.school.publisher.util.Logger
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.databinding.ItemShopBinding
 import com.wade.friedfood.getDistance
