@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
 
             viewModel.displayShopDetails(it)
         },viewModel)
-        
+
         viewModel.counts.observe(viewLifecycleOwner, Observer {
             binding.commentCounts.text ="${viewModel.counts.value}"
 

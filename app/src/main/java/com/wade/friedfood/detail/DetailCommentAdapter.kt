@@ -10,16 +10,33 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.wade.friedfood.data.Comment
 import com.wade.friedfood.databinding.ItemDetailCommentBinding
+import com.wade.friedfood.util.Logger
+import kotlinx.coroutines.launch
 
-class DetailCommentAdapter (): ListAdapter<Comment, DetailCommentAdapter.DetailCommentLayoutViewHolder>(DiffCallback) {
+class DetailCommentAdapter (val detailViewModel: DetailViewModel): ListAdapter<Comment, DetailCommentAdapter.DetailCommentLayoutViewHolder>(DiffCallback) {
 
     class DetailCommentLayoutViewHolder(var binding: ItemDetailCommentBinding):
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: Comment) {
+        fun bind(comment: Comment,detailViewModel: DetailViewModel) {
             binding.review = comment
             if (comment.image == ""){
                 binding.commentImage.visibility=View.GONE
             }
+
+            detailViewModel.coroutineScope.launch {
+
+                val counts =detailViewModel.getUserCommentsCount(comment.user_id)
+
+
+                binding.commentCounts.text="已發表過 $counts 則評論"
+                binding.executePendingBindings()
+            }
+
+
+
+
+
+
             binding.commentImage.visibility
             binding.executePendingBindings()
         }
@@ -49,7 +66,7 @@ class DetailCommentAdapter (): ListAdapter<Comment, DetailCommentAdapter.DetailC
         if (review.comment != ""){
             holder.binding.commentComment.text = review.comment
         }
-        holder.bind(review)
+        holder.bind(review,detailViewModel)
     }
 }
 

@@ -280,4 +280,37 @@ class DetailViewModel(
 
 
 
+    suspend fun getUserCommentsCount(user_id: String):Int {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUserCommentsCount(user_id)
+
+            return when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+
+            } as Int
+    }
+
+
+
 }

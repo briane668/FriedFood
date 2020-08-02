@@ -66,11 +66,11 @@
 
                 <TextView
                     android:id="@+id/comment_comment"
-                    android:layout_width="0dp"
+                    android:layout_width="331dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="沒有評論"
                     android:textColor="#000000"
@@ -78,19 +78,19 @@
                     app:layout_constraintBottom_toTopOf="@+id/commentImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/comment_head_image"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar3"
                     tools:text="評論" />
 
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
 
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar3"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_head_image"
                     app:timeToDisplayFormat="@{review.time}" />
 
                 <RatingBar
@@ -99,26 +99,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:background="#FFFFFF"
                     android:progressTint="#FF9800"
                     android:rating="@{review.rating}"
-                    app:layout_constraintStart_toEndOf="@+id/comment_head_image"
-                    app:layout_constraintTop_toBottomOf="@+id/comment_name" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_head_image" />
 
                 <ImageView
                     android:id="@+id/commentImage"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+
                     android:layout_marginBottom="16dp"
                     app:imageUrl="@{review.image}"
-
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/comment_comment"
                     app:srcCompat="@drawable/placeholder" />
+
+                <TextView
+                    android:id="@+id/commentCounts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="已發表過X則評論"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toEndOf="@+id/comment_head_image"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

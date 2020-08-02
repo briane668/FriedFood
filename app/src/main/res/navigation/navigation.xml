@@ -53,8 +53,7 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/detailFragment"
-        app:popUpTo="@id/mapsFragment" />
+        app:destination="@id/detailFragment" />
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.wade.friedfood.detail.review.ReviewFragment"

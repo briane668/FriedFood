@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ import com.wade.friedfood.getDistance
 import com.wade.friedfood.map.MapViewModel
 import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -141,7 +143,7 @@ class DetailFragment : Fragment() {
 
         binding.otherImage.adapter = DetailAdapter()
 
-        binding.recyclerDetailComment.adapter = DetailCommentAdapter()
+        binding.recyclerDetailComment.adapter = DetailCommentAdapter(viewModel)
 
 
         val x = MapViewModel.userPosition.value?.latitude
@@ -231,21 +233,21 @@ class DetailFragment : Fragment() {
 
 
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
-//        super.onCreate(savedInstanceState)
-//
-//
-//    }
-//
-////評價的頁面比較晚被destroy
-//
-//    override fun onDestroy() {
-//
-//        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
-//
-//        super.onDestroy()
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
+        super.onCreate(savedInstanceState)
+
+
+    }
+
+//評價的頁面比較晚被destroy
+
+    override fun onDestroy() {
+
+        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
+
+        super.onDestroy()
+    }
 
 
 
