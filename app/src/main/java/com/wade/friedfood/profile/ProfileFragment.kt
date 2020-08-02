@@ -39,9 +39,11 @@ class ProfileFragment : Fragment() {
         },viewModel)
 
         viewModel.counts.observe(viewLifecycleOwner, Observer {
-            binding.commentCounts.text ="${viewModel.counts.value}"
+            binding.commentCounts.text ="已發表過${viewModel.counts.value}則評論"
 
         })
+        
+
 
 
 

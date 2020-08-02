@@ -141,18 +141,18 @@ binding.camera.setOnClickListener {
 
 
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
-        super.onCreate(savedInstanceState)
-
-
-    }
-    override fun onDestroy() {
-
-        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
-
-        super.onDestroy()
-    }
+//        override fun onCreate(savedInstanceState: Bundle?) {
+//        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
+//        super.onCreate(savedInstanceState)
+//
+//
+//    }
+//    override fun onDestroy() {
+//
+//        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
+//
+//        super.onDestroy()
+//    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

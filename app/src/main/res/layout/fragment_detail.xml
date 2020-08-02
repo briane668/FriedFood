@@ -255,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="商店相片"
                         android:textColor="#000000"
                         android:textSize="18sp"
@@ -265,7 +265,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:background="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -277,8 +277,7 @@
                         android:id="@+id/recyclerDetailComment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="8dp"
                         android:background="#FFFFFF"
                         app:commentData="@{viewModel.comment}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -295,10 +294,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp"
                         android:text="商店評論"
                         android:textColor="#000000"
                         android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/recyclerDetailComment"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

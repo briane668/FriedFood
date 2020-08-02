@@ -343,7 +343,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
     companion object {
         private val TAG = MapsFragment::class.java.simpleName
-        private const val DEFAULT_ZOOM = 17
+        private const val DEFAULT_ZOOM = 16
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         // Keys for storing activity state.
