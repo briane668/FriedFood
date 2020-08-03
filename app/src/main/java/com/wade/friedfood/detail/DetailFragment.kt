@@ -183,7 +183,7 @@ class DetailFragment : Fragment() {
                 binding.ratingBar2.rating = rating.toFloat()
             }
 
-            binding.star.text = "$rating 顆星"
+//            binding.star.text = "$rating 顆星"
 
             binding.executePendingBindings()
         }
@@ -230,7 +230,10 @@ class DetailFragment : Fragment() {
     }
 
 
-
+    override fun onResume() {
+        viewModel.shop.value?.let { viewModel.getComments(it) }
+        super.onResume()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

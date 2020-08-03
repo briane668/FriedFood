@@ -91,7 +91,7 @@ class DetailViewModel(
 
 
 
-    private fun getComments(shop: ParcelableShop) {
+     fun getComments(shop: ParcelableShop) {
 
         coroutineScope.launch {
 

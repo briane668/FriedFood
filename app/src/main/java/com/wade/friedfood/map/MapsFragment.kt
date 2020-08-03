@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,6 +39,7 @@ import com.wade.friedfood.ext.getVmFactory
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     GoogleMap.OnMarkerClickListener {
@@ -273,11 +275,20 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
+
                 if (query != null) {
                     map?.clear()
                     viewModel.naerShop.value = null
                     binding.mapView.visibility= View.INVISIBLE
-                    viewModel.getMenu(query)
+
+                    try {
+                        viewModel.getMenu(query)
+                    }catch (e: Exception){
+                        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
+                    }
+
+
+
                 }
 
                 return true
@@ -307,7 +318,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
         viewModel.menus.observe(viewLifecycleOwner, Observer {
-            viewModel.getSelectedShop(it)
+            if (it != null && it.isNotEmpty()) {
+                viewModel.getSelectedShop(it)
+            }
+
         })
 
 

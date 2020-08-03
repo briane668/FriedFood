@@ -83,7 +83,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="80dp"
             android:background="@drawable/btn_signin_google"
-            android:text="signin_google"
+            android:text="sign in"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

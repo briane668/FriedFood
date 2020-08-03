@@ -1,6 +1,7 @@
 package com.wade.friedfood.map
 
 import android.location.Location
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import kotlin.math.roundToInt
 
 class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
@@ -146,6 +148,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
+
 
             val result = repository.getMenu(food)
 

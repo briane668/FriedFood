@@ -97,7 +97,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/placeholder" />
+                    app:srcCompat="@drawable/fui_idp_button_background_google" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

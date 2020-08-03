@@ -55,9 +55,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
 
 
 
-    private val _reviewFinish = MutableLiveData<Boolean>()
-    val reviewFinish: LiveData<Boolean>
-        get() = _reviewFinish
+
 
     private val _status = MutableLiveData<LoadApiStatus>()
 
