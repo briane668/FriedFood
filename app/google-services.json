@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "298524614147-6qhb1nbeganjccp3287em14a9lbn219s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wade.friedfood",
+            "certificate_hash": "2de1799dfd5a5ff4f02687b016ef483148fb79b6"
+          }
+        },
+        {
+          "client_id": "298524614147-8760svksea3d7tu0677chfgijdjdnr1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wade.friedfood",
+            "certificate_hash": "94b256b74afa2eb92ed777a59a496c9b13ab278a"
+          }
+        },
+        {
           "client_id": "298524614147-9pvdpmj8hh8d6mv81h8ssujl7i29p36d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -30,49 +46,6 @@
       "api_key": [
         {
           "current_key": "AIzaSyACv2P43DU4i6KjORAWG1X5pgEGIYcFPAs"
-        },
-        {
-          "current_key": "AIzaSyBKxguM_hQ0sAoKUZBBRApQXHPQtKSIQOM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "298524614147-2p3a8qd9ebpbl2gt0s436u18s6ca034f.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:298524614147:android:b75d733153b2f15c8a7836",
-        "android_client_info": {
-          "package_name": "com.wade.publisher"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "298524614147-susr54uh3iprvhat9umub8agt2cl0fu2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.wade.publisher",
-            "certificate_hash": "f4efe79d0ace977c40a3b64e46589be9bc35910a"
-          }
-        },
-        {
-          "client_id": "298524614147-2p3a8qd9ebpbl2gt0s436u18s6ca034f.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyACv2P43DU4i6KjORAWG1X5pgEGIYcFPAs"
-        },
-        {
-          "current_key": "AIzaSyBKxguM_hQ0sAoKUZBBRApQXHPQtKSIQOM"
         }
       ],
       "services": {
