@@ -87,5 +87,9 @@
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
         app:destination="@id/menuFragment" />
+    <dialog
+        android:id="@+id/addSuccessFragment"
+        android:name="com.wade.friedfood.detail.AddSuccessFragment"
+        android:label="AddSuccessFragment" />
 
 </navigation>

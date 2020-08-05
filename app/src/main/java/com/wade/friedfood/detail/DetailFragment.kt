@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -120,10 +121,21 @@ class DetailFragment : Fragment() {
 
 
                 viewModel.collectShop(ProfileData, shop)
+
             }
 
-            Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show()
         }
+
+        viewModel.collectDone.observe(viewLifecycleOwner, Observer {
+            if (it == 1) {
+                viewModel._userData.value?.let { it1 -> viewModel.getUserData(it1) }
+
+
+                findNavController().navigate(R.id.addSuccessFragment)
+
+            }
+
+        })
 
 
         binding.otherImage.adapter = DetailAdapter()
@@ -206,6 +218,11 @@ class DetailFragment : Fragment() {
 
         }
 
+
+        viewModel._userData.observe(viewLifecycleOwner, Observer {
+            viewModel.collectAble(it)
+
+        })
 
 
 

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.wade.friedfood.detail.DetailViewModel" />
@@ -175,11 +177,29 @@
                         android:drawableTop="@drawable/list"
                         android:text="菜單"
                         style="?android:attr/borderlessButtonStyle"
-                        app:layout_constraintBottom_toBottomOf="@+id/collectButton"
-                        app:layout_constraintEnd_toStartOf="@+id/collectButton"
+                        app:layout_constraintBottom_toBottomOf="@+id/collectedButton"
+                        app:layout_constraintEnd_toStartOf="@+id/collectedButton"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/recommendButton"
-                        app:layout_constraintTop_toTopOf="@+id/collectButton" />
+                        app:layout_constraintTop_toTopOf="@+id/collectedButton" />
+
+                    <Button
+                    android:id="@+id/collectedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="#FFFFFF"
+                    android:drawableTop="@drawable/collect"
+                    android:text="已收藏"
+                        android:visibility="@{viewModel.alreadyCollectShop == true ? View.VISIBLE : View.INVISIBLE }"
+                        android:clickable="@{viewModel.alreadyCollectShop == true ?  false: true }"
+                    style="?android:attr/borderlessButtonStyle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/menuBotton"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/collectButton"
@@ -188,8 +208,10 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="24dp"
                         android:background="#FFFFFF"
-                        android:drawableTop="@drawable/collect"
+                        android:drawableTop="@drawable/notcollect"
                         android:text="收藏"
+                        android:visibility="@{viewModel.alreadyCollectShop==true ? View.INVISIBLE : View.VISIBLE }"
+                        android:clickable="@{viewModel.alreadyCollectShop == true ?  false: true }"
                         style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

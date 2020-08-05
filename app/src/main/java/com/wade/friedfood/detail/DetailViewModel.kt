@@ -3,7 +3,6 @@ package com.wade.friedfood.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
@@ -76,9 +75,16 @@ class DetailViewModel(
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
+    private val _alreadyCollectShop = MutableLiveData<Boolean>().apply {
+        value = null
+    }
+
+    val alreadyCollectShop: LiveData<Boolean>
+        get() = _alreadyCollectShop
 
 
-    var alreadyCollectShop: Boolean? =null
+
+//    var alreadyCollectShop: Boolean? =null
 
 
 
@@ -101,9 +107,11 @@ class DetailViewModel(
 
         for (thisShop in user.collect){
             if (thisShop.id == shop.value?.id){
-                alreadyCollectShop= true
+                _alreadyCollectShop.value= true
                 break
 
+            }else{
+                _alreadyCollectShop.value=false
             }
 
         }
