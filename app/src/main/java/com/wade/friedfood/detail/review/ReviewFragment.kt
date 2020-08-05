@@ -178,18 +178,19 @@ binding.camera.setOnClickListener {
         saveUri?.let { uri ->
             ref.putFile(uri)
                 .addOnSuccessListener {
-                    upload_info_text.text = "上傳成功"
+//                    upload_info_text.text = "上傳成功"
 
                     ref.downloadUrl.addOnSuccessListener {
                         uploadImage = it.toString()
                         Log.d("12345","$it")
                     }
-                }.addOnProgressListener { taskSnapshot ->
-                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-                    upload_progress.progress = progress
-                    if (progress >= 100) {
-                        upload_progress.visibility = View.GONE
-                    } }
+                }
+//                .addOnProgressListener { taskSnapshot ->
+//                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+//                    upload_progress.progress = progress
+//                    if (progress >= 100) {
+//                        upload_progress.visibility = View.GONE
+//                    } }
         }
     }
 

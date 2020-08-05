@@ -12,78 +12,120 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#FFFFFF"
         tools:context=".profile.comment.OnShipFragment">
 
 
-        <ImageButton
-            android:id="@+id/addPhoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="19dp"
-            android:background="#FFFFFF"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/addphoto" />
-
-        <Button
-            android:id="@+id/reviewButton"
-            android:layout_width="150dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout7"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:layout_marginEnd="24dp"
-            android:background="#FF9800"
-            android:text="@string/sendReview"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
-
-        <ImageButton
-            android:id="@+id/camera"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="19dp"
-            android:background="#FFFFFF"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/addPhoto"
-            app:srcCompat="@drawable/camera" />
-
-        <TextView
-            android:id="@+id/upload_info_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="661dp"
-            android:layout_marginEnd="31dp"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/reviewButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/upload_progress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="63dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/backImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/review_star_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/star"
+                app:getStar="@{viewModel.rating}"
+                app:layout_constraintEnd_toStartOf="@+id/review_star_2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backImage"
+                app:starPos="@{1}" />
+
+            <ImageView
+                android:id="@+id/review_star_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:getStar="@{viewModel.rating}"
+                app:layout_constraintEnd_toStartOf="@+id/review_star_3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/review_star_1"
+                app:layout_constraintTop_toTopOf="@+id/review_star_1"
+                app:starPos="@{2}" />
+
+            <ImageView
+                android:id="@+id/review_star_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:getStar="@{viewModel.rating}"
+                app:layout_constraintEnd_toStartOf="@+id/review_star_4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/review_star_2"
+                app:layout_constraintTop_toTopOf="@+id/review_star_2"
+                app:starPos="@{3}" />
+
+            <ImageView
+                android:id="@+id/review_star_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:getStar="@{viewModel.rating}"
+                app:layout_constraintEnd_toStartOf="@+id/review_star_5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/review_star_3"
+                app:layout_constraintTop_toTopOf="@+id/review_star_3"
+                app:starPos="@{4}" />
+
+            <ImageView
+                android:id="@+id/review_star_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:getStar="@{viewModel.rating}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/review_star_4"
+                app:layout_constraintTop_toTopOf="@+id/review_star_4"
+                app:starPos="@{5}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/upload_info_text"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="#000000"-->
+        <!--            android:textSize="24sp"-->
+        <!--            tools:layout_editor_absoluteX="193dp"-->
+        <!--            tools:layout_editor_absoluteY="539dp" />-->
+
+        <!--        <ProgressBar-->
+        <!--            android:id="@+id/upload_progress"-->
+        <!--            style="?android:attr/progressBarStyleHorizontal"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="63dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />-->
 
         <ScrollView
             android:id="@+id/scrollView4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/review_star_1">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -113,86 +155,56 @@
                     android:id="@+id/imageView2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="152dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <ImageView
-            android:id="@+id/backImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/review_star_1"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout8"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/star"
-            app:getStar="@{viewModel.rating}"
-            app:layout_constraintEnd_toStartOf="@+id/review_star_2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backImage"
-            app:starPos="@{1}" />
-
-        <ImageView
-            android:id="@+id/review_star_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/star"
-            app:getStar="@{viewModel.rating}"
-            app:layout_constraintEnd_toStartOf="@+id/review_star_3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/review_star_1"
-            app:layout_constraintTop_toTopOf="@+id/review_star_1"
-            app:starPos="@{2}" />
-
-        <ImageView
-            android:id="@+id/review_star_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/star"
-            app:getStar="@{viewModel.rating}"
-            app:layout_constraintEnd_toStartOf="@+id/review_star_4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/review_star_2"
-            app:layout_constraintTop_toTopOf="@+id/review_star_2"
-            app:starPos="@{3}" />
-
-        <ImageView
-            android:id="@+id/review_star_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/star"
-            app:getStar="@{viewModel.rating}"
-            app:layout_constraintEnd_toStartOf="@+id/review_star_5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/review_star_3"
-            app:layout_constraintTop_toTopOf="@+id/review_star_3"
-            app:starPos="@{4}" />
-
-        <ImageView
-            android:id="@+id/review_star_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="170dp"
-            android:src="@drawable/star"
-            app:getStar="@{viewModel.rating}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/review_star_4"
-            app:layout_constraintTop_toTopOf="@+id/review_star_4"
-            app:starPos="@{5}" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/addPhoto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="35dp"
+                android:background="#FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/addphoto" />
+
+            <Button
+                android:id="@+id/reviewButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="#FF9800"
+                android:text="@string/sendReview"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/camera"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="113dp"
+                android:background="#FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/reviewButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/camera" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
