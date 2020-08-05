@@ -1,7 +1,6 @@
 package com.wade.friedfood.map
 
 import android.location.Location
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Menu
+import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.getDistance
@@ -18,7 +18,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import kotlin.math.roundToInt
 
 class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
@@ -179,13 +178,13 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-    fun getSelectedShop(menus:List<Menu>) {
+    fun searchShopByMenu(menus:List<Menu>) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getSelectedShop(menus)
+            val result = repository.searchShopByMenu(menus)
 
             shop.value = when (result) {
                 is Result.Success -> {
@@ -323,6 +322,28 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         naerShop.value =list
     }
 
+
+
+    fun shopToParcelable (shop: Shop):ParcelableShop {
+
+
+
+        return ParcelableShop(
+            id = shop.id,
+            name = shop.name,
+            latitude = shop.location?.latitude,
+            longitude = shop.location?.longitude,
+            image = shop.image,
+            recommend = shop.recommend,
+            star = shop.star,
+            address = shop.address,
+            menuImage = shop.menuImage,
+            otherImage = shop.otherImage,
+            comment = shop.comment,
+            menu = shop.menu,
+            phone= shop.phone
+        )
+    }
 
 
 

@@ -71,17 +71,8 @@ class DetailFragment : Fragment() {
         val y = viewModel.shop.value?.longitude
 
 
-
-
         val sydney = LatLng(x!!, y!!)
 
-//        this.map = googleMap
-//        this.map!!.setMinZoomPreference(14.0f)
-//
-//
-//        this.map!!.addMarker(MarkerOptions().position(sydney))
-//
-//        this.map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         googleMap.setMinZoomPreference(15.0f)
 
@@ -123,19 +114,13 @@ class DetailFragment : Fragment() {
         binding.collectButton.setOnClickListener {
 
 
-
-
-
-
             viewModel.shop.value?.let {
 
                 val shop: Shop = it.toShop()
-//
-//                val pShop: ParcelableShop = shop.toParcelableShop()
 
 
-
-                viewModel.collectShop(ProfileData, shop) }
+                viewModel.collectShop(ProfileData, shop)
+            }
 
             Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show()
         }
@@ -161,11 +146,11 @@ class DetailFragment : Fragment() {
         viewModel.coroutineScope.launch {
 
 
-
             val commentCount = viewModel.shop.value?.let {
                 val shop: Shop = it.toShop()
 
-                viewModel.getCommentsByShop(shop) }
+                viewModel.getCommentsByShop(shop)
+            }
 
             binding.recommend.text = "$commentCount 則評論"
             binding.executePendingBindings()
@@ -177,7 +162,8 @@ class DetailFragment : Fragment() {
 
                 val shop: Shop = it.toShop()
 
-                viewModel.getRatingByShop(shop) }
+                viewModel.getRatingByShop(shop)
+            }
 
             if (rating != null) {
                 binding.ratingBar2.rating = rating.toFloat()
@@ -196,7 +182,6 @@ class DetailFragment : Fragment() {
 
         })
 
-//        context?.let { FileProvider.getUriForFile(it, authorities, file) }
 
 
 
@@ -216,8 +201,8 @@ class DetailFragment : Fragment() {
 
         binding.callButton.setOnClickListener {
 
-        val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${viewModel.shop.value?.phone}"))
-        startActivity(intent)
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${viewModel.shop.value?.phone}"))
+            startActivity(intent)
 
         }
 
@@ -253,21 +238,13 @@ class DetailFragment : Fragment() {
     }
 
 
-
-fun intent2FriendList(message: String) {
-    val intent = Intent()
-    intent.action = Intent.ACTION_VIEW
-    intent.data = Uri.parse("line://msg/text/?$message")
-    startActivity(intent)
-}
+    fun intent2FriendList(message: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.data = Uri.parse("line://msg/text/?$message")
+        startActivity(intent)
+    }
 //
-
-
-
-
-
-
-
 
 
 }

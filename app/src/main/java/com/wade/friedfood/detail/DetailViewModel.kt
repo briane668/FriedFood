@@ -3,12 +3,14 @@ package com.wade.friedfood.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
 import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.util.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,6 +30,8 @@ class DetailViewModel(
         value = shop
     }
 
+    val _userData = MutableLiveData<User>()
+
 
     val shop: LiveData<ParcelableShop>
         get() = _shop
@@ -40,15 +44,12 @@ class DetailViewModel(
         get() = _comment
 
 
-    private val _sortedComment  =  MutableLiveData<List<Comment>>()
+    private val _sortedComment = MutableLiveData<List<Comment>>()
 
     val sortedComment: LiveData<List<Comment>>
         get() = _sortedComment
 
-    val collectDone =MutableLiveData<Int>()
-
-
-//    val HowManyComments : Int = comment.value?.size ?: 0
+    val collectDone = MutableLiveData<Int>()
 
 
     // Create a Coroutine scope using a job to be able to cancel when needed
@@ -77,6 +78,12 @@ class DetailViewModel(
 
 
 
+    var alreadyCollectShop: Boolean? =null
+
+
+
+
+
 
     init {
         Logger.i("------------------------------------")
@@ -84,14 +91,33 @@ class DetailViewModel(
         Logger.i("------------------------------------")
 
 
+        getUserData(UserManager.ProfileData)
+
         getComments(shop)
+
+    }
+
+    fun collectAble(user: User){
+
+        for (thisShop in user.collect){
+            if (thisShop.id == shop.value?.id){
+                alreadyCollectShop= true
+                break
+
+            }
+
+        }
+
+
+
+
 
     }
 
 
 
 
-     fun getComments(shop: ParcelableShop) {
+    fun getComments(shop: ParcelableShop) {
 
         coroutineScope.launch {
 
@@ -126,10 +152,7 @@ class DetailViewModel(
     }
 
 
-
-
-
-    suspend fun getCommentsByShop(shop:Shop): Int {
+    suspend fun getCommentsByShop(shop: Shop): Int {
 
         val result = repository.getHowManyComments(shop)
 
@@ -158,7 +181,7 @@ class DetailViewModel(
     }
 
 
-    suspend fun getRatingByShop(shop:Shop): Int {
+    suspend fun getRatingByShop(shop: Shop): Int {
 
         val result = repository.getRating(shop)
 
@@ -187,13 +210,13 @@ class DetailViewModel(
     }
 
 
-     fun collectShop(user: User,shop: Shop) {
+    fun collectShop(user: User, shop: Shop) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.collectShop(user,shop)
+            val result = repository.collectShop(user, shop)
 
             collectDone.value = when (result) {
                 is Result.Success -> {
@@ -222,7 +245,7 @@ class DetailViewModel(
     }
 
 
-    fun sortComment(comment: List<Comment>){
+    fun sortComment(comment: List<Comment>) {
 
 
 //        val sortedComment = comment.sortedByDescending { comment ->
@@ -279,14 +302,48 @@ class DetailViewModel(
 //    }
 
 
+    suspend fun getUserCommentsCount(user_id: String): Int {
 
-    suspend fun getUserCommentsCount(user_id: String):Int {
+        _status.value = LoadApiStatus.LOADING
+
+        val result = repository.getUserCommentsCount(user_id)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                null
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                null
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                null
+            }
+
+        } as Int
+    }
+
+
+
+    fun getUserData(user: User) {
+
+        coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getUserCommentsCount(user_id)
+            val result = repository.getUserData(user)
 
-            return when (result) {
+            _userData.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -307,9 +364,11 @@ class DetailViewModel(
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
-
-            } as Int
+            }
+            _refreshStatus.value = false
+        }
     }
+
 
 
 

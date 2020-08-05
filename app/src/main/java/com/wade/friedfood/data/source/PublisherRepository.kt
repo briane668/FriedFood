@@ -18,7 +18,7 @@ interface PublisherRepository {
 
     suspend fun getMenu(food:String): Result<List<Menu>>
 
-    suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>>
+    suspend fun searchShopByMenu(menus: List<Menu>): Result<List<Shop>>
 
     suspend fun getHowManyComments(shop: Shop): Result<Int>
 

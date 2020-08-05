@@ -18,7 +18,7 @@ class LoginViewModel (private val repository: PublisherRepository) : ViewModel()
 
 
 
-    var notAlreadySign=MutableLiveData<Boolean>().apply {
+    var noUser=MutableLiveData<Boolean>().apply {
         value=null
     }
 
@@ -62,10 +62,10 @@ fun addAble (user: User){
         .get()
         .addOnSuccessListener {
 //有東西的話  變成false   我希望他搜尋不到東西 代表可以加
-            notAlreadySign.value=it.isEmpty
+            noUser.value=it.isEmpty
         }
         .addOnFailureListener {
-            notAlreadySign.value= false
+            noUser.value= false
         }
 }
 

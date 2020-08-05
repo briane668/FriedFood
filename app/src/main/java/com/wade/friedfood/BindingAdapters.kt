@@ -81,8 +81,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .load(imgUri)
                 .apply(
                     RequestOptions()
-                        .placeholder(R.drawable.ic_placeholder)
-                        .error(R.drawable.ic_placeholder))
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder))
                 .into(imgView)
     }
 }

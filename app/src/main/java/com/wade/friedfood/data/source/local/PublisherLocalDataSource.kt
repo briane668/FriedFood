@@ -25,7 +25,7 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSelectedShop(menus: List<Menu>): Result<List<Shop>> {
+    override suspend fun searchShopByMenu(menus: List<Menu>): Result<List<Shop>> {
         TODO("Not yet implemented")
     }
 

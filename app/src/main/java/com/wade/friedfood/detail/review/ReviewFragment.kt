@@ -89,6 +89,7 @@ class ReviewFragment : DialogFragment() {
 //        })
 //        findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shop.value!!))
 //navigateup 不會重新創造fragment
+
         viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
             findNavController().navigateUp()
             Toast.makeText(context, "評價成功", Toast.LENGTH_SHORT).show()
@@ -139,20 +140,6 @@ binding.camera.setOnClickListener {
         val PHOTO_FROM_CAMERA = 2
     }
 
-
-
-//        override fun onCreate(savedInstanceState: Bundle?) {
-//        (activity as AppCompatActivity).bottomNavView.visibility = View.GONE
-//        super.onCreate(savedInstanceState)
-//
-//
-//    }
-//    override fun onDestroy() {
-//
-//        (activity as AppCompatActivity).bottomNavView.visibility = View.VISIBLE
-//
-//        super.onDestroy()
-//    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

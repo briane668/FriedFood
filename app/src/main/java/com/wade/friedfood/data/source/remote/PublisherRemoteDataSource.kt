@@ -107,7 +107,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
 
-    override suspend fun getSelectedShop(menus:List<Menu>): Result<List<Shop>> = suspendCoroutine { continuation ->
+    override suspend fun searchShopByMenu(menus:List<Menu>): Result<List<Shop>> = suspendCoroutine { continuation ->
         val menusId : MutableList<String?> = mutableListOf()
             for (i in menus ){
                 menusId += i.venderId
@@ -320,6 +320,17 @@ object PublisherRemoteDataSource : PublisherDataSource {
                 }
             }
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

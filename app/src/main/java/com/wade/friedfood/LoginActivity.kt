@@ -69,8 +69,8 @@ class LoginActivity() : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
 
 
-        viewModel.notAlreadySign.observe(this, androidx.lifecycle.Observer {
-            Log.d("alredySign", "$it")
+        viewModel.noUser.observe(this, androidx.lifecycle.Observer {
+            Log.d("timeToSign", "$it")
 
             it?.let {
                 if (it == true) {
@@ -90,6 +90,8 @@ class LoginActivity() : AppCompatActivity() {
 
         viewModel.signInSuccess.observe(this,androidx.lifecycle.Observer{
             if (it == 1){
+
+
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
 

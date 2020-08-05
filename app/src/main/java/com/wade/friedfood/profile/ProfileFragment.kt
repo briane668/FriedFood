@@ -76,7 +76,6 @@ class ProfileFragment : Fragment() {
             }
         })
 
-//        binding.textView2.text= UserManager.ProfileData.howManyComments.toString()
 
 
 

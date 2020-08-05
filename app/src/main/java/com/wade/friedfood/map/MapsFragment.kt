@@ -7,12 +7,10 @@ import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -31,15 +29,11 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.R
-import com.wade.friedfood.data.Comment
-import com.wade.friedfood.data.Food
 import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.databinding.FragmentMapsBinding
 import com.wade.friedfood.ext.getVmFactory
-import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     GoogleMap.OnMarkerClickListener {
@@ -49,8 +43,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
     lateinit var binding: FragmentMapsBinding
 
-    private var marker1: Marker? = null
-     var map: GoogleMap? = null
+    var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
     // The entry point to the Places API.
@@ -83,7 +76,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
          * user has installed Google Play services and returned to the app.
          */
 
-        this.map?.isMyLocationEnabled   = true
+        this.map?.isMyLocationEnabled = true
 
         this.map = googleMap
         this.map!!.setOnMarkerClickListener(this)
@@ -93,30 +86,25 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
 
-//        只能縮放到如何
-//        this.map!!.setMaxZoomPreference(14.0f)
-
-
         viewModel.shop.observe(viewLifecycleOwner, Observer {
             viewModel.calculateDistance(it)
         })
 
 
         viewModel.naerShop.observe(viewLifecycleOwner, Observer {
-            viewModel.naerShop.value.let {
-                if (it != null) {
-                    for (i in it) {
+            viewModel.naerShop.value.let { shops ->
+                if (shops != null) {
+                    for (shop in shops) {
 
                         viewModel.coroutineScope.launch {
 
-                            val rating =viewModel.getRatingByShop(i)
+                            val rating = viewModel.getRatingByShop(shop)
 
-                            val x = i.location?.latitude
-                            val y = i.location?.longitude
-                            val z = i.name
+                            val x = shop.location?.latitude
+                            val y = shop.location?.longitude
                             val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                             map!!.addMarker(sydney?.let { it1 ->
-                                MarkerOptions().position(it1).title(z).snippet("評價${rating}顆星")
+                                MarkerOptions().position(it1).title(shop.name).snippet("評價${rating}顆星")
 
                             })
                         }
@@ -126,19 +114,14 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         })
 
 
-
-
 //        val sydney = LatLng(24.972569, 121.517274)
 
 //        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 //        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
 
 
 //        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
-
 
 
         this.map?.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
@@ -160,8 +143,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                 return infoWindow
             }
         })
-
-
         // Prompt the user for permission.
 //        要求位置權限，出現右上角的定位功能
         getLocationPermission()
@@ -194,34 +175,19 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
 
             viewModel.displayShopDetails(it)
-        },viewModel)
+        }, viewModel)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 // Must find the NavController from the Fragment
 
-                val parcelableShop = ParcelableShop(
-                    id =it.id,
-                 name = it.name,
-                 latitude= it.location?.latitude,
-                 longitude = it.location?.longitude,
-                 image=it.image,
-                recommend=it.recommend,
-                 star=it.star,
-                 address=it.address,
-                 menuImage =it.menuImage,
-                 otherImage = it.otherImage,
-                 comment= it.comment,
-                 menu = it.menu,
-                 phone= it.phone
-                )
 
 
 
 
 
                 this.findNavController()
-                    .navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
+                    .navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shopToParcelable(it)))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayShopDetailsComplete()
             }
@@ -246,22 +212,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         }
 
 
-
-
-
-//        binding.chicken.setOnClickListener {
-//            this.map?.clear()
-//            viewModel.naerShop.value = null
-//            binding.mapView.visibility= View.INVISIBLE
-//            viewModel.getMenu("鹽酥雞")
-//        }
-//
-//        binding.egg.setOnClickListener {
-//            this.map?.clear()
-//            viewModel.naerShop.value = null
-//            binding.mapView.visibility= View.INVISIBLE
-//            viewModel.getMenu("炸皮蛋")
-//        }
 //
 //        binding.sweetNotHot.setOnClickListener {
 //            this.map?.clear()
@@ -271,7 +221,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 //
 //        }
 
-        binding.search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -279,16 +229,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                 if (query != null) {
                     map?.clear()
                     viewModel.naerShop.value = null
-                    binding.mapView.visibility= View.INVISIBLE
-
-                    try {
+                    binding.mapView.visibility = View.INVISIBLE
                         viewModel.getMenu(query)
-                    }catch (e: Exception){
-                        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
-                    }
-
-
-
                 }
 
                 return true
@@ -313,13 +255,13 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             this.map?.clear()
             viewModel.naerShop.value = null
             viewModel.getShops()
-            binding.mapView.visibility= View.INVISIBLE
+            binding.mapView.visibility = View.INVISIBLE
         }
 
 
         viewModel.menus.observe(viewLifecycleOwner, Observer {
             if (it != null && it.isNotEmpty()) {
-                viewModel.getSelectedShop(it)
+                viewModel.searchShopByMenu(it)
             }
 
         })
@@ -375,7 +317,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         // googleMap.clear();
         if (marker != null) {
             val markerName = marker.title
-            binding.mapView.visibility= View.VISIBLE
+            binding.mapView.visibility = View.VISIBLE
 
             viewModel.shop.value?.let {
                 for ((index, shop) in it.withIndex()) {
@@ -397,23 +339,27 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             if (marker.title == it.name) {
 
                 val parcelableShop = ParcelableShop(
-                    id =it.id,
+                    id = it.id,
                     name = it.name,
-                    latitude= it.location?.latitude,
+                    latitude = it.location?.latitude,
                     longitude = it.location?.longitude,
-                    image=it.image,
-                    recommend=it.recommend,
-                    star=it.star,
-                    address=it.address,
-                    menuImage =it.menuImage,
+                    image = it.image,
+                    recommend = it.recommend,
+                    star = it.star,
+                    address = it.address,
+                    menuImage = it.menuImage,
                     otherImage = it.otherImage,
-                    comment= it.comment,
+                    comment = it.comment,
                     menu = it.menu,
-                    phone= it.phone
+                    phone = it.phone
                 )
 
 
-                findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
+                findNavController().navigate(
+                    NavigationDirections.actionGlobalDetailFragment(
+                        parcelableShop
+                    )
+                )
 
             }
         }
@@ -586,9 +532,14 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                         lastKnownLocation = task.result
                         MapViewModel.userPosition.value = lastKnownLocation
                         if (lastKnownLocation != null) {
-                            map?.moveCamera(CameraUpdateFactory.
-                            newLatLngZoom(LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude),
-                                DEFAULT_ZOOM.toFloat())
+                            map?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ),
+                                    DEFAULT_ZOOM.toFloat()
+                                )
                             )
                         }
                     } else {
