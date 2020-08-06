@@ -21,7 +21,7 @@ class RecommendFragment : Fragment() {
     private val viewModel by viewModels<RecommendViewModel> { getVmFactory() }
 
 
-//    這整個是一個funtion 最終被return後 才會運作
+    //    這整個是一個funtion 最終被return後 才會運作
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +34,8 @@ class RecommendFragment : Fragment() {
 
 
 
-
-        binding.spinner .onItemSelectedListener=
-            object : AdapterView.OnItemSelectedListener{
+        binding.spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
@@ -60,61 +59,49 @@ class RecommendFragment : Fragment() {
                 }
             }
 
-    viewModel.shop.observe(viewLifecycleOwner, Observer {
-//        binding.recommendView.smoothScrollToPosition(0)
-
-        binding.recommendView.adapter?.notifyDataSetChanged()
-
-    })
-
+        viewModel.shop.observe(viewLifecycleOwner, Observer {
+            binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
+                viewModel.displayShopDetails(it)
+            }, viewModel)
+        })
 
 
-
-
-        binding.recommendView.adapter= ShopAdapter(ShopAdapter.OnClickListener{
+        binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
             viewModel.displayShopDetails(it)
-        },viewModel)
+        }, viewModel)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
-            if ( it != null ) {
+            if (it != null) {
                 // Must find the NavController from the Fragment
 
                 val parcelableShop = ParcelableShop(
-                    id =it.id,
+                    id = it.id,
                     name = it.name,
-                    latitude= it.location?.latitude,
+                    latitude = it.location?.latitude,
                     longitude = it.location?.longitude,
-                    image=it.image,
-                    recommend=it.recommend,
-                    star=it.star,
-                    address=it.address,
-                    menuImage =it.menuImage,
+                    image = it.image,
+                    recommend = it.recommend,
+                    star = it.star,
+                    address = it.address,
+                    menuImage = it.menuImage,
                     otherImage = it.otherImage,
-                    comment= it.comment,
+                    comment = it.comment,
                     menu = it.menu,
-                    phone= it.phone
+                    phone = it.phone
                 )
 
-                this.findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
+                this.findNavController()
+                    .navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayShopDetailsComplete()
             }
         })
 
+        viewModel._shop.observe(viewLifecycleOwner, Observer {
 
+            viewModel.addRatingComment(viewModel._shop)
 
-    viewModel._shop.observe(viewLifecycleOwner, Observer {
-
-        viewModel.addRatingComment(viewModel._shop)
-
-    })
-
-
-
-
-
-
-
+        })
 
         return binding.root
     }

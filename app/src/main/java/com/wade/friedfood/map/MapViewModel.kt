@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.GeoPoint
 import com.wade.friedfood.data.source.PublisherRepository
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.Logger
@@ -213,39 +214,6 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-//    fun getHowManyComments(shop:Shop) {
-//
-//        coroutineScope.launch {
-//
-//            _status.value = LoadApiStatus.LOADING
-//
-//            val result = repository.getHowManyComments(shop)
-//
-//             when (result) {
-//                is Result.Success -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                    result.data
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                is Result.Error -> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                else -> {
-//                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//            }
-//            _refreshStatus.value = false
-//        }
-//    }
 
     suspend fun getCommentsByShop(shop:Shop): Int {
 
@@ -305,9 +273,13 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
+
+
+
     fun calculateDistance(shops:List<Shop>){
 
         val list = mutableListOf<Shop>()
+
         for (shop in shops){
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
@@ -325,8 +297,6 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
     fun shopToParcelable (shop: Shop):ParcelableShop {
-
-
 
         return ParcelableShop(
             id = shop.id,

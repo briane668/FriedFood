@@ -70,14 +70,8 @@ class DetailFragment : Fragment() {
 
         val x = viewModel.shop.value?.latitude
         val y = viewModel.shop.value?.longitude
-
-
         val sydney = LatLng(x!!, y!!)
-
-
         googleMap.setMinZoomPreference(15.0f)
-
-
         googleMap.addMarker(MarkerOptions().position(sydney))
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
@@ -142,14 +136,12 @@ class DetailFragment : Fragment() {
 
         binding.recyclerDetailComment.adapter = DetailCommentAdapter(viewModel)
 
-
         val x = MapViewModel.userPosition.value?.latitude
         val y = MapViewModel.userPosition.value?.longitude
         val r = viewModel.shop.value?.latitude
         val s = viewModel.shop.value?.longitude
 
-        val m =
-            getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+        val m = getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
         val k = m.roundToInt()
 
 
