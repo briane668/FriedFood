@@ -14,33 +14,36 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".detail.MenuFragment">
+        tools:context=".detail.menu.MenuFragment">
 
-        <ImageView
-            android:id="@+id/photo"
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_menu"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_placeholder"
-            app:imageUrl="@{viewModel.shop.menuImage}"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            app:menuData="@{viewModel.menu}"
+            tools:itemCount="16"
+            tools:listitem="@layout/item_menu" />
 
         <ImageView
             android:id="@+id/backImage3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/back" />
 
 
-<!--        <com.airbnb.lottie.LottieAnimationView-->
+        <!--        <com.airbnb.lottie.LottieAnimationView-->
 <!--            android:id="@+id/lottie_login"-->
 <!--            android:layout_width="300dp"-->
 <!--            android:layout_height="300dp"-->

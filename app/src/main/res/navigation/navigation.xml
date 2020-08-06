@@ -70,12 +70,12 @@
         app:destination="@id/reviewFragment" />
     <activity
         android:id="@+id/loginActivity"
-        android:name="com.wade.friedfood.LoginActivity"
+        android:name="com.wade.friedfood.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.wade.friedfood.detail.MenuFragment"
+        android:name="com.wade.friedfood.detail.menu.MenuFragment"
         android:label="MenuFragment" >
         <argument
             android:name="shopKey"

@@ -21,7 +21,7 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
     }
 
     override suspend fun getMenu(food:String): Result<List<Menu>> {
-        return remoteDataSource.getMenu(food)
+        return remoteDataSource.searchFood(food)
     }
 
     override suspend fun searchShopByMenu(menus: List<Menu>): Result<List<Shop>> {
@@ -60,6 +60,10 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
 
     override suspend fun getUserCommentsCount(user_id: String): Result<Int> {
         return remoteDataSource.getUserCommentsCount(user_id)
+    }
+
+    override suspend fun getShopMenu(shop: ParcelableShop): Result<List<Menu>> {
+        return remoteDataSource.getShopMenu(shop)
     }
 
 

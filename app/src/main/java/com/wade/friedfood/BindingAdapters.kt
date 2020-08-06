@@ -26,9 +26,11 @@ import app.appworks.school.stylish.ext.toDisplayFormat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wade.friedfood.data.Comment
+import com.wade.friedfood.data.Menu
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.detail.DetailAdapter
 import com.wade.friedfood.detail.DetailCommentAdapter
+import com.wade.friedfood.detail.menu.MenuAdapter
 import com.wade.friedfood.map.MapAdapter
 import com.wade.friedfood.profile.ProfileAdapter
 
@@ -102,6 +104,12 @@ fun bindDisplayFormatTime(textView: TextView, time: Long?) {
 
 
 
+
+@BindingAdapter("menuData")
+fun bindMenuView(recyclerView: RecyclerView, data: List<Menu>?) {
+    val adapter = recyclerView.adapter as MenuAdapter
+    adapter.submitList(data)
+}
 
 
 

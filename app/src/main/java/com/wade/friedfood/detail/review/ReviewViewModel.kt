@@ -9,10 +9,7 @@ import com.wade.friedfood.data.source.PublisherRepository
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
-import com.wade.friedfood.data.ParcelableShop
-import com.wade.friedfood.data.Result
-import com.wade.friedfood.data.Review
-import com.wade.friedfood.data.Shop
+import com.wade.friedfood.data.*
 import com.wade.friedfood.util.UserManager.ProfileData
 
 import kotlinx.coroutines.CoroutineScope
@@ -42,7 +39,18 @@ class ReviewViewModel(private val repository: PublisherRepository,
 
 
 
+
+    private val _menu = MutableLiveData<List<Menu>>()
+
+
+    val menu: LiveData<List<Menu>>
+        get() = _menu
+
+
+
     var sendSuccess = MutableLiveData<Int>()
+
+
 
 
     private val _shop = MutableLiveData<ParcelableShop>().apply {
@@ -105,6 +113,13 @@ class ReviewViewModel(private val repository: PublisherRepository,
 
 
 
+    init {
+
+        getShopMenu(shop)
+
+    }
+
+
 
 
 
@@ -142,6 +157,41 @@ class ReviewViewModel(private val repository: PublisherRepository,
         }
     }
 
+
+
+    fun getShopMenu(shop: ParcelableShop) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getShopMenu(shop)
+
+            _menu.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
 
 
 

@@ -5,6 +5,7 @@ import java.util.*
 
 data class Menu(
     val venderId:String ="",
-    val name: String? = null
+    val name: String? = null,
+    val price:Int =0
 ){
 }

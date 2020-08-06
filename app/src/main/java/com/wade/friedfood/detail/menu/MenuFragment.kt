@@ -1,4 +1,4 @@
-package com.wade.friedfood.detail
+package com.wade.friedfood.detail.menu
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 
-import com.wade.friedfood.R
 import com.wade.friedfood.databinding.FragmentMenuBinding
-import com.wade.friedfood.detail.review.ReviewFragmentArgs
+
 import com.wade.friedfood.detail.review.ReviewViewModel
 import com.wade.friedfood.ext.getVmFactory
 
@@ -23,8 +21,9 @@ class MenuFragment : Fragment() {
 
     private val viewModel by viewModels<ReviewViewModel> {
         getVmFactory(
-            MenuFragmentArgs
-                .fromBundle(requireArguments()).shopKey) }
+            MenuFragmentArgs.fromBundle(
+                requireArguments()
+            ).shopKey) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +40,20 @@ class MenuFragment : Fragment() {
         binding.backImage3.setOnClickListener {
             findNavController().navigateUp()
         }
+
+
+
+        binding.recyclerviewMenu.adapter = MenuAdapter()
+
+
+
+
+
+
+
+
+
+
 
 
         return binding.root

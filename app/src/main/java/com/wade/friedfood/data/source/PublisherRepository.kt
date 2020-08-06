@@ -1,7 +1,5 @@
 package com.wade.friedfood.data.source
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.wade.friedfood.data.*
 
 /**
@@ -35,4 +33,6 @@ interface PublisherRepository {
     suspend fun sendRating(shop: Shop,rating: Int) :Result<Int>
 
     suspend fun getUserCommentsCount(user_id: String): Result<Int>
+
+    suspend fun getShopMenu(shop: ParcelableShop): Result<List<Menu>>
 }

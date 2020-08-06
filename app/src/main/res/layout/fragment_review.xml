@@ -39,8 +39,8 @@
                 android:id="@+id/review_star_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/star"
                 app:getStar="@{viewModel.rating}"
                 app:layout_constraintEnd_toStartOf="@+id/review_star_2"
@@ -89,10 +89,10 @@
                 android:id="@+id/review_star_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="100dp"
                 android:src="@drawable/star"
                 app:getStar="@{viewModel.rating}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/review_star_4"
                 app:layout_constraintTop_toTopOf="@+id/review_star_4"
                 app:starPos="@{5}" />
@@ -138,7 +138,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="36dp"
                     android:layout_marginEnd="24dp"
                     android:ems="10"
                     android:hint="請輸入評論"
@@ -147,18 +147,9 @@
                     android:text="@={viewModel.comment}"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -171,23 +162,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageButton
                 android:id="@+id/addPhoto"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
                 android:background="#FFFFFF"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/addphoto" />
+                app:srcCompat="@drawable/photo" />
 
             <Button
                 android:id="@+id/reviewButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="#FF9800"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="2dp"
+                android:background="#8C03A9F4"
                 android:text="@string/sendReview"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -196,12 +200,13 @@
 
             <ImageButton
                 android:id="@+id/camera"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="113dp"
+                android:layout_width="54dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:background="#FFFFFF"
                 android:scaleType="centerCrop"
-                app:layout_constraintEnd_toStartOf="@+id/reviewButton"
+                app:layout_constraintStart_toEndOf="@+id/addPhoto"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/camera" />
         </androidx.constraintlayout.widget.ConstraintLayout>

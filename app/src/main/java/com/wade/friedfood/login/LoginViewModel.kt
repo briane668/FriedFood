@@ -1,4 +1,4 @@
-package com.wade.friedfood
+package com.wade.friedfood.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.wade.friedfood.network.LoadApiStatus
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wade.friedfood.MyApplication
+import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.User
 import com.wade.friedfood.data.source.PublisherRepository
@@ -92,7 +94,9 @@ fun addAble (user: User){
                  null
              }
              else -> {
-                 _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                 _error.value = MyApplication.INSTANCE.getString(
+                     R.string.you_know_nothing
+                 )
                  _status.value = LoadApiStatus.ERROR
                  null
              }

@@ -79,7 +79,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
                 }
         }
 
-    override suspend fun getMenu(food:String): Result<List<Menu>> = suspendCoroutine { continuation ->
+    override suspend fun searchFood(food:String): Result<List<Menu>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection("menu").whereEqualTo("name",food)
             .get()
@@ -324,7 +324,30 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
 
+    override suspend fun getShopMenu(shop:ParcelableShop): Result<List<Menu>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection("menu").whereEqualTo("venderId",shop.id)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Menu>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " menu=> " + document.data)
+                        val menu = document.toObject(Menu::class.java)
+                        list.add(menu)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
 
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
 
 
 

@@ -17,7 +17,7 @@ interface PublisherDataSource {
 
     suspend fun getComments(id: String): Result<List<Comment>>
 
-    suspend fun getMenu(food:String): Result<List<Menu>>
+    suspend fun searchFood(food:String): Result<List<Menu>>
 
     suspend fun searchShopByMenu(menus: List<Menu>): Result<List<Shop>>
 
@@ -36,4 +36,6 @@ interface PublisherDataSource {
     suspend fun sendRating(shop: Shop,rating: Int) :Result<Int>
 
     suspend fun getUserCommentsCount(user_id: String): Result<Int>
+
+    suspend fun getShopMenu(shop:ParcelableShop): Result<List<Menu>>
 }

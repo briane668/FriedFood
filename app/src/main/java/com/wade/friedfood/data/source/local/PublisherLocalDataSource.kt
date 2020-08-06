@@ -21,7 +21,7 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMenu(food:String): Result<List<Menu>> {
+    override suspend fun searchFood(food:String): Result<List<Menu>> {
         TODO("Not yet implemented")
     }
 
@@ -58,6 +58,10 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
     }
 
     override suspend fun getUserCommentsCount(user_id: String): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getShopMenu(shop:ParcelableShop): Result<List<Menu>> {
         TODO("Not yet implemented")
     }
 
