@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.ext.toParcelableShop
 import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.ext.getVmFactory
@@ -73,23 +74,7 @@ class RecommendFragment : Fragment() {
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 // Must find the NavController from the Fragment
-
-                val parcelableShop = ParcelableShop(
-                    id = it.id,
-                    name = it.name,
-                    latitude = it.location?.latitude,
-                    longitude = it.location?.longitude,
-                    image = it.image,
-                    recommend = it.recommend,
-                    star = it.star,
-                    address = it.address,
-                    menuImage = it.menuImage,
-                    otherImage = it.otherImage,
-                    comment = it.comment,
-                    menu = it.menu,
-                    phone = it.phone
-                )
-
+                val parcelableShop=  it.toParcelableShop()
                 this.findNavController()
                     .navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation

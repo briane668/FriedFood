@@ -26,8 +26,6 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
 
-    val search = MutableLiveData<String>()
-
     val shop = MutableLiveData<List<Shop>>()
 
     val naerShop= MutableLiveData<List<Shop>>()
@@ -35,14 +33,8 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
     val menus = MutableLiveData<List<Menu>>()
 
-    val HowManyComments  = MutableLiveData<Int>()
-//    val shop: LiveData<List<Shop>>
-//        get() = _shop
+    val howManyComments  = MutableLiveData<Int>()
 
-
-    var selectedShop = MutableLiveData<String>()
-
-    var Position = MutableLiveData<Int>()
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -292,27 +284,6 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
             }
         }
         naerShop.value =list
-    }
-
-
-
-    fun shopToParcelable (shop: Shop):ParcelableShop {
-
-        return ParcelableShop(
-            id = shop.id,
-            name = shop.name,
-            latitude = shop.location?.latitude,
-            longitude = shop.location?.longitude,
-            image = shop.image,
-            recommend = shop.recommend,
-            star = shop.star,
-            address = shop.address,
-            menuImage = shop.menuImage,
-            otherImage = shop.otherImage,
-            comment = shop.comment,
-            menu = shop.menu,
-            phone= shop.phone
-        )
     }
 
 

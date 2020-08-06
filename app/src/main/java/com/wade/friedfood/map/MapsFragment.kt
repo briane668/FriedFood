@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.ext.toParcelableShop
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -79,11 +80,12 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         this.map?.isMyLocationEnabled = true
 
         this.map = googleMap
+
         this.map!!.setOnMarkerClickListener(this)
+
         this.map?.setOnInfoWindowClickListener(this)
 
         this.map!!.setMinZoomPreference(15.0f)
-
 
 
         viewModel.shop.observe(viewLifecycleOwner, Observer {
@@ -104,7 +106,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                             val y = shop.location?.longitude
                             val sydney = y?.let { it1 -> x?.let { it2 -> LatLng(it2, it1) } }
                             map!!.addMarker(sydney?.let { it1 ->
-                                MarkerOptions().position(it1).title(shop.name).snippet("評價${rating}顆星")
+                                MarkerOptions().position(it1).title(shop.name)
+                                    .snippet("評價${rating}顆星")
 
                             })
                         }
@@ -173,31 +176,24 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
-
+//            點下去的時候傳送資料
             viewModel.displayShopDetails(it)
         }, viewModel)
-
+//        觀察傳送資料後 就跳轉業面
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                // Must find the NavController from the Fragment
-
-
-
-
-
-
                 this.findNavController()
-                    .navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shopToParcelable(it)))
-                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                    .navigate(
+                        NavigationDirections.actionGlobalDetailFragment(
+                                it.toParcelableShop()
+                        )
+                    )
                 viewModel.displayShopDetailsComplete()
             }
         })
-
-
-
+//map資料創建的三個方法
         binding.viewMap.onCreate(savedInstanceState)
         binding.viewMap.onResume();
-
         binding.viewMap.getMapAsync(callback)
 
 
@@ -212,25 +208,16 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         }
 
 
-//
-//        binding.sweetNotHot.setOnClickListener {
-//            this.map?.clear()
-//            viewModel.naerShop.value = null
-//            binding.mapView.visibility= View.INVISIBLE
-//            viewModel.getMenu("甜不辣")
-//
-//        }
-
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-
+//搜尋想吃的食物，將輸入內容送進function
                 if (query != null) {
                     map?.clear()
                     viewModel.naerShop.value = null
                     binding.mapView.visibility = View.INVISIBLE
-                        viewModel.getMenu(query)
+                    viewModel.getMenu(query)
                 }
 
                 return true
@@ -243,14 +230,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         })
 
-
-
-
-
-
-
-
-
+//        刷新頁面商店
         binding.refresh.setOnClickListener {
             this.map?.clear()
             viewModel.naerShop.value = null
@@ -263,19 +243,14 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             if (it != null && it.isNotEmpty()) {
                 viewModel.searchShopByMenu(it)
             }
-
         })
-
-
-
-
-
-
 
 
         return binding.root
 
     }
+
+
 
     private fun updateLocationUI() {
         if (map == null) {
@@ -364,7 +339,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             }
         }
 
-//        Toast.makeText(context, "Click Info Window", Toast.LENGTH_SHORT).show()
     }
 
 

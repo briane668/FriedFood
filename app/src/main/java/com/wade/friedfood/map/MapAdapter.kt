@@ -25,7 +25,7 @@ import kotlin.math.roundToInt
  * @param onClick a lambda that takes the
  */
 class MapAdapter(private val onClickListener: OnClickListener,
-                 val mapViewModel: MapViewModel
+                 private val mapViewModel: MapViewModel
 ) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
@@ -39,13 +39,14 @@ class MapAdapter(private val onClickListener: OnClickListener,
 
         fun bind(shop: Shop,mapViewModel: MapViewModel) {
 
+
+//            計算使用者跟店家的距離
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
             val r = shop.location?.latitude
             val s = shop.location?.longitude
-
             val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
-            val k = m.roundToInt()
+            val distance = m.roundToInt()
 
 //            mapViewModel.getHowManyComments(shop)
 //
@@ -56,31 +57,23 @@ class MapAdapter(private val onClickListener: OnClickListener,
 //                binding.distance.text = "${k}公尺"
 //                binding.executePendingBindings()
 //            })
+
+
             mapViewModel.coroutineScope.launch {
                 val commentCount =mapViewModel.getCommentsByShop(shop)
-                Logger.w("shop=${shop.name}, commentCount=$commentCount")
-
                 binding.recommend.text="$commentCount 則評論"
                 binding.executePendingBindings()
             }
 
+
             mapViewModel.coroutineScope.launch {
-
                 val rating =mapViewModel.getRatingByShop(shop)
-                Logger.w("shop=${shop.name}, commentCount=$rating")
-
                 binding.star.text="$rating 顆星"
                 binding.executePendingBindings()
             }
 
-
-
-
-
-
-
             binding.mapItem = shop
-            binding.distance.text = "距離:${k}公尺"
+            binding.distance.text = "距離:${distance}公尺"
             binding.executePendingBindings()
         }
     }

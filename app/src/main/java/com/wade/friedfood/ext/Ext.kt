@@ -73,3 +73,25 @@ fun ParcelableShop.toShop(): Shop {
         phone= this.phone
     )
 }
+
+fun Shop.toParcelableShop(): ParcelableShop {
+
+
+
+    return ParcelableShop(
+        id = this.id,
+        name = this.name,
+        latitude = this.location?.latitude,
+        longitude = this.location?.longitude,
+        image = this.image,
+        recommend = this.recommend,
+        star = this.star,
+        address = this.address,
+        menuImage = this.menuImage,
+        otherImage = this.otherImage,
+        comment = this.comment,
+        menu = this.menu,
+        phone= this.phone
+    )
+}
+
