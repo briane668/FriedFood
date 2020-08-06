@@ -267,6 +267,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
 
 
 
+//只顯示使用者附近的店家
 
     fun calculateDistance(shops:List<Shop>){
 

@@ -47,6 +47,7 @@ class MapAdapter(private val onClickListener: OnClickListener,
             val s = shop.location?.longitude
             val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
             val distance = m.roundToInt()
+            binding.distance.text = "距離:${distance}公尺"
 
 //            mapViewModel.getHowManyComments(shop)
 //
@@ -73,7 +74,7 @@ class MapAdapter(private val onClickListener: OnClickListener,
             }
 
             binding.mapItem = shop
-            binding.distance.text = "距離:${distance}公尺"
+
             binding.executePendingBindings()
         }
     }

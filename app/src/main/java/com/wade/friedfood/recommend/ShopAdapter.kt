@@ -36,7 +36,9 @@ import kotlin.math.roundToInt
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class ShopAdapter(private val onClickListener: OnClickListener,val recommendViewModel: RecommendViewModel) : ListAdapter<Shop, ShopAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class ShopAdapter(private val onClickListener: OnClickListener,
+                  private val recommendViewModel: RecommendViewModel)
+    : ListAdapter<Shop, ShopAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
@@ -46,70 +48,29 @@ class ShopAdapter(private val onClickListener: OnClickListener,val recommendView
         fun bind(shop: Shop,recommendViewModel: RecommendViewModel) {
 
 
+//            計算距離
             val x = MapViewModel.userPosition.value?.latitude
             val y = MapViewModel.userPosition.value?.longitude
             val r = shop.location?.latitude
             val s = shop.location?.longitude
-
             val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
-            val k = m.roundToInt()
+            val distance = m.roundToInt()
 
-
-
-
-
-//            recommendViewModel.coroutineScope.launch {
-//
-//                val commentCount =recommendViewModel.getCommentsByShop(shop)
-//                Logger.w("shop=${shop.name}, commentCount=$commentCount")
-//
-//                binding.recommend.text="$commentCount 則評論"
-//                binding.executePendingBindings()
-//            }
-//
-//            recommendViewModel.coroutineScope.launch {
-//
-//                val rating =recommendViewModel.getRatingByShop(shop)
-//                Logger.w("shop=${shop.name}, commentCount=$rating")
-//
-//                binding.star.text="$rating 顆星"
-//                binding.executePendingBindings()
-//            }
-
-
-
+            binding.distance.text = "${distance}公尺"
 
 
             recommendViewModel.coroutineScope.launch {
-
-                shop.recommend =recommendViewModel.getCommentsByShop(shop)
-
-
+                shop.recommend =recommendViewModel.shopAddComments(shop)
                 binding.recommend.text="${shop.recommend} 則評論"
                 binding.executePendingBindings()
             }
 
             recommendViewModel.coroutineScope.launch {
-
-                shop.star =recommendViewModel.getRatingByShop(shop)
-
-
+                shop.star =recommendViewModel.shopAddRating(shop)
                 binding.star.text="${shop.star} 顆星"
                 binding.executePendingBindings()
             }
 
-
-
-
-
-
-
-
-
-
-
-
-            binding.distance.text = "${k}公尺"
 
             binding.shopItem = shop
 

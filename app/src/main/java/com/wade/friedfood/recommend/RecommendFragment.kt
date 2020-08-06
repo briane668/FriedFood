@@ -11,11 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.ext.toParcelableShop
 import com.wade.friedfood.NavigationDirections
-import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.databinding.FragmentRecommendBinding
-import com.wade.friedfood.detail.DetailFragmentArgs
-import com.wade.friedfood.map.MapAdapter
 
 class RecommendFragment : Fragment() {
 
@@ -31,8 +28,8 @@ class RecommendFragment : Fragment() {
 
         val binding = FragmentRecommendBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModel
 
+        binding.viewModel = viewModel
 
 
         binding.spinner.onItemSelectedListener =
@@ -51,25 +48,28 @@ class RecommendFragment : Fragment() {
                         0 -> {
                         }
                         1 -> {
-                            viewModel.sortShopByRate(viewModel.shop)
+                            viewModel.sortShopByRate(viewModel.shops)
                         }
                         else -> {
-                            viewModel.sortShopByComment(viewModel.shop)
+                            viewModel.sortShopByComment(viewModel.shops)
                         }
                     }
                 }
             }
 
-        viewModel.shop.observe(viewLifecycleOwner, Observer {
+        binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
+            viewModel.displayShopDetails(it)
+        }, viewModel)
+
+
+        //shop的值因為排序的關係有所變動的話，就重給一次adapter 重劃出一個recycleView 讓位子保持在第一個
+        viewModel.shops.observe(viewLifecycleOwner, Observer {
             binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
                 viewModel.displayShopDetails(it)
             }, viewModel)
         })
 
 
-        binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
-            viewModel.displayShopDetails(it)
-        }, viewModel)
 
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -82,9 +82,10 @@ class RecommendFragment : Fragment() {
             }
         })
 
-        viewModel._shop.observe(viewLifecycleOwner, Observer {
 
-            viewModel.addRatingComment(viewModel._shop)
+        viewModel._shops.observe(viewLifecycleOwner, Observer {
+
+            viewModel.addRatingToComments(viewModel._shops)
 
         })
 

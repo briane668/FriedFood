@@ -19,14 +19,17 @@ import com.wade.friedfood.data.Result
 
 class RecommendViewModel(private val repository: PublisherRepository) : ViewModel() {
 
-    val _shop = MutableLiveData<List<Shop>>()
 
-    private val readyShop = MutableLiveData<List<Shop>>()
+//    只用在最開始傳進來的shops值
+    val _shops = MutableLiveData<List<Shop>>()
 
 
-    // The external LiveData interface to the property is immutable, so only this class can modify
-    val shop: LiveData<List<Shop>>
-        get() = readyShop
+
+//    用來裝之後每次篩選的shop值操作，真正拿來用的shops
+    private val readyShops = MutableLiveData<List<Shop>>()
+
+    val shops: LiveData<List<Shop>>
+        get() = readyShops
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -75,13 +78,12 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-
-            getShop()
+            getShops()
 
     }
 
 
-    private fun getShop() {
+    private fun getShops() {
 
         coroutineScope.launch {
 
@@ -89,7 +91,7 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
 
             val result = repository.getShops()
 
-            _shop.value = when (result) {
+            _shops.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -115,7 +117,7 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
         }
     }
 
-    suspend fun getCommentsByShop(shop:Shop): Int {
+    suspend fun shopAddComments(shop:Shop): Int {
 
         val result = repository.getHowManyComments(shop)
 
@@ -144,7 +146,7 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     }
 
 
-    suspend fun getRatingByShop(shop:Shop): Int {
+    suspend fun shopAddRating(shop:Shop): Int {
 
         val result = repository.getRating(shop)
 
@@ -173,34 +175,35 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     }
 
 
-    fun sortShopByRate(shop: LiveData<List<Shop>>){
+//    兩個排序的function
 
-        readyShop.value = shop.value?.sortedByDescending {
+    fun sortShopByRate(shop: LiveData<List<Shop>>){
+        readyShops.value = shop.value?.sortedByDescending {
             it.star
         }
-
     }
-    fun sortShopByComment(shop: LiveData<List<Shop>>){
 
-        readyShop.value = shop.value?.sortedByDescending {
+    fun sortShopByComment(shop: LiveData<List<Shop>>){
+        readyShops.value = shop.value?.sortedByDescending {
             it.recommend
         }
     }
 
 
 
-
-    fun addRatingComment(shops: MutableLiveData<List<Shop>>){
-
+//原本的comments沒有評價和評論數，在這裡把他們加上去
+    fun addRatingToComments(shops: MutableLiveData<List<Shop>>){
+val counts = 0
+//    TODO: 用count來操作?
         for (shop in shops.value!!){
             coroutineScope.launch {
-                shop.recommend =getCommentsByShop(shop)
+                shop.recommend =shopAddComments(shop)
             }
             coroutineScope.launch {
-                shop.star =getRatingByShop(shop)
+                shop.star =shopAddRating(shop)
             }
         }
-        readyShop.value = shops.value
+    readyShops.value = shops.value
 
     }
 
