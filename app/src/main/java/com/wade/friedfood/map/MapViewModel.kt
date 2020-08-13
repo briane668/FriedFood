@@ -89,7 +89,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         Logger.i("------------------------------------")
 
 
-        getShops()
+//        getShops()
 
 
 

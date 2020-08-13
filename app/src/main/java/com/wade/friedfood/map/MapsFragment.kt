@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.ext.toParcelableShop
@@ -56,7 +57,11 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private val defaultLocation = LatLng(24.972569, 121.517274)
-    private var locationPermissionGranted = false
+//    private var locationPermissionGranted = false
+//    val locationPermissionGranted =MutableLiveData<Boolean>().apply {
+//        value=false
+//    }
+
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
@@ -77,6 +82,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
          * user has installed Google Play services and returned to the app.
          */
 
+        viewModel.getShops()
         this.map?.isMyLocationEnabled = true
 
         this.map = googleMap
@@ -91,7 +97,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         viewModel.shop.observe(viewLifecycleOwner, Observer {
             viewModel.calculateDistance(it)
         })
-
 
         viewModel.naerShop.observe(viewLifecycleOwner, Observer {
             viewModel.naerShop.value.let { shops ->
@@ -138,7 +143,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         })
         // Prompt the user for permission.
 //        要求位置權限，出現右上角的定位功能
-        getLocationPermission()
+
         // Do other setup activities here too, as described elsewhere in this tutorial.
 
         // Turn on the My Location layer and the related control on the map.
@@ -148,6 +153,11 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         getDeviceLocation();
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.viewMap.onResume();
     }
 
     override fun onCreateView(
@@ -164,6 +174,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         binding.viewModel = viewModel
 
+        binding.viewMap.onCreate(savedInstanceState)
 
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
 //            點下去的時候傳送資料
@@ -175,16 +186,16 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                 this.findNavController()
                     .navigate(
                         NavigationDirections.actionGlobalDetailFragment(
-                                it.toParcelableShop()
+                            it.toParcelableShop()
                         )
                     )
                 viewModel.displayShopDetailsComplete()
             }
         })
+
+        getLocationPermission()
+
 //map資料創建的三個方法
-        binding.viewMap.onCreate(savedInstanceState)
-        binding.viewMap.onResume();
-        binding.viewMap.getMapAsync(callback)
 
 
         fusedLocationProviderClient =
@@ -242,21 +253,20 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     }
 
 
-
     private fun updateLocationUI() {
         if (map == null) {
             return
         }
         try {
-            if (locationPermissionGranted) {
+//            if (locationPermissionGranted.value!!) {
                 map?.isMyLocationEnabled = true
                 map?.uiSettings?.isMyLocationButtonEnabled = true
-            } else {
-                map?.isMyLocationEnabled = false
-                map?.uiSettings?.isMyLocationButtonEnabled = false
-                lastKnownLocation = null
-                getLocationPermission()
-            }
+//            } else {
+//                map?.isMyLocationEnabled = false
+//                map?.uiSettings?.isMyLocationButtonEnabled = false
+//                lastKnownLocation = null
+//                getLocationPermission()
+//            }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
@@ -358,7 +368,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         if (map == null) {
             return
         }
-        if (locationPermissionGranted) {
+//        if (locationPermissionGranted.value!!) {
             // Use fields to define the data types to return.
             val placeFields = listOf(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
@@ -403,21 +413,21 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                     Log.e(TAG, "Exception: %s", task.exception)
                 }
             }
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.")
-
-            // Add a default marker, because the user hasn't selected a place.
-            map?.addMarker(
-                MarkerOptions()
-                    .title(getString(R.string.default_info_title))
-                    .position(defaultLocation)
-                    .snippet(getString(R.string.default_info_snippet))
-            )
-
-            // Prompt the user for permission.
-            getLocationPermission()
-        }
+//        } else {
+//            // The user has not granted permission.
+//            Log.i(TAG, "The user did not grant location permission.")
+//
+//            // Add a default marker, because the user hasn't selected a place.
+//            map?.addMarker(
+//                MarkerOptions()
+//                    .title(getString(R.string.default_info_title))
+//                    .position(defaultLocation)
+//                    .snippet(getString(R.string.default_info_snippet))
+//            )
+//
+//            // Prompt the user for permission.
+//            getLocationPermission()
+//        }
     }
 
 
@@ -469,18 +479,26 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            locationPermissionGranted = true
+
+            setupMap()
+
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-            )
+//            ActivityCompat.requestPermissions(
+//                requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+//            )
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
     }
 
+    fun setupMap() {
+
+        binding.viewMap.getMapAsync(callback)
+
+    }
 
     //    取得 Android 裝置的位置並設定地圖位置
     private fun getDeviceLocation() {
@@ -489,7 +507,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
          * cases when a location is not available.
          */
         try {
-            if (locationPermissionGranted) {
+//            if (locationPermissionGranted.value!!) {
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -517,11 +535,40 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
                         map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
-            }
+//            }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
     }
 
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
+                    setupMap()
+
+                } else {
+                    // Explain to the user that the feature is unavailable because
+                    // the features requires a permission that the user has denied.
+                    // At the same time, respect the user's decision. Don't link to
+                    // system settings in an effort to convince the user to change
+                    // their decision.
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
+    }
 
 }

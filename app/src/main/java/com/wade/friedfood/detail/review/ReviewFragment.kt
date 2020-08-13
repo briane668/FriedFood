@@ -82,13 +82,7 @@ class ReviewFragment : DialogFragment() {
 
         }
 
-//        viewModel.reviewFinish.observe(viewLifecycleOwner, Observer {
-//            if (it){
-//                findNavController().navigateUp()
-//            }
-//        })
-//        findNavController().navigate(NavigationDirections.actionGlobalDetailFragment(viewModel.shop.value!!))
-//navigateup 不會重新創造fragment
+
 
         viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
             findNavController().navigateUp()
@@ -127,8 +121,6 @@ binding.camera.setOnClickListener {
 
 
 }
-
-
 
 
         return binding.root

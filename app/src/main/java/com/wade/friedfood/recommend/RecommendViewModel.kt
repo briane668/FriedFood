@@ -198,9 +198,11 @@ val counts = 0
         for (shop in shops.value!!){
             coroutineScope.launch {
                 shop.recommend =shopAddComments(shop)
+
             }
             coroutineScope.launch {
                 shop.star =shopAddRating(shop)
+
             }
         }
     readyShops.value = shops.value

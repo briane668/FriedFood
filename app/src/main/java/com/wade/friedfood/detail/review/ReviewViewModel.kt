@@ -27,15 +27,8 @@ class ReviewViewModel(private val repository: PublisherRepository,
         value = 0
     }
 
-//    val user = MutableLiveData<User>().apply {
-//        value = userArg
-//    }
-
-//    val whichShop = shop.id
 
     val comment = MutableLiveData<String>()
-
-
 
 
 
@@ -59,10 +52,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
     val shop: LiveData<ParcelableShop>
         get() = _shop
 
-
-
-
-
+    
 
 
     private val _status = MutableLiveData<LoadApiStatus>()
