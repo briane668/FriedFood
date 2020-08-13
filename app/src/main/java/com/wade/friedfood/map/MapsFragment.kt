@@ -117,16 +117,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         })
 
 
-//        val sydney = LatLng(24.972569, 121.517274)
-
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
-
-//        marker1 = map!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney").snippet("i am here"))
-
-
-//        map!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
-
         this.map?.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
             // Return null here, so that getInfoContents() is called next.
             override fun getInfoWindow(arg0: Marker): View? {
@@ -199,6 +189,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
+
         Places.initialize(requireContext(), getString(R.string.maps_api_key))
         placesClient = Places.createClient(requireContext())
 
