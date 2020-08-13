@@ -4,9 +4,6 @@ import android.util.Log
 
 import com.wade.friedfood.BuildConfig
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- */
 object Logger {
 
     private const val TAG = "Wade_fried_food"

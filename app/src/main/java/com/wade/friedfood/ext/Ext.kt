@@ -13,16 +13,7 @@ import com.wade.friedfood.data.Shop
 import java.util.*
 
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Provides [List] [Product] to convert to [List] [OrderProduct] format
- */
 
-
-/**
- * Increase touch area of the view/button .
- */
 fun View.setTouchDelegate() {
     val parent = this.parent as View  // button: the view you want to enlarge hit area
     parent.post {

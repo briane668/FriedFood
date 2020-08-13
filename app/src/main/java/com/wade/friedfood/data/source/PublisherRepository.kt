@@ -2,11 +2,7 @@ package com.wade.friedfood.data.source
 
 import com.wade.friedfood.data.*
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * Interface to the Publisher layers.
- */
+
 interface PublisherRepository {
 
 

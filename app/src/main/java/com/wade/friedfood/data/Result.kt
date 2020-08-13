@@ -1,11 +1,6 @@
 package com.wade.friedfood.data
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * A generic class that holds a value with its api status.
- * @param <T>
- */
+
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T) : Result<T>()

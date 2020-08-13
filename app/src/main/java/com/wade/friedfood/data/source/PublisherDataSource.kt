@@ -5,11 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.wade.friedfood.data.*
 import kotlin.coroutines.Continuation
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * Main entry point for accessing Publisher sources.
- */
+
 interface PublisherDataSource {
 
 

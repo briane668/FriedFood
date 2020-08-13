@@ -9,11 +9,7 @@ import com.wade.friedfood.map.MapViewModel
 import com.wade.friedfood.profile.ProfileViewModel
 import com.wade.friedfood.recommend.RecommendViewModel
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * Factory for all ViewModels.
- */
+
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
     private val repository: PublisherRepository

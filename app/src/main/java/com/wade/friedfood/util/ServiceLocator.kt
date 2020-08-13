@@ -8,11 +8,7 @@ import com.wade.friedfood.data.source.PublisherRepository
 import com.wade.friedfood.data.source.local.PublisherLocalDataSource
 import com.wade.friedfood.data.source.remote.PublisherRemoteDataSource
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * A Service Locator for the [PublisherRepository].
- */
+
 object ServiceLocator {
 
 

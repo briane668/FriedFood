@@ -8,11 +8,7 @@ import com.wade.friedfood.data.source.PublisherRepository
 import com.wade.friedfood.detail.DetailViewModel
 import com.wade.friedfood.detail.review.ReviewViewModel
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Factory for all ViewModels which need [Product].
- */
+
 @Suppress("UNCHECKED_CAST")
 class DetailViewModelFactory(
     private val repository: PublisherRepository,

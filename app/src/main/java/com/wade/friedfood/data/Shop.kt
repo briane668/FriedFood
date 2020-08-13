@@ -8,9 +8,6 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- */
 @Parcelize
 data class Shop(
     val id: String = "",

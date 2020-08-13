@@ -13,11 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * The [ViewModel] that is attached to the [MainActivity].
- */
+
 class MainViewModel() : ViewModel() {
 
 

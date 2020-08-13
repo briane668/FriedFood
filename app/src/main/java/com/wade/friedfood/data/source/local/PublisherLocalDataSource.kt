@@ -4,11 +4,7 @@ import android.content.Context
 import com.wade.friedfood.data.*
 import com.wade.friedfood.data.source.PublisherDataSource
 
-/**
- * Created by Wayne Chen on 2020-01-15.
- *
- * Concrete implementation of a Publisher source as a db.
- */
+
 class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
 
 
