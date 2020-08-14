@@ -13,15 +13,14 @@
 5.店家列表頁面可瀏覽全部店家,點下拉選單可以選擇店家排序方式,按照評論數量或是店家評價<br>
 6.個人頁面可以查看自己收藏的店家,自己的資料
 
-<a>
-<img src="https://i.imgur.com/VhR046f.png" width="150" height="300">
-<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">
-<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">
-<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">
-<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">
-<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">
+<table>
+<img src="https://i.imgur.com/VhR046f.png" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp</table><table>
+<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp</table>
 <img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">
-</a>
 
 
 
@@ -49,13 +48,3 @@ Google Play Release 1.3.1 (2020/08/13)
 
 ### Contact 聯絡資訊
 Wade Lee briane668@gmail.com
-
-<a>
-<img src="https://i.imgur.com/VhR046f.png" width="150" height="300"></a><a>
-<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300"></a><a>
-<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">&nbsp
-</a>
