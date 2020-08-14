@@ -49,3 +49,13 @@ Google Play Release 1.3.1 (2020/08/13)
 
 ### Contact 聯絡資訊
 Wade Lee briane668@gmail.com
+
+<a>
+<img src="https://i.imgur.com/VhR046f.png" width="150" height="300"></a><a>
+<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300"></a><a>
+<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">&nbsp
+</a>
