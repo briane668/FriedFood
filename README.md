@@ -14,13 +14,13 @@
 6.個人頁面可以查看自己收藏的店家,自己的資料
 
 <a>
-<img src="https://i.imgur.com/VhR046f.png" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">&nbsp
+<img src="https://i.imgur.com/VhR046f.png" width="150" height="300">
+<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">
+<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">
+<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">
+<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">
+<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">
+<img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">
 </a>
 
 
