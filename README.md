@@ -18,10 +18,11 @@
 <img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">
 <img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">
 </div>
-<table>
-<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp</table>
+<div>
+<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">
+<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">
+<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">
+</div>
 <img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">
 
 
