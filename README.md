@@ -13,10 +13,11 @@
 5.店家列表頁面可瀏覽全部店家,點下拉選單可以選擇店家排序方式,按照評論數量或是店家評價<br>
 6.個人頁面可以查看自己收藏的店家,自己的資料
 
-<table>
+<table><tr>
 <img src="https://i.imgur.com/VhR046f.png" width="150" height="300">&nbsp
 <img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">&nbsp
-<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp</table><table>
+<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">&nbsp</tr></table>
+<table>
 <img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">&nbsp
 <img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">&nbsp
 <img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">&nbsp</table>
