@@ -46,7 +46,7 @@ class LoginActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-//        我要存token 然後傳進嗎?
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -83,7 +83,7 @@ class LoginActivity() : AppCompatActivity() {
                 } else if (it == false) {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
-                }else{
+                } else {
 
                 }
             }
@@ -91,8 +91,8 @@ class LoginActivity() : AppCompatActivity() {
         )
 
 
-        viewModel.signInSuccess.observe(this,androidx.lifecycle.Observer{
-            if (it == 1){
+        viewModel.signInSuccess.observe(this, androidx.lifecycle.Observer {
+            if (it == 1) {
 
 
                 startActivity(Intent(this, MainActivity::class.java))
@@ -104,10 +104,6 @@ class LoginActivity() : AppCompatActivity() {
         })
 
         permission()
-
-
-
-
 
 
     }
@@ -259,15 +255,18 @@ class LoginActivity() : AppCompatActivity() {
 
         }
     }
-//    android.Manifest.permission.ACCESS_FINE_LOCATION
-    fun permission(){
-        ActivityCompat.requestPermissions(this, arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
+
+    //    android.Manifest.permission.ACCESS_FINE_LOCATION
+    fun permission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ), 0
+        )
 
     }
-
 
 
 }

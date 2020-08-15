@@ -57,10 +57,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private val defaultLocation = LatLng(24.972569, 121.517274)
+
 //    private var locationPermissionGranted = false
-//    val locationPermissionGranted =MutableLiveData<Boolean>().apply {
-//        value=false
-//    }
 
 
     // The geographical location where the device is currently located. That is, the last-known
@@ -142,7 +140,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             }
         })
         // Prompt the user for permission.
-//        要求位置權限，出現右上角的定位功能
+        // 要求位置權限，出現右上角的定位功能
 
         // Do other setup activities here too, as described elsewhere in this tutorial.
 
@@ -177,10 +175,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         binding.viewMap.onCreate(savedInstanceState)
 
         binding.mapView.adapter = MapAdapter(MapAdapter.OnClickListener {
-//            點下去的時候傳送資料
+        //點下去的時候傳送資料
             viewModel.displayShopDetails(it)
         }, viewModel)
-//        觀察傳送資料後 就跳轉業面
+        //觀察傳送資料後 就跳轉業面
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 this.findNavController()
@@ -195,7 +193,6 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
         getLocationPermission()
 
-//map資料創建的三個方法
 
 
         fusedLocationProviderClient =
@@ -214,25 +211,23 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-//搜尋想吃的食物，將輸入內容送進function
+                //搜尋想吃的食物，將輸入內容送進function
                 if (query != null) {
                     map?.clear()
                     viewModel.naerShop.value = null
                     binding.mapView.visibility = View.INVISIBLE
                     viewModel.getMenu(query)
                 }
-
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
                 return true
             }
 
         })
 
-//        刷新頁面商店
+        //刷新頁面商店
         binding.refresh.setOnClickListener {
             this.map?.clear()
             viewModel.naerShop.value = null
@@ -259,8 +254,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         }
         try {
 //            if (locationPermissionGranted.value!!) {
-                map?.isMyLocationEnabled = true
-                map?.uiSettings?.isMyLocationButtonEnabled = true
+            map?.isMyLocationEnabled = true
+            map?.uiSettings?.isMyLocationButtonEnabled = true
 //            } else {
 //                map?.isMyLocationEnabled = false
 //                map?.uiSettings?.isMyLocationButtonEnabled = false
@@ -290,11 +285,10 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-        // googleMap.clear();
+
         if (marker != null) {
             val markerName = marker.title
             binding.mapView.visibility = View.VISIBLE
-
             viewModel.shop.value?.let {
                 for ((index, shop) in it.withIndex()) {
                     if (shop.name == markerName) {
@@ -309,37 +303,15 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
 
 
     override fun onInfoWindowClick(marker: Marker) {
-
-
         for (it in viewModel.shop.value!!) {
             if (marker.title == it.name) {
-
-                val parcelableShop = ParcelableShop(
-                    id = it.id,
-                    name = it.name,
-                    latitude = it.location?.latitude,
-                    longitude = it.location?.longitude,
-                    image = it.image,
-                    recommend = it.recommend,
-                    star = it.star,
-                    address = it.address,
-                    menuImage = it.menuImage,
-                    otherImage = it.otherImage,
-                    comment = it.comment,
-                    menu = it.menu,
-                    phone = it.phone
-                )
-
-
                 findNavController().navigate(
                     NavigationDirections.actionGlobalDetailFragment(
-                        parcelableShop
+                        it.toParcelableShop()
                     )
                 )
-
             }
         }
-
     }
 
 
@@ -369,50 +341,50 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             return
         }
 //        if (locationPermissionGranted.value!!) {
-            // Use fields to define the data types to return.
-            val placeFields = listOf(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
+        // Use fields to define the data types to return.
+        val placeFields = listOf(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
-            // Use the builder to create a FindCurrentPlaceRequest.
-            val request = FindCurrentPlaceRequest.newInstance(placeFields)
+        // Use the builder to create a FindCurrentPlaceRequest.
+        val request = FindCurrentPlaceRequest.newInstance(placeFields)
 
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
-            val placeResult = placesClient.findCurrentPlace(request)
-            placeResult.addOnCompleteListener { task ->
-                if (task.isSuccessful && task.result != null) {
-                    val likelyPlaces = task.result
+        // Get the likely places - that is, the businesses and other points of interest that
+        // are the best match for the device's current location.
+        val placeResult = placesClient.findCurrentPlace(request)
+        placeResult.addOnCompleteListener { task ->
+            if (task.isSuccessful && task.result != null) {
+                val likelyPlaces = task.result
 
-                    // Set the count, handling cases where less than 5 entries are returned.
-                    val count =
-                        if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
-                            likelyPlaces.placeLikelihoods.size
-                        } else {
-                            M_MAX_ENTRIES
-                        }
-                    var i = 0
-                    likelyPlaceNames = arrayOfNulls(count)
-                    likelyPlaceAddresses = arrayOfNulls(count)
-                    likelyPlaceAttributions = arrayOfNulls<List<*>?>(count)
-                    likelyPlaceLatLngs = arrayOfNulls(count)
-                    for (placeLikelihood in likelyPlaces?.placeLikelihoods ?: emptyList()) {
-                        // Build a list of likely places to show the user.
-                        likelyPlaceNames[i] = placeLikelihood.place.name
-                        likelyPlaceAddresses[i] = placeLikelihood.place.address
-                        likelyPlaceAttributions[i] = placeLikelihood.place.attributions
-                        likelyPlaceLatLngs[i] = placeLikelihood.place.latLng
-                        i++
-                        if (i > count - 1) {
-                            break
-                        }
+                // Set the count, handling cases where less than 5 entries are returned.
+                val count =
+                    if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
+                        likelyPlaces.placeLikelihoods.size
+                    } else {
+                        M_MAX_ENTRIES
                     }
-
-                    // Show a dialog offering the user the list of likely places, and add a
-                    // marker at the selected place.
-                    openPlacesDialog()
-                } else {
-                    Log.e(TAG, "Exception: %s", task.exception)
+                var i = 0
+                likelyPlaceNames = arrayOfNulls(count)
+                likelyPlaceAddresses = arrayOfNulls(count)
+                likelyPlaceAttributions = arrayOfNulls<List<*>?>(count)
+                likelyPlaceLatLngs = arrayOfNulls(count)
+                for (placeLikelihood in likelyPlaces?.placeLikelihoods ?: emptyList()) {
+                    // Build a list of likely places to show the user.
+                    likelyPlaceNames[i] = placeLikelihood.place.name
+                    likelyPlaceAddresses[i] = placeLikelihood.place.address
+                    likelyPlaceAttributions[i] = placeLikelihood.place.attributions
+                    likelyPlaceLatLngs[i] = placeLikelihood.place.latLng
+                    i++
+                    if (i > count - 1) {
+                        break
+                    }
                 }
+
+                // Show a dialog offering the user the list of likely places, and add a
+                // marker at the selected place.
+                openPlacesDialog()
+            } else {
+                Log.e(TAG, "Exception: %s", task.exception)
             }
+        }
 //        } else {
 //            // The user has not granted permission.
 //            Log.i(TAG, "The user did not grant location permission.")
@@ -485,12 +457,15 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
             setupMap()
 
         } else {
+
 //            ActivityCompat.requestPermissions(
 //                requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
 //                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
 //            )
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 
@@ -508,33 +483,33 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
          */
         try {
 //            if (locationPermissionGranted.value!!) {
-                val locationResult = fusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Set the map's camera position to the current location of the device.
-                        lastKnownLocation = task.result
-                        MapViewModel.userPosition.value = lastKnownLocation
-                        if (lastKnownLocation != null) {
-                            map?.moveCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    LatLng(
-                                        lastKnownLocation!!.latitude,
-                                        lastKnownLocation!!.longitude
-                                    ),
-                                    DEFAULT_ZOOM.toFloat()
-                                )
-                            )
-                        }
-                    } else {
-                        Log.d(TAG, "Current location is null. Using defaults.")
-                        Log.e(TAG, "Exception: %s", task.exception)
+            val locationResult = fusedLocationProviderClient.lastLocation
+            locationResult.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Set the map's camera position to the current location of the device.
+                    lastKnownLocation = task.result
+                    MapViewModel.userPosition.value = lastKnownLocation
+                    if (lastKnownLocation != null) {
                         map?.moveCamera(
-                            CameraUpdateFactory
-                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                            CameraUpdateFactory.newLatLngZoom(
+                                LatLng(
+                                    lastKnownLocation!!.latitude,
+                                    lastKnownLocation!!.longitude
+                                ),
+                                DEFAULT_ZOOM.toFloat()
+                            )
                         )
-                        map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
+                } else {
+                    Log.d(TAG, "Current location is null. Using defaults.")
+                    Log.e(TAG, "Exception: %s", task.exception)
+                    map?.moveCamera(
+                        CameraUpdateFactory
+                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                    )
+                    map?.uiSettings?.isMyLocationButtonEnabled = false
                 }
+            }
 //            }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
@@ -542,13 +517,16 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() &&
-                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
                     // Permission is granted. Continue the action or workflow
                     // in your app.
                     setupMap()

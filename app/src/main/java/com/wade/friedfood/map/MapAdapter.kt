@@ -24,8 +24,9 @@ import kotlin.math.roundToInt
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class MapAdapter(private val onClickListener: OnClickListener,
-                 private val mapViewModel: MapViewModel
+class MapAdapter(
+    private val onClickListener: OnClickListener,
+    private val mapViewModel: MapViewModel
 ) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
@@ -33,11 +34,11 @@ class MapAdapter(private val onClickListener: OnClickListener,
      */
 
 
-    class MarsPropertyViewHolder( var binding: ItemMapBinding):
+    class MarsPropertyViewHolder(var binding: ItemMapBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(shop: Shop,mapViewModel: MapViewModel) {
+        fun bind(shop: Shop, mapViewModel: MapViewModel) {
 
 
 //            計算使用者跟店家的距離
@@ -45,31 +46,28 @@ class MapAdapter(private val onClickListener: OnClickListener,
             val y = userPosition.value?.longitude
             val r = shop.location?.latitude
             val s = shop.location?.longitude
-            val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+            val m = getDistance(
+                x ?: 0.toDouble(),
+                y ?: 0.toDouble(),
+                r ?: 0.toDouble(),
+                s ?: 0.toDouble()
+            )
             val distance = m.roundToInt()
             binding.distance.text = "距離:${distance}公尺"
 
-//            mapViewModel.getHowManyComments(shop)
-//
-//            mapViewModel.HowManyComments.observe(fragment.viewLifecycleOwner, Observer {
-//                binding.mapItem = shop
-//                binding.star.text="${shop.star}顆星"
-//                binding.recommend.text="${mapViewModel.HowManyComments.value}則評論"
-//                binding.distance.text = "${k}公尺"
-//                binding.executePendingBindings()
-//            })
+
 
 
             mapViewModel.coroutineScope.launch {
-                val commentCount =mapViewModel.getCommentsByShop(shop)
-                binding.recommend.text="$commentCount 則評論"
+                val commentCount = mapViewModel.getCommentsByShop(shop)
+                binding.recommend.text = "$commentCount 則評論"
                 binding.executePendingBindings()
             }
 
 
             mapViewModel.coroutineScope.launch {
-                val rating =mapViewModel.getRatingByShop(shop)
-                binding.star.text="$rating 顆星"
+                val rating = mapViewModel.getRatingByShop(shop)
+                binding.star.text = "$rating 顆星"
                 binding.executePendingBindings()
             }
 
@@ -97,12 +95,20 @@ class MapAdapter(private val onClickListener: OnClickListener,
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MarsPropertyViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MarsPropertyViewHolder {
 
 //parent ,false 橫向recycleview 會影響?
 //多載
-        return MarsPropertyViewHolder(ItemMapBinding.inflate(LayoutInflater.from(parent.context), parent ,false))
+        return MarsPropertyViewHolder(
+            ItemMapBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     /**
@@ -119,17 +125,12 @@ class MapAdapter(private val onClickListener: OnClickListener,
 
 
 
-        holder.bind(marsProperty ,mapViewModel)
+        holder.bind(marsProperty, mapViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {
         fun onClick(shop: Shop) = clickListener(shop)
     }
-
-
-
-
-
 
 
 }

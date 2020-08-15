@@ -21,19 +21,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
-
-
+class MapViewModel(private val repository: PublisherRepository) : ViewModel() {
 
 
     val shop = MutableLiveData<List<Shop>>()
 
-    val naerShop= MutableLiveData<List<Shop>>()
+    val naerShop = MutableLiveData<List<Shop>>()
 
 
     val menus = MutableLiveData<List<Menu>>()
 
-    val howManyComments  = MutableLiveData<Int>()
+    val howManyComments = MutableLiveData<Int>()
 
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -82,22 +80,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-
-    init {
-        Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
-        Logger.i("------------------------------------")
-
-
-//        getShops()
-
-
-
-
-    }
-
-
-     fun getShops() {
+    fun getShops() {
 
         coroutineScope.launch {
 
@@ -132,10 +115,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-
-
-
-     fun getMenu(food:String) {
+    fun getMenu(food: String) {
 
         coroutineScope.launch {
 
@@ -171,7 +151,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-    fun searchShopByMenu(menus:List<Menu>) {
+    fun searchShopByMenu(menus: List<Menu>) {
 
         coroutineScope.launch {
 
@@ -206,8 +186,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-
-    suspend fun getCommentsByShop(shop:Shop): Int {
+    suspend fun getCommentsByShop(shop: Shop): Int {
 
         val result = repository.getHowManyComments(shop)
 
@@ -236,7 +215,7 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
     }
 
 
-    suspend fun getRatingByShop(shop:Shop): Int {
+    suspend fun getRatingByShop(shop: Shop): Int {
 
         val result = repository.getRating(shop)
 
@@ -264,30 +243,30 @@ class MapViewModel (private val repository: PublisherRepository)  :ViewModel(){
         }
     }
 
+    //只顯示使用者附近的店家
 
-
-
-//只顯示使用者附近的店家
-
-    fun calculateDistance(shops:List<Shop>){
+    fun calculateDistance(shops: List<Shop>) {
 
         val list = mutableListOf<Shop>()
 
-        for (shop in shops){
+        for (shop in shops) {
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
             val r = shop.location?.latitude
             val s = shop.location?.longitude
-            val m= getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+            val m = getDistance(
+                x ?: 0.toDouble(),
+                y ?: 0.toDouble(),
+                r ?: 0.toDouble(),
+                s ?: 0.toDouble()
+            )
             val k = m.roundToInt()
-            if ( k <10000000 ){
+            if (k < 10000000) {
                 list.add(shop)
             }
         }
-        naerShop.value =list
+        naerShop.value = list
     }
-
-
 
 
 }
