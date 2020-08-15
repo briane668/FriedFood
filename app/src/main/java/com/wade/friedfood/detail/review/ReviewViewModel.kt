@@ -19,8 +19,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-class ReviewViewModel(private val repository: PublisherRepository,
-                      shop: ParcelableShop
+class ReviewViewModel(
+    private val repository: PublisherRepository,
+    shop: ParcelableShop
 ) : ViewModel() {
 
     val rating = MutableLiveData<Int>().apply {
@@ -31,8 +32,6 @@ class ReviewViewModel(private val repository: PublisherRepository,
     val comment = MutableLiveData<String>()
 
 
-
-
     private val _menu = MutableLiveData<List<Menu>>()
 
 
@@ -40,10 +39,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
         get() = _menu
 
 
-
     var sendSuccess = MutableLiveData<Int>()
-
-
 
 
     private val _shop = MutableLiveData<ParcelableShop>().apply {
@@ -51,8 +47,6 @@ class ReviewViewModel(private val repository: PublisherRepository,
     }
     val shop: LiveData<ParcelableShop>
         get() = _shop
-
-    
 
 
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -80,27 +74,26 @@ class ReviewViewModel(private val repository: PublisherRepository,
         get() = _refreshStatus
 
 
-
-    fun prepareSendReview(image:String) {
+    fun prepareSendReview(image: String) {
         val review = Review(
-             user_id = ProfileData.id,
-             name = ProfileData.name,
-             picture = ProfileData.picture,
-             rating = rating.value!!,
-             comment =  comment.value!!,
+            user_id = ProfileData.id,
+            name = ProfileData.name,
+            picture = ProfileData.picture,
+            rating = rating.value!!,
+            comment = comment.value!!,
             time = Calendar.getInstance()
                 .timeInMillis,
-            image =image
+            image = image
         )
 
         shop.value?.let {
-            val shop =it.toShop()
+            val shop = it.toShop()
 
 
-            sendReview(shop,review) }
+            sendReview(shop, review)
+        }
 
     }
-
 
 
     init {
@@ -110,16 +103,13 @@ class ReviewViewModel(private val repository: PublisherRepository,
     }
 
 
-
-
-
-    private fun sendReview(shop:Shop, review: Review) {
+    private fun sendReview(shop: Shop, review: Review) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.sendReview(shop,review )
+            val result = repository.sendReview(shop, review)
 
             sendSuccess.value = when (result) {
                 is Result.Success -> {
@@ -148,8 +138,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
     }
 
 
-
-    fun getShopMenu(shop: ParcelableShop) {
+    private fun getShopMenu(shop: ParcelableShop) {
 
         coroutineScope.launch {
 
@@ -182,8 +171,6 @@ class ReviewViewModel(private val repository: PublisherRepository,
             _refreshStatus.value = false
         }
     }
-
-
 
 
 }

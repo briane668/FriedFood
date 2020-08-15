@@ -63,7 +63,6 @@ class DetailFragment : Fragment() {
                 .fromBundle(requireArguments()).shopKey
         )
     }
-    private var map: GoogleMap? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
 
@@ -73,7 +72,6 @@ class DetailFragment : Fragment() {
         val sydney = LatLng(x!!, y!!)
         googleMap.setMinZoomPreference(15.0f)
         googleMap.addMarker(MarkerOptions().position(sydney))
-
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 
@@ -89,46 +87,36 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
+        binding.viewModel = viewModel
+
         binding.backImage.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.viewModel = viewModel
-
         binding.recommendButton.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalReviewFragment(viewModel.shop.value!!))
-
         }
 
         binding.menuBotton.setOnClickListener {
             findNavController().navigate(NavigationDirections.actionGlobalMenuFragment(viewModel.shop.value!!))
-
         }
 
 
         binding.collectButton.setOnClickListener {
 
-
             viewModel.shop.value?.let {
 
                 val shop: Shop = it.toShop()
 
-
                 viewModel.collectShop(ProfileData, shop)
-
             }
-
         }
 
         viewModel.collectDone.observe(viewLifecycleOwner, Observer {
             if (it == 1) {
                 viewModel._userData.value?.let { it1 -> viewModel.getUserData(it1) }
-
-
                 findNavController().navigate(R.id.addSuccessFragment)
-
             }
-
         })
 
 
@@ -141,49 +129,36 @@ class DetailFragment : Fragment() {
         val r = viewModel.shop.value?.latitude
         val s = viewModel.shop.value?.longitude
 
-        val m = getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
-        val k = m.roundToInt()
+        val m =
+            getDistance(x ?: 0.toDouble(), y ?: 0.toDouble(), r ?: 0.toDouble(), s ?: 0.toDouble())
+        val distance = m.roundToInt()
 
-
+        binding.distance.text = "距離 ${distance} 公尺"
 
 
         viewModel.coroutineScope.launch {
-
-
             val commentCount = viewModel.shop.value?.let {
                 val shop: Shop = it.toShop()
-
                 viewModel.getCommentsByShop(shop)
             }
-
             binding.recommend.text = "$commentCount 則評論"
             binding.executePendingBindings()
         }
 
         viewModel.coroutineScope.launch {
-
             val rating = viewModel.shop.value?.let {
-
                 val shop: Shop = it.toShop()
-
                 viewModel.getRatingByShop(shop)
             }
-
             if (rating != null) {
                 binding.ratingBar2.rating = rating.toFloat()
             }
-
-//            binding.star.text = "$rating 顆星"
-
             binding.executePendingBindings()
         }
-
-        binding.distance.text = "距離 ${k} 公尺"
 
 
         viewModel.comment.observe(viewLifecycleOwner, Observer {
             viewModel.sortComment(it)
-
         })
 
 
@@ -237,7 +212,6 @@ class DetailFragment : Fragment() {
 
     }
 
-//評價的頁面比較晚被destroy
 
     override fun onDestroy() {
 

@@ -35,23 +35,30 @@ import java.util.*
  */
 class ReviewFragment : DialogFragment() {
 
-    var uploadImage :String = ""
+    var uploadImage: String = ""
 
 
     lateinit var saveUri: Uri
 
     private val viewModel by viewModels<ReviewViewModel> {
-        getVmFactory(ReviewFragmentArgs
-            .fromBundle(requireArguments()).shopkey) }
+        getVmFactory(
+            ReviewFragmentArgs
+                .fromBundle(requireArguments()).shopkey
+        )
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragm
 
         val binding = FragmentReviewBinding.inflate(inflater, container, false)
 
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel=viewModel
+        binding.viewModel = viewModel
 
         binding.backImage.setOnClickListener {
             findNavController().navigateUp()
@@ -87,7 +94,7 @@ class ReviewFragment : DialogFragment() {
         viewModel.sendSuccess.observe(viewLifecycleOwner, Observer {
             findNavController().navigateUp()
             Toast.makeText(context, "評價成功", Toast.LENGTH_SHORT).show()
-            Log.d("sendSuccess","sendSuccess$it")
+            Log.d("sendSuccess", "sendSuccess$it")
             it.apply {
                 0
             }
@@ -102,25 +109,31 @@ class ReviewFragment : DialogFragment() {
 
         }
 
-binding.camera.setOnClickListener {
-    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-    //外部定義變數
+        binding.camera.setOnClickListener {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            //外部定義變數
 
-    val tmpFile = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-        System.currentTimeMillis().toString() + ".jpg")
-    val uriForCamera = FileProvider.getUriForFile(requireContext(), "com.wade.friedfood.fileprovider", tmpFile)
+            val tmpFile = File(
+                requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                System.currentTimeMillis().toString() + ".jpg"
+            )
+            val uriForCamera = FileProvider.getUriForFile(
+                requireContext(),
+                "com.wade.friedfood.fileprovider",
+                tmpFile
+            )
 
-    //將 Uri 存進變數供後續 onActivityResult 使用
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForCamera)
+            //將 Uri 存進變數供後續 onActivityResult 使用
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForCamera)
 
-    if (uriForCamera != null) {
-        saveUri = uriForCamera
-    }
+            if (uriForCamera != null) {
+                saveUri = uriForCamera
+            }
 
-    startActivityForResult(intent, PHOTO_FROM_CAMERA)
+            startActivityForResult(intent, PHOTO_FROM_CAMERA)
 
 
-}
+        }
 
 
         return binding.root
@@ -131,7 +144,6 @@ binding.camera.setOnClickListener {
         val PHOTO_FROM_GALLERY = 1
         val PHOTO_FROM_CAMERA = 2
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -147,7 +159,8 @@ binding.camera.setOnClickListener {
                         uploadImage()
 
                     }
-                    Activity.RESULT_CANCELED -> { }
+                    Activity.RESULT_CANCELED -> {
+                    }
                 }
             }
             PHOTO_FROM_CAMERA -> {
@@ -157,7 +170,8 @@ binding.camera.setOnClickListener {
                         uploadImage()
 
                     }
-                    Activity.RESULT_CANCELED -> { }
+                    Activity.RESULT_CANCELED -> {
+                    }
                 }
             }
         }
@@ -174,18 +188,12 @@ binding.camera.setOnClickListener {
 
                     ref.downloadUrl.addOnSuccessListener {
                         uploadImage = it.toString()
-                        Log.d("12345","$it")
+                        Log.d("12345", "$it")
                     }
                 }
-//                .addOnProgressListener { taskSnapshot ->
-//                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-//                    upload_progress.progress = progress
-//                    if (progress >= 100) {
-//                        upload_progress.visibility = View.GONE
-//                    } }
+
         }
     }
-
 
 
 }

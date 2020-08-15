@@ -13,7 +13,7 @@ import com.wade.friedfood.databinding.ItemDetailCommentBinding
 import com.wade.friedfood.util.Logger
 import kotlinx.coroutines.launch
 
-class DetailCommentAdapter (val detailViewModel: DetailViewModel): ListAdapter<Comment, DetailCommentAdapter.DetailCommentLayoutViewHolder>(DiffCallback) {
+class DetailCommentAdapter (private val detailViewModel: DetailViewModel): ListAdapter<Comment, DetailCommentAdapter.DetailCommentLayoutViewHolder>(DiffCallback) {
 
     class DetailCommentLayoutViewHolder(var binding: ItemDetailCommentBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -31,10 +31,6 @@ class DetailCommentAdapter (val detailViewModel: DetailViewModel): ListAdapter<C
                 binding.commentCounts.text="已發表過 $counts 則評論"
                 binding.executePendingBindings()
             }
-
-
-
-
 
 
             binding.commentImage.visibility

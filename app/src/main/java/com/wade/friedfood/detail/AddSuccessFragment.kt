@@ -26,8 +26,8 @@ class AddSuccessFragment : DialogFragment() {
         // Inflate the layout for this fragment
 
 
-        var success= Runnable { dismiss() }
-        var hand= Handler()
+        val success= Runnable { dismiss() }
+        val hand= Handler()
         hand.postDelayed(success,2000)
 
 

@@ -60,9 +60,5 @@ class MenuAdapter() : ListAdapter<Menu, MenuAdapter.ProductViewHolder>(
 
         holder.bind(product)
     }
-
-
-
-
-
+    
 }

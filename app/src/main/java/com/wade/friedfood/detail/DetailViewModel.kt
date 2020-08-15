@@ -23,8 +23,6 @@ class DetailViewModel(
 ) : ViewModel() {
 
 
-//這邊的寫法
-
     private val _shop = MutableLiveData<ParcelableShop>().apply {
         value = shop
     }
@@ -84,12 +82,6 @@ class DetailViewModel(
 
 
 
-//    var alreadyCollectShop: Boolean? =null
-
-
-
-
-
 
     init {
         Logger.i("------------------------------------")
@@ -103,26 +95,21 @@ class DetailViewModel(
 
     }
 
-    fun collectAble(user: User){
+    fun collectAble(user: User) {
 
-        for (thisShop in user.collect){
-            if (thisShop.id == shop.value?.id){
-                _alreadyCollectShop.value= true
+        for (thisShop in user.collect) {
+            if (thisShop.id == shop.value?.id) {
+                _alreadyCollectShop.value = true
                 break
 
-            }else{
-                _alreadyCollectShop.value=false
+            } else {
+                _alreadyCollectShop.value = false
             }
 
         }
 
 
-
-
-
     }
-
-
 
 
     fun getComments(shop: ParcelableShop) {
@@ -252,7 +239,7 @@ class DetailViewModel(
         }
     }
 
-
+//本地端的sort方式 但現在沒有使用上
     fun sortComment(comment: List<Comment>) {
 
 
@@ -296,18 +283,7 @@ class DetailViewModel(
 //    }
 //
 
-//    private var geoPoint: GeoPoint? = null
-//
-//     override fun writeToParcel(parcel: Parcel, i: Int) {
-//        parcel.writeDouble(geoPoint!!.latitude)
-//        parcel.writeDouble(geoPoint!!.longitude)
-//    }
-//
-//    fun Restaurant(`in`: Parcel) {
-//        val lat = `in`.readDouble()
-//        val lng = `in`.readDouble()
-//        geoPoint = GeoPoint(lat, lng)
-//    }
+
 
 
     suspend fun getUserCommentsCount(user_id: String): Int {
@@ -340,7 +316,6 @@ class DetailViewModel(
 
         } as Int
     }
-
 
 
     fun getUserData(user: User) {
@@ -376,8 +351,6 @@ class DetailViewModel(
             _refreshStatus.value = false
         }
     }
-
-
 
 
 }

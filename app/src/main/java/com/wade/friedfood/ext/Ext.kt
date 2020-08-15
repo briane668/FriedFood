@@ -13,7 +13,6 @@ import com.wade.friedfood.data.Shop
 import java.util.*
 
 
-
 fun View.setTouchDelegate() {
     val parent = this.parent as View  // button: the view you want to enlarge hit area
     parent.post {
@@ -33,24 +32,14 @@ fun Long.toDisplayFormat(): String {
 }
 
 
-//fun Number.toDp(): Float {
-//    return this.toFloat() / (StylishApplication.instance.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-//}
-
-
-//fun Shop.toParcelableShop(): ParcelableShop {
-//
-//    return Shop()
-//}
-
 fun ParcelableShop.toShop(): Shop {
 
-    var geoPoint : GeoPoint? = GeoPoint(this.latitude!!, this.longitude!!)
+    var geoPoint: GeoPoint? = GeoPoint(this.latitude!!, this.longitude!!)
 
     return Shop(
         id = this.id,
         name = this.name,
-        location = geoPoint  ,
+        location = geoPoint,
         latitude = 0,
         longitude = 0,
         image = this.image,
@@ -61,12 +50,11 @@ fun ParcelableShop.toShop(): Shop {
         otherImage = this.otherImage,
         comment = this.comment,
         menu = this.menu,
-        phone= this.phone
+        phone = this.phone
     )
 }
 
 fun Shop.toParcelableShop(): ParcelableShop {
-
 
 
     return ParcelableShop(
@@ -82,7 +70,7 @@ fun Shop.toParcelableShop(): ParcelableShop {
         otherImage = this.otherImage,
         comment = this.comment,
         menu = this.menu,
-        phone= this.phone
+        phone = this.phone
     )
 }
 
