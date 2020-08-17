@@ -24,7 +24,7 @@ class ReviewViewModel(private val repository: PublisherRepository,
 ) : ViewModel() {
 
     val rating = MutableLiveData<Int>().apply {
-        value = 0
+        value = 1
     }
 
 
