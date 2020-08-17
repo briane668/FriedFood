@@ -25,7 +25,7 @@ class ReviewViewModel(
 ) : ViewModel() {
 
     val rating = MutableLiveData<Int>().apply {
-        value = 0
+        value = 1
     }
 
 

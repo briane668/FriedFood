@@ -84,8 +84,14 @@ class ReviewFragment : DialogFragment() {
 
 //        傳進點下去button的位子
         binding.reviewButton.setOnClickListener {
+            if (viewModel.comment.value == null) {
+                Toast.makeText(context, "請輸入評論", Toast.LENGTH_SHORT).show()
+            }else {
 
-            viewModel.prepareSendReview(uploadImage)
+                viewModel.prepareSendReview(uploadImage)
+
+            }
+
 
         }
 
@@ -190,6 +196,21 @@ class ReviewFragment : DialogFragment() {
                         uploadImage = it.toString()
                         Log.d("12345", "$it")
                     }
+                }
+
+                .addOnProgressListener { taskSnapshot ->
+                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+
+                    if (progress >= 100) {
+                        reviewButton.isClickable= true
+
+                    }else{
+                        Toast.makeText(context, "照片上傳中", Toast.LENGTH_SHORT).show()
+                        reviewButton.isClickable= false
+                    }
+
+
+
                 }
 
         }
