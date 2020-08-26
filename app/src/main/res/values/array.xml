@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="search">
-        <item>請選擇排序</item>
+        <item>選擇排序</item>
         <item>最高評價</item>
         <item>最多評論</item>
     </array>

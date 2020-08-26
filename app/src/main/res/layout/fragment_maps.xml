@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.wade.friedfood.map.MapViewModel" />
@@ -15,14 +17,79 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_home_header"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_home"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/shape"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:alpha="0.7"
+                app:layout_constraintBottom_toBottomOf="@id/image_home"
+                app:layout_constraintStart_toStartOf="@id/image_home"
+                app:layout_constraintTop_toTopOf="@id/image_home"
+                app:srcCompat="@drawable/search" />
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:fontFamily="@font/noto_sans"
+                android:hint="輸入欲搜尋炸物"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:text="@={viewModel.editSearch}"
+                app:layout_constraintEnd_toEndOf="@+id/image_home"
+                app:layout_constraintStart_toEndOf="@id/image_search"
+                app:layout_constraintTop_toTopOf="@id/image_home" />
+
+            <ImageView
+                android:id="@+id/image_home_clear"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.7"
+                android:visibility="@{TextUtils.isEmpty(viewModel.editSearch) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/image_home"
+                app:layout_constraintEnd_toEndOf="@id/image_home"
+                app:layout_constraintTop_toTopOf="@id/image_home"
+                app:srcCompat="@drawable/icons_clean" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.gms.maps.MapView
             android:id="@+id/view_map"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.136"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_home_header" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mapView"
@@ -40,117 +107,17 @@
             tools:itemCount="16"
             tools:listitem="@layout/item_map" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/googleView"-->
-<!--            android:layout_width="70dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginBottom="125dp"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/view_map"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:srcCompat="@drawable/googleimage" />-->
-
-<!--        <ScrollView-->
-<!--            android:id="@+id/scrollView2"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="56dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/view_map">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:visibility="visible">-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/chicken"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:backgroundTint="#FFFFFF"-->
-<!--                    android:text="找鹽酥雞"-->
-<!--                    android:textColor="#000000"-->
-<!--                    tools:ignore="HardcodedText" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/egg"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:backgroundTint="#FFFFFF"-->
-<!--                    android:text="找皮蛋"-->
-<!--                    android:textColor="#000000"-->
-<!--                    tools:ignore="HardcodedText" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/sweetNotHot"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:backgroundTint="#FFFFFF"-->
-<!--                    android:text="找甜不辣"-->
-<!--                    android:textColor="#000000"-->
-<!--                    tools:ignore="HardcodedText" />-->
-
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
-
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="0dp"
-
-            android:layout_height="32dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="60dp"
-            android:background="#3A979797"
-            android:queryHint="輸入欲搜尋品項"
-            android:searchHintIcon="@drawable/search"
-            android:searchIcon="@drawable/search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/view_map"
-            app:layout_constraintTop_toTopOf="@+id/view_map" />
 
         <ImageView
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search"
+            app:layout_constraintTop_toBottomOf="@+id/layout_home_header"
             app:srcCompat="@drawable/refresh" />
 
 
-        <!--        <EditText-->
-<!--            android:id="@+id/editText"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="48dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:ems="10"-->
-<!--            android:hint="輸入搜尋內容"-->
-<!--            android:inputType="textEmailAddress"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/search" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

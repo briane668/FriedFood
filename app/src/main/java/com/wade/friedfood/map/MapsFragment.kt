@@ -6,10 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.ext.hideKeyboard
 import app.appworks.school.stylish.ext.toParcelableShop
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -211,25 +210,27 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener,
         }
 
 
-        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
+        binding.editSearch.setOnEditorActionListener { v, actionId, event ->
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE) ) {
+                binding.editSearch.hideKeyboard()
 
-                //搜尋想吃的食物，將輸入內容送進function
-                if (query != null) {
-                    map?.clear()
-                    viewModel.naerShop.value = null
-                    binding.mapView.visibility = View.INVISIBLE
-                    viewModel.getMenu(query)
-                }
-                return true
+                map?.clear()
+                viewModel.naerShop.value = null
+                binding.mapView.visibility = View.INVISIBLE
+                viewModel.getMenu(v.text.toString())
+
             }
+            return@setOnEditorActionListener false
+        }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
 
-        })
+
+
+
+        binding.imageHomeClear.setOnClickListener {
+            binding.editSearch.text.clear()
+        }
 
         //刷新頁面商店
         binding.refresh.setOnClickListener {

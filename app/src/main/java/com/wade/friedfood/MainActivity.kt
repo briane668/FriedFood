@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.databinding.ActivityMainBinding
+import com.wade.friedfood.util.UserManager
 import kotlin.math.*
 
 
@@ -31,18 +32,18 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_home -> {
 
-                findNavController(this,R.id.myNavHostFragment).navigate(R.id.mapsFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(R.id.mapsFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_recommend -> {
 
-                findNavController(this,R.id.myNavHostFragment).navigate(R.id.recommendFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(R.id.recommendFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.navigation_menu -> {
 
-                findNavController(this,R.id.myNavHostFragment).navigate(R.id.profileFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(R.id.profileFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -54,10 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        val db = FirebaseFirestore.getInstance()
-//        db.collection("vender")
-//            .get()
-//            .addOnSuccessListener { documents ->
+
 
 
 

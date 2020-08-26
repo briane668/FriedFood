@@ -18,9 +18,6 @@ import kotlinx.coroutines.Job
 class LoginViewModel(private val repository: PublisherRepository) : ViewModel() {
 
 
-    var noUser = MutableLiveData<Boolean>().apply {
-        value = null
-    }
 
     var signInSuccess = MutableLiveData<Int>().apply {
         value = 0
@@ -52,22 +49,8 @@ class LoginViewModel(private val repository: PublisherRepository) : ViewModel() 
     val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-    fun addAble(user: User) {
-        FirebaseFirestore
-            .getInstance()
-            .collection("users")
-            .whereEqualTo("id", user.id)
-            .get()
-            .addOnSuccessListener {
-            //有東西的話變成false   我希望他搜尋不到東西 代表可以加
-                noUser.value = it.isEmpty
-            }
-            .addOnFailureListener {
-                noUser.value = false
-            }
-    }
 
-    suspend fun login(user: User) {
+     suspend fun login(user: User) {
 
         val result = repository.login(user)
 

@@ -33,6 +33,9 @@ class MapViewModel(private val repository: PublisherRepository) : ViewModel() {
 
     val howManyComments = MutableLiveData<Int>()
 
+    val editSearch = MutableLiveData<String>()
+
+
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()

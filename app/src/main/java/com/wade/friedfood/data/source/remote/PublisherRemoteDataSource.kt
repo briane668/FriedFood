@@ -1,5 +1,6 @@
 package com.wade.friedfood.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wade.friedfood.util.Logger
 import com.google.firebase.firestore.FieldValue
@@ -210,13 +211,22 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
     override suspend fun login(user: User): Result<Int> = suspendCoroutine { continuation ->
-        val login =FirebaseFirestore
+        val documents= FirebaseFirestore
             .getInstance()
             .collection("users")
-            .document()
 
+        documents
+            .whereEqualTo("id", user.id)
+            .get()
+            .addOnSuccessListener {
+                if (it.isEmpty){
+                    documents
+                        .document().set(user)
+                }else{
+                    Logger.d("已經是會員")
+                }
+            }
 
-        login.set(user)
         continuation.resume(Result.Success(1))
     }
 

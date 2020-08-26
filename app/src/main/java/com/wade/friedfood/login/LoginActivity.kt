@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.wade.friedfood.MainActivity
 import com.wade.friedfood.R
+import com.wade.friedfood.data.User
 import com.wade.friedfood.databinding.ActivityLoginBinding
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.UserManager.ProfileData
@@ -82,23 +83,6 @@ class LoginActivity() : AppCompatActivity() {
         })
 
 
-        viewModel.noUser.observe(this, androidx.lifecycle.Observer {
-            Log.d("timeToSign", "$it")
-
-            it?.let {
-                if (it) {
-                    viewModel.coroutineScope.launch {
-                        viewModel.login(ProfileData)
-                    }
-                } else if (it == false) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-
-                }
-            }
-        }
-        )
 
         viewModel.signInSuccess.observe(this, androidx.lifecycle.Observer {
             if (it == 1) {
@@ -138,6 +122,12 @@ class LoginActivity() : AppCompatActivity() {
         auth?.signInWithCredential(credential)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val user = User(
+                        id = task.result?.user?.uid.toString(),
+                        picture = task.result?.user?.photoUrl.toString(),
+                        name = task.result?.user?.displayName.toString(),
+                        email = task.result?.user?.email.toString()
+                    )
                     //Login
                     moveMainPage(task.result?.user)
                 } else {
@@ -153,7 +143,8 @@ class LoginActivity() : AppCompatActivity() {
             ProfileData.picture = user.photoUrl.toString()
             ProfileData.email = user.email.toString()
             ProfileData.id = user.uid
-            viewModel.addAble(ProfileData)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
