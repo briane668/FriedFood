@@ -16,29 +16,38 @@
         android:name="com.wade.friedfood.recommend.RecommendFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_recommend" />
-    <action android:id="@+id/action_global_mapsFragment"
+    <action
+        android:id="@+id/action_global_mapsFragment"
+        app:destination="@id/mapsFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/mapsFragment"/>
-    <action android:id="@+id/action_global_recommendFragment"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_recommendFragment"
+        app:destination="@id/recommendFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/recommendFragment"/>
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.wade.friedfood.profile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/fragment_profile" />
-    <action android:id="@+id/action_global_profileFragment"
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/profileFragment" />
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.wade.friedfood.detail.DetailFragment"
