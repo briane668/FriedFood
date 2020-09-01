@@ -2,10 +2,10 @@ package com.wade.friedfood.data.source.local
 
 import android.content.Context
 import com.wade.friedfood.data.*
-import com.wade.friedfood.data.source.PublisherDataSource
+import com.wade.friedfood.data.source.FriedFoodDataSource
 
 
-class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
+class FriedFoodLocalDataSource(val context: Context) : FriedFoodDataSource {
 
 
 
@@ -58,6 +58,10 @@ class PublisherLocalDataSource(val context: Context) : PublisherDataSource {
     }
 
     override suspend fun getShopMenu(shop:ParcelableShop): Result<List<Menu>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getNews(today: Long): Result<List<Comment>> {
         TODO("Not yet implemented")
     }
 

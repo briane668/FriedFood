@@ -4,14 +4,11 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.GeoPoint
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.network.LoadApiStatus
-import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Menu
-import com.wade.friedfood.data.ParcelableShop
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.getDistance
@@ -21,7 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class MapViewModel(private val repository: PublisherRepository) : ViewModel() {
+class MapViewModel(private val repository: FriedFoodRepository) : ViewModel() {
 
 
     val shop = MutableLiveData<List<Shop>>()
@@ -246,7 +243,7 @@ class MapViewModel(private val repository: PublisherRepository) : ViewModel() {
         }
     }
 
-    //只顯示使用者附近的店家
+
 
     fun calculateDistance(shops: List<Shop>) {
 
@@ -264,7 +261,7 @@ class MapViewModel(private val repository: PublisherRepository) : ViewModel() {
                 s ?: 0.toDouble()
             )
             val k = m.roundToInt()
-            if (k < 10000000) {
+            if (k < 100000) {
                 list.add(shop)
             }
         }

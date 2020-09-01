@@ -1,30 +1,20 @@
 package com.wade.friedfood.login
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import app.appworks.school.stylish.ext.getVmFactory
-import com.facebook.AccessToken
+import com.wade.friedfood.ext.getVmFactory
 import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -35,10 +25,6 @@ import com.wade.friedfood.databinding.ActivityLoginBinding
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.launch
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.util.*
 
 class LoginActivity() : AppCompatActivity() {
 

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mapsFragment"
-    tools:ignore="UnusedNavigation">
+    app:startDestination="@id/mapsFragment">
 
     <fragment
         android:id="@+id/mapsFragment"
@@ -100,5 +99,11 @@
         android:id="@+id/addSuccessFragment"
         android:name="com.wade.friedfood.detail.AddSuccessFragment"
         android:label="AddSuccessFragment" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.wade.friedfood.news.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/fragment_news" />
+    <action android:id="@+id/action_global_newsFragment" app:destination="@id/newsFragment" />
 
 </navigation>

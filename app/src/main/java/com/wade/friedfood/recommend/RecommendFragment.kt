@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import app.appworks.school.stylish.ext.toParcelableShop
+import com.wade.friedfood.ext.toParcelableShop
 import com.wade.friedfood.NavigationDirections
 import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.databinding.FragmentRecommendBinding
@@ -19,7 +19,8 @@ class RecommendFragment : Fragment() {
     private val viewModel by viewModels<RecommendViewModel> { getVmFactory() }
 
 
-    //    這整個是一個funtion 最終被return後 才會運作
+// a fuction that works tiill reture
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,7 +36,6 @@ class RecommendFragment : Fragment() {
         binding.spinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
                 }
 
                 override fun onItemSelected(
@@ -62,7 +62,8 @@ class RecommendFragment : Fragment() {
         }, viewModel)
 
 
-        //shop的值因為排序的關係有所變動的話，就重給一次adapter 重劃出一個recycleView 讓位子保持在第一個
+//       if shop's value change ,give it a new adapter
+
         viewModel.shops.observe(viewLifecycleOwner, Observer {
             binding.recommendView.adapter = ShopAdapter(ShopAdapter.OnClickListener {
                 viewModel.displayShopDetails(it)

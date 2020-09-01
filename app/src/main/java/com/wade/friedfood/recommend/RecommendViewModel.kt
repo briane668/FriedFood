@@ -3,7 +3,7 @@ package com.wade.friedfood.recommend
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
@@ -17,15 +17,12 @@ import com.wade.friedfood.data.Result
 
 
 
-class RecommendViewModel(private val repository: PublisherRepository) : ViewModel() {
+class RecommendViewModel(private val repository: FriedFoodRepository) : ViewModel() {
 
 
-//    只用在最開始傳進來的shops值
+
     val _shops = MutableLiveData<List<Shop>>()
 
-
-
-//    用來裝之後每次篩選的shop值操作，真正拿來用的shops
     private val readyShops = MutableLiveData<List<Shop>>()
 
     val shops: LiveData<List<Shop>>
@@ -175,7 +172,6 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
     }
 
 
-//    兩個排序的function
 
     fun sortShopByRate(shop: LiveData<List<Shop>>){
         readyShops.value = shop.value?.sortedByDescending {
@@ -191,7 +187,6 @@ class RecommendViewModel(private val repository: PublisherRepository) : ViewMode
 
 
 
-//原本的comments沒有評價和評論數，在這裡把他們加上去
     fun addRatingToComments(shops: MutableLiveData<List<Shop>>){
 val counts = 0
 //    TODO: 用count來操作?

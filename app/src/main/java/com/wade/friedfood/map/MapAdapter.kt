@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.wade.friedfood.util.Logger
 
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.databinding.ItemMapBinding
@@ -27,21 +26,18 @@ import kotlin.math.roundToInt
 class MapAdapter(
     private val onClickListener: OnClickListener,
     private val mapViewModel: MapViewModel
-) : ListAdapter<Shop, MapAdapter.MarsPropertyViewHolder>(DiffCallback) {
+) : ListAdapter<Shop, MapAdapter.ShopsViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
      */
 
 
-    class MarsPropertyViewHolder(var binding: ItemMapBinding) :
+    class ShopsViewHolder(var binding: ItemMapBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
         fun bind(shop: Shop, mapViewModel: MapViewModel) {
-
-
-//            計算使用者跟店家的距離
             val x = userPosition.value?.latitude
             val y = userPosition.value?.longitude
             val r = shop.location?.latitude
@@ -98,11 +94,11 @@ class MapAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MarsPropertyViewHolder {
+    ): ShopsViewHolder {
 
 //parent ,false 橫向recycleview 會影響?
 //多載
-        return MarsPropertyViewHolder(
+        return ShopsViewHolder(
             ItemMapBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -116,16 +112,16 @@ class MapAdapter(
      */
 
 
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-        val marsProperty = getItem(position)
+    override fun onBindViewHolder(holder: ShopsViewHolder, position: Int) {
+        val shop = getItem(position)
 
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(marsProperty)
+            onClickListener.onClick(shop)
         }
 
 
 
-        holder.bind(marsProperty, mapViewModel)
+        holder.bind(shop, mapViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

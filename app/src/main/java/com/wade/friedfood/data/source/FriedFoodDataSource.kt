@@ -6,7 +6,7 @@ import com.wade.friedfood.data.*
 import kotlin.coroutines.Continuation
 
 
-interface PublisherDataSource {
+interface FriedFoodDataSource {
 
 
     suspend fun getShops(): Result<List<Shop>>
@@ -34,4 +34,6 @@ interface PublisherDataSource {
     suspend fun getUserCommentsCount(user_id: String): Result<Int>
 
     suspend fun getShopMenu(shop:ParcelableShop): Result<List<Menu>>
+
+    suspend fun getNews(today:Long): Result<List<Comment>>
 }

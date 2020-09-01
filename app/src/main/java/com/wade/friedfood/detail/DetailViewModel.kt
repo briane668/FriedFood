@@ -8,7 +8,7 @@ import com.wade.friedfood.util.Logger
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.util.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 
 
 class DetailViewModel(
-//    repository在底下的    val result = repository.getComments(shop) 用到
-    private val repository: PublisherRepository,
+    private val repository: FriedFoodRepository,
     shop: ParcelableShop
 ) : ViewModel() {
 
@@ -107,8 +106,12 @@ class DetailViewModel(
             }
 
         }
+    }
 
-
+    fun sortComment(comment: List<Comment>) {
+        _sortedComment.value = comment.sortedByDescending {
+            it.time
+        }
     }
 
 
@@ -239,49 +242,8 @@ class DetailViewModel(
         }
     }
 
-//本地端的sort方式 但現在沒有使用上
-    fun sortComment(comment: List<Comment>) {
 
 
-//        val sortedComment = comment.sortedByDescending { comment ->
-//            comment.time
-//        }
-//        Log.d("CommentSOrt","$comment")
-//        _sortedComment.value.apply {
-//            sortedComment
-//            Log.d("CommentSOrt","$sortedComment")
-//        }
-
-
-        _sortedComment.value = comment.sortedByDescending {
-            it.time
-        }
-
-//        val list = comment.toMutableList()
-//
-//        Log.i("Sort Info","comments before sort")
-//        list.forEach {
-//            Log.i("Sort Info","comment=${it.time}")
-//        }
-//
-//        list.sortBy {
-//            it.time
-//        }
-//
-//        Log.d("Sort Info","comments after sort")
-//        list.forEach {
-//            Log.d("Sort Info","comment=${it.time}")
-//        }
-
-    }
-
-//    fun dialPhoneNumber(phoneNumber: String) {
-//        val intent = Intent(Intent.ACTION_DIAL).apply {
-//            data = Uri.parse("tel:$phoneNumber")
-//        }
-//            startActivity(intent)
-//    }
-//
 
 
 

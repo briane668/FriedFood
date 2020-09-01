@@ -11,10 +11,8 @@ import androidx.navigation.Navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.databinding.ActivityMainBinding
-import com.wade.friedfood.util.UserManager
-import kotlin.math.*
+import com.wade.friedfood.map.MapsFragmentDirections
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,18 +30,24 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_home -> {
 
-                findNavController(this,R.id.NavHostFragment).navigate(R.id.mapsFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(MapsFragmentDirections.actionGlobalMapsFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_recommend -> {
 
-                findNavController(this,R.id.NavHostFragment).navigate(R.id.recommendFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(NavigationDirections.actionGlobalRecommendFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
-            R.id.navigation_menu -> {
+            R.id.navigation_profile -> {
 
-                findNavController(this,R.id.NavHostFragment).navigate(R.id.profileFragment)
+                findNavController(this,R.id.NavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+
+            R.id.navigation_news -> {
+
+                findNavController(this,R.id.NavHostFragment).navigate(NavigationDirections.actionGlobalNewsFragment())
                 return@OnNavigationItemSelectedListener true
             }
 

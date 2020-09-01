@@ -5,17 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wade.friedfood.network.LoadApiStatus
 
-import com.google.firebase.firestore.FirebaseFirestore
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.User
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-class LoginViewModel(private val repository: PublisherRepository) : ViewModel() {
+class LoginViewModel(private val repository: FriedFoodRepository) : ViewModel() {
 
 
 

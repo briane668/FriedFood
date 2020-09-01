@@ -31,24 +31,15 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- * @param onClick a lambda that takes the
- */
 class ShopAdapter(private val onClickListener: OnClickListener,
                   private val recommendViewModel: RecommendViewModel)
-    : ListAdapter<Shop, ShopAdapter.MarsPropertyViewHolder>(DiffCallback) {
-    /**
-     * The MarsPropertyViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
-     */
-    class MarsPropertyViewHolder( var binding: ItemShopBinding):
+    : ListAdapter<Shop, ShopAdapter.ShopViewHolder>(DiffCallback) {
+
+    class ShopViewHolder(var binding: ItemShopBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(shop: Shop,recommendViewModel: RecommendViewModel) {
 
 
-//            計算距離
             val x = MapViewModel.userPosition.value?.latitude
             val y = MapViewModel.userPosition.value?.longitude
             val r = shop.location?.latitude
@@ -100,21 +91,21 @@ class ShopAdapter(private val onClickListener: OnClickListener,
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MarsPropertyViewHolder {
+                                    viewType: Int): ShopViewHolder {
 
-        return MarsPropertyViewHolder(ItemShopBinding.inflate(LayoutInflater.from(parent.context)))
+        return ShopViewHolder(ItemShopBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      */
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-        val marsProperty = getItem(position)
+    override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
+        val shop = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(marsProperty)
+            onClickListener.onClick(shop)
         }
 
-        holder.bind(marsProperty, recommendViewModel)
+        holder.bind(shop, recommendViewModel)
     }
 
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

@@ -3,9 +3,9 @@ package com.wade.friedfood.data.source
 import com.wade.friedfood.data.*
 
 
-class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSource,
-                                 private val localDataSource: PublisherDataSource
-) : PublisherRepository {
+class DefaultFriedFoodRepository(private val remoteDataSource: FriedFoodDataSource,
+                                 private val localDataSource: FriedFoodDataSource
+) : FriedFoodRepository {
 
 
     override suspend fun getShops(): Result<List<Shop>> {
@@ -60,6 +60,10 @@ class DefaultPublisherRepository(private val remoteDataSource: PublisherDataSour
 
     override suspend fun getShopMenu(shop: ParcelableShop): Result<List<Menu>> {
         return remoteDataSource.getShopMenu(shop)
+    }
+
+    override suspend fun getNews(today: Long): Result<List<Comment>> {
+        return remoteDataSource.getNews(today)
     }
 
 

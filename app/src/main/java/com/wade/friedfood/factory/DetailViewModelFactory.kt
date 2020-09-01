@@ -3,7 +3,7 @@ package com.wade.friedfood.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wade.friedfood.data.ParcelableShop
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 
 import com.wade.friedfood.detail.DetailViewModel
 import com.wade.friedfood.detail.review.ReviewViewModel
@@ -11,7 +11,7 @@ import com.wade.friedfood.detail.review.ReviewViewModel
 
 @Suppress("UNCHECKED_CAST")
 class DetailViewModelFactory(
-    private val repository: PublisherRepository,
+    private val repository: FriedFoodRepository,
     private val parcelableShop: ParcelableShop
 ) : ViewModelProvider.Factory {
 

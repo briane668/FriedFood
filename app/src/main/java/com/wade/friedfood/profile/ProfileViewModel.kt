@@ -10,19 +10,15 @@ import com.wade.friedfood.R
 import com.wade.friedfood.data.Result
 import com.wade.friedfood.data.Shop
 import com.wade.friedfood.data.User
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.util.UserManager.ProfileData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val repository: PublisherRepository) : ViewModel() {
+class ProfileViewModel(private val repository: FriedFoodRepository) : ViewModel() {
 
-//    private val _ProfileData :LiveData<User> = UserManager.ProfileData
-//
-//    val ProfileData: LiveData<User>
-//        get() = _ProfileData
 
     val _userData = MutableLiveData<User>()
 
@@ -33,7 +29,6 @@ class ProfileViewModel(private val repository: PublisherRepository) : ViewModel(
 
 
     val shop = MutableLiveData<List<Shop>>()
-
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()

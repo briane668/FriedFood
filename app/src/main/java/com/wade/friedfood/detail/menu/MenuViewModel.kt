@@ -3,26 +3,17 @@ package com.wade.friedfood.detail.menu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.stylish.ext.toShop
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.network.LoadApiStatus
-import com.wade.friedfood.MyApplication
-import com.wade.friedfood.R
 import com.wade.friedfood.data.ParcelableShop
-import com.wade.friedfood.data.Result
-import com.wade.friedfood.data.Review
-import com.wade.friedfood.data.Shop
-import com.wade.friedfood.util.UserManager.ProfileData
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import java.util.*
 
 
-class MenuViewModel(private val repository: PublisherRepository,
-                      shop: ParcelableShop
+class MenuViewModel(private val repository: FriedFoodRepository,
+                    shop: ParcelableShop
 ) : ViewModel() {
 
 

@@ -2,11 +2,11 @@ package app.appworks.school.publisher.util
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
-import com.wade.friedfood.data.source.DefaultPublisherRepository
-import com.wade.friedfood.data.source.PublisherDataSource
-import com.wade.friedfood.data.source.PublisherRepository
-import com.wade.friedfood.data.source.local.PublisherLocalDataSource
-import com.wade.friedfood.data.source.remote.PublisherRemoteDataSource
+import com.wade.friedfood.data.source.DefaultFriedFoodRepository
+import com.wade.friedfood.data.source.FriedFoodDataSource
+import com.wade.friedfood.data.source.FriedFoodRepository
+import com.wade.friedfood.data.source.local.FriedFoodLocalDataSource
+import com.wade.friedfood.data.source.remote.FriedFoodRemoteDataSource
 
 
 object ServiceLocator {
@@ -14,10 +14,10 @@ object ServiceLocator {
 
 
     @Volatile
-    var repository: PublisherRepository? = null
+    var repository: FriedFoodRepository? = null
         @VisibleForTesting set
 
-    fun provideRepository(context: Context): PublisherRepository {
+    fun provideRepository(context: Context): FriedFoodRepository {
         synchronized(this) {
             return repository
                 ?: repository
@@ -25,15 +25,15 @@ object ServiceLocator {
         }
     }
 
-    private fun createPublisherRepository(context: Context): PublisherRepository {
-        return DefaultPublisherRepository(
-            PublisherRemoteDataSource,
+    private fun createPublisherRepository(context: Context): FriedFoodRepository {
+        return DefaultFriedFoodRepository(
+            FriedFoodRemoteDataSource,
             createLocalDataSource(context)
         )
     }
 
-    private fun createLocalDataSource(context: Context): PublisherDataSource {
-        return PublisherLocalDataSource(context)
+    private fun createLocalDataSource(context: Context): FriedFoodDataSource {
+        return FriedFoodLocalDataSource(context)
     }
 
 }

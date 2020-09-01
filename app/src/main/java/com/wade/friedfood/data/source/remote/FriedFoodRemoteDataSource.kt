@@ -1,6 +1,5 @@
 package com.wade.friedfood.data.source.remote
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wade.friedfood.util.Logger
 import com.google.firebase.firestore.FieldValue
@@ -9,17 +8,14 @@ import com.google.firebase.firestore.Query
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.*
-import com.wade.friedfood.data.source.PublisherDataSource
+import com.wade.friedfood.data.source.FriedFoodDataSource
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
 
-object PublisherRemoteDataSource : PublisherDataSource {
+object FriedFoodRemoteDataSource : FriedFoodDataSource {
 
-//    private const val PATH_ARTICLES = "vender"
-//    private const val KEY_CREATED_TIME = "createdTime"
-//var mStorageRef: StorageReference? = null
 
     override suspend fun getShops(): Result<List<Shop>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
@@ -194,7 +190,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
 
 
 
-//    result 設為 1 代表成功
+
     override suspend fun sendReview(shop: Shop,review: Review): Result<Int> = suspendCoroutine { continuation ->
         val comment =FirebaseFirestore
             .getInstance()
@@ -230,7 +226,7 @@ object PublisherRemoteDataSource : PublisherDataSource {
         continuation.resume(Result.Success(1))
     }
 
-//遇到一個阻攔物 就用whereequalto 去解決一層
+// one obstacle one whereequalto
     override suspend fun collectShop(user: User,shop: Shop): Result<Int> = suspendCoroutine { continuation ->
             FirebaseFirestore
             .getInstance()
@@ -355,8 +351,32 @@ object PublisherRemoteDataSource : PublisherDataSource {
             }
     }
 
+    override suspend fun getNews(today:Long): Result<List<Comment>> = suspendCoroutine { continuation ->
+        val commentByWeek = today-604800000
+        FirebaseFirestore.getInstance()
+            .collectionGroup("comment")
+            .whereGreaterThanOrEqualTo("time",commentByWeek)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Comment>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " getNews=> " + document.data)
+                        val comment = document.toObject(Comment::class.java)
+                        list.add(comment)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
 
-
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(MyApplication.INSTANCE.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
 
 
 

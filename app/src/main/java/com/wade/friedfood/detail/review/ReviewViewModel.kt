@@ -4,8 +4,8 @@ package com.wade.friedfood.detail.review
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import app.appworks.school.stylish.ext.toShop
-import com.wade.friedfood.data.source.PublisherRepository
+import com.wade.friedfood.ext.toShop
+import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.network.LoadApiStatus
 import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
@@ -20,7 +20,7 @@ import java.util.*
 
 
 class ReviewViewModel(
-    private val repository: PublisherRepository,
+    private val repository: FriedFoodRepository,
     shop: ParcelableShop
 ) : ViewModel() {
 
@@ -84,13 +84,11 @@ class ReviewViewModel(
             time = Calendar.getInstance()
                 .timeInMillis,
             image = image
+
         )
 
         shop.value?.let {
-            val shop = it.toShop()
-
-
-            sendReview(shop, review)
+            sendReview(it.toShop(), review)
         }
 
     }

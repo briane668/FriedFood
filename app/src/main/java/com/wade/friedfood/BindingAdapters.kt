@@ -22,7 +22,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.appworks.school.stylish.ext.toDisplayFormat
+import com.wade.friedfood.ext.toDisplayFormat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wade.friedfood.data.Comment
@@ -32,13 +32,12 @@ import com.wade.friedfood.detail.DetailAdapter
 import com.wade.friedfood.detail.DetailCommentAdapter
 import com.wade.friedfood.detail.menu.MenuAdapter
 import com.wade.friedfood.map.MapAdapter
+import com.wade.friedfood.news.NewsAdapter
 import com.wade.friedfood.profile.ProfileAdapter
 
 import com.wade.friedfood.recommend.ShopAdapter
 
-/**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
- */
+
 @BindingAdapter("ShopData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Shop>?) {
 
@@ -67,8 +66,12 @@ fun setStar(imageView: ImageView, getStar:Int , starPos : Int) {
 
 @BindingAdapter("commentData")
 fun bindCommentView(recyclerView: RecyclerView, data: List<Comment>?) {
-    val adapter = recyclerView.adapter as DetailCommentAdapter
-    adapter.submitList(data)
+    recyclerView.adapter.apply {
+        when (this) {
+            is DetailCommentAdapter -> submitList(data)
+            is NewsAdapter -> submitList(data)
+        }
+    }
 }
 
 

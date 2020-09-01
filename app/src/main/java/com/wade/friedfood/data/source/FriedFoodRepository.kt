@@ -3,7 +3,7 @@ package com.wade.friedfood.data.source
 import com.wade.friedfood.data.*
 
 
-interface PublisherRepository {
+interface FriedFoodRepository {
 
 
     suspend fun getShops(): Result<List<Shop>>
@@ -31,4 +31,6 @@ interface PublisherRepository {
     suspend fun getUserCommentsCount(user_id: String): Result<Int>
 
     suspend fun getShopMenu(shop: ParcelableShop): Result<List<Menu>>
+
+    suspend fun getNews(today:Long): Result<List<Comment>>
 }

@@ -1,4 +1,4 @@
-package app.appworks.school.stylish.ext
+package com.wade.friedfood.ext
 
 import android.app.Activity
 import android.view.Gravity
