@@ -27,14 +27,14 @@ import kotlin.math.roundToInt
 class ProfileAdapter(
     private val onClickListener: OnClickListener,
     val profileViewModel: ProfileViewModel
-) : ListAdapter<Shop, ProfileAdapter.MarsPropertyViewHolder>(DiffCallback) {
+) : ListAdapter<Shop, ProfileAdapter.ShopViewHolder>(DiffCallback) {
     /**
      * The MarsPropertyViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
      */
 
 
-    class MarsPropertyViewHolder(var binding: ItemCollectBinding) :
+    class ShopViewHolder(var binding: ItemCollectBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
@@ -97,11 +97,11 @@ class ProfileAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MarsPropertyViewHolder {
+    ): ShopViewHolder {
 
 //parent ,false
 
-        return MarsPropertyViewHolder(
+        return ShopViewHolder(
             ItemCollectBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -115,16 +115,16 @@ class ProfileAdapter(
      */
 
 
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-        val marsProperty = getItem(position)
+    override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
+        val shop = getItem(position)
 
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(marsProperty)
+            onClickListener.onClick(shop)
         }
 
 
 
-        holder.bind(marsProperty, profileViewModel)
+        holder.bind(shop, profileViewModel)
     }
     
     class OnClickListener(val clickListener: (shop: Shop) -> Unit) {

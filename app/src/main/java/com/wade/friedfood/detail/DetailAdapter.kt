@@ -24,10 +24,7 @@ class DetailAdapter : ListAdapter<String, DetailAdapter.DetailViewHolder>(DiffCa
         }
     }
 
-    /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [MarsProperty]
-     * has been updated.
-     */
+
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem === newItem
