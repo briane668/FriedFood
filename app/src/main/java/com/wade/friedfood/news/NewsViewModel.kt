@@ -7,6 +7,7 @@ import com.wade.friedfood.MyApplication
 import com.wade.friedfood.R
 import com.wade.friedfood.data.Comment
 import com.wade.friedfood.data.Result
+import com.wade.friedfood.data.Shop
 import com.wade.friedfood.data.source.FriedFoodRepository
 import com.wade.friedfood.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
@@ -47,6 +48,22 @@ class NewsViewModel(private val repository: FriedFoodRepository) : ViewModel() {
 
     // the Coroutine runs using the Main (UI) dispatcher
     val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+
+    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    private val _navigateToSelectedShop = MutableLiveData<Comment>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToSelectedShop: LiveData<Comment>
+        get() = _navigateToSelectedShop
+
+    fun displayShopDetails(comment: Comment) {
+        _navigateToSelectedShop.value = comment
+    }
+
+    fun displayShopDetailsComplete() {
+        _navigateToSelectedShop.value = null
+    }
 
 
 
@@ -126,5 +143,61 @@ class NewsViewModel(private val repository: FriedFoodRepository) : ViewModel() {
     }
 
 
+    suspend fun getRatingByShop(shop: Shop): Int {
+
+        val result = repository.getRating(shop)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+        }
+    }
+
+
+    suspend fun getCommentsByShop(shop: Shop): Int {
+
+        val result = repository.getHowManyComments(shop)
+
+        return when (result) {
+            is Result.Success -> {
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                result.data
+            }
+            is Result.Fail -> {
+                _error.value = result.error
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            is Result.Error -> {
+                _error.value = result.exception.toString()
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+            else -> {
+                _error.value = MyApplication.INSTANCE.getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+                0
+            }
+        }
+    }
 
 }

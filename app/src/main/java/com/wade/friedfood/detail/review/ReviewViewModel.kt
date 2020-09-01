@@ -83,8 +83,8 @@ class ReviewViewModel(
             comment = comment.value!!,
             time = Calendar.getInstance()
                 .timeInMillis,
-            image = image
-
+            image = image,
+            shop = shop.value!!.toShop()
         )
 
         shop.value?.let {

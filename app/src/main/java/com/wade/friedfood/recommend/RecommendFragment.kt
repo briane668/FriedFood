@@ -75,9 +75,8 @@ class RecommendFragment : Fragment() {
         viewModel.navigateToSelectedShop.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 // Must find the NavController from the Fragment
-                val parcelableShop=  it.toParcelableShop()
                 this.findNavController()
-                    .navigate(NavigationDirections.actionGlobalDetailFragment(parcelableShop))
+                    .navigate(NavigationDirections.actionGlobalDetailFragment(it.toParcelableShop()))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayShopDetailsComplete()
             }

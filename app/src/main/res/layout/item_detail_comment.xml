@@ -78,7 +78,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/commentImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar3"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
                     tools:text="評論" />
 
                 <TextView
@@ -89,12 +89,12 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="5dp"
                     android:textColor="#000000"
-                    app:layout_constraintStart_toEndOf="@+id/ratingBar3"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar"
                     app:layout_constraintTop_toBottomOf="@+id/comment_head_image"
                     app:timeToDisplayFormat="@{review.time}" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar3"
+                    android:id="@+id/ratingBar"
                     style="@android:style/Widget.Material.Light.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"

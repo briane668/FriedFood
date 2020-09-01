@@ -1,7 +1,6 @@
 package com.wade.friedfood.data
 
 import android.os.Parcelable
-import com.google.firebase.Timestamp
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -12,5 +11,6 @@ data class Comment(
     val rating: Int = 0,
     val comment:String="",
     val time: Long =0,
-    val image : String =""
+    val image: String ="",
+    val shop: Shop? =null
 ): Parcelable

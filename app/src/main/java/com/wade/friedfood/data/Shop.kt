@@ -27,18 +27,6 @@ data class Shop(
 
     ) : Parcelable{
 
-//        private var geoPoint: GeoPoint? = null
-//
-//     override fun writeToParcel(parcel: Parcel, i: Int) {
-//        parcel.writeDouble(geoPoint!!.latitude)
-//        parcel.writeDouble(geoPoint!!.longitude)
-//    }
-//
-//    fun shop(`in`: Parcel) {
-//        val lat = `in`.readDouble()
-//        val lng = `in`.readDouble()
-//        geoPoint = GeoPoint(lat, lng)
-//    }
 
 
 }

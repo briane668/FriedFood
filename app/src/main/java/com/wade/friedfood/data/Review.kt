@@ -12,5 +12,7 @@ data class Review(
     val rating:Int,
     val comment:String,
     val time: Long,
-    val image:String
+    val image:String,
+    val shop:Shop
+
 ): Parcelable

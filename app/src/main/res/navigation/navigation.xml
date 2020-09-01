@@ -9,7 +9,7 @@
         android:id="@+id/mapsFragment"
         android:name="com.wade.friedfood.map.MapsFragment"
         android:label="MapsFragment"
-        tools:layout="@layout/fragment_maps"/>
+        tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/recommendFragment"
         android:name="com.wade.friedfood.recommend.RecommendFragment"
@@ -18,19 +18,11 @@
     <action
         android:id="@+id/action_global_mapsFragment"
         app:destination="@id/mapsFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_recommendFragment"
         app:destination="@id/recommendFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
@@ -41,41 +33,38 @@
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.wade.friedfood.detail.DetailFragment"
-        android:label="DetailFragment" >
+        android:label="DetailFragment">
         <argument
             android:name="shopKey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
     <action
         android:id="@+id/action_global_detailFragment"
+        app:destination="@id/detailFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/detailFragment" />
+        app:popExitAnim="@anim/slide_out_right" />
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.wade.friedfood.detail.review.ReviewFragment"
-        android:label="ReviewFragment" >
+        android:label="ReviewFragment">
         <argument
             android:name="shopkey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
-    <action android:id="@+id/action_global_reviewFragment"
+    <action
+        android:id="@+id/action_global_reviewFragment"
+        app:destination="@id/reviewFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/reviewFragment" />
+        app:popExitAnim="@anim/slide_out_right" />
     <activity
         android:id="@+id/loginActivity"
         android:name="com.wade.friedfood.login.LoginActivity"
@@ -84,17 +73,18 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.wade.friedfood.detail.menu.MenuFragment"
-        android:label="MenuFragment" >
+        android:label="MenuFragment">
         <argument
             android:name="shopKey"
             app:argType="com.wade.friedfood.data.ParcelableShop" />
     </fragment>
-    <action android:id="@+id/action_global_menuFragment"
+    <action
+        android:id="@+id/action_global_menuFragment"
+        app:destination="@id/menuFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        app:destination="@id/menuFragment" />
+        app:popExitAnim="@anim/slide_out_right" />
     <dialog
         android:id="@+id/addSuccessFragment"
         android:name="com.wade.friedfood.detail.AddSuccessFragment"
@@ -104,6 +94,10 @@
         android:name="com.wade.friedfood.news.NewsFragment"
         android:label="news_fragment"
         tools:layout="@layout/fragment_news" />
-    <action android:id="@+id/action_global_newsFragment" app:destination="@id/newsFragment" />
+    <action
+        android:id="@+id/action_global_newsFragment"
+        app:destination="@id/newsFragment"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true"/>
 
 </navigation>
