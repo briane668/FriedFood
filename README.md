@@ -7,7 +7,6 @@ Find 鹽酥雞是一款專門找出好吃鹽酥雞的美食型APP，能透過想
 
 # 操作介紹
 
-
 <div>
 1.使用Google 第三方登入註冊<br><br>
 <img src="https://i.imgur.com/VhR046f.png" width="150" height="300">
@@ -17,42 +16,50 @@ Find 鹽酥雞是一款專門找出好吃鹽酥雞的美食型APP，能透過想
 2.在地圖找出有興趣的店家,也可以透過左上角的搜尋功能來搜尋想吃的炸物<br>
 <div>
 
-<img src="https://i.imgur.com/9eieBqL.jpg" width="150" height="300">
+<img src="https://i.imgur.com/4XjU471.jpg" width="150" height="300">
 
 </div><br>
 
 
 3.或者也可以在推薦頁面透過篩選的方式，依照評價高低或者評論數量來搜尋<br>
 <div>
-<img src="https://i.imgur.com/AQjLu3C.jpg" width="150" height="300">
+<img src="https://i.imgur.com/lnKctdo.jpg" width="150" height="300">
 </div><br>
 
 4.點下店家標籤後進入店家資訊,可以打給店家、查看菜單、撰寫評論、收藏店家<br>
 <div>
-<img src="https://i.imgur.com/EdYIUGi.jpg" width="150" height="300">
+<img src="https://i.imgur.com/DRWz3SN.jpg" width="150" height="300">
 </div><br>
 
 4.按下星星決定評價高低，左下方的左邊圖案可以選擇一張圖片上傳，或是右方的照相機開啟照相功能直接拍一張<br>
 <div>
-<img src="https://i.imgur.com/c49bOzd.png" width="150" height="300">
+<img src="https://i.imgur.com/I8yGPar.jpg" width="150" height="300">
 </div><br>
 
 5.地圖顯示店家座標，點擊後開啟導航功能
 <div>
-<img src="https://i.imgur.com/ITxPjXt.jpg" width="150" height="300">
+<img src="https://i.imgur.com/PTQJ0Cv.jpg" width="150" height="300">
 
 
 </div><br>
 
 
-5.往下滑動可瀏覽其他人發表的評論
+6.往下滑動可瀏覽其他人發表的評論
 <div>
-<img src="https://i.imgur.com/kXf8XkU.jpg" width="150" height="300">
+<img src="https://i.imgur.com/KJ83GqQ.jpg" width="150" height="300">
 </div><br>
 
-6.個人頁面可以查看自己收藏的店家，自己累積發表過多少評論
+
+
+7.最新動態牆可以查看最近的使用者評論
 <div>
-<img src="https://i.imgur.com/qdWu0Em.jpg" width="150" height="300">
+<img src="https://i.imgur.com/rQHuT4R.jpg" width="150" height="300">
+</div><br>
+
+
+8.個人頁面可以查看自己收藏的店家，自己累積發表過多少評論
+<div>
+<img src="https://i.imgur.com/VlDJ01e.jpg" width="150" height="300">
 </div><br>
 
 # 實作技術與工具
