@@ -2,6 +2,7 @@ package com.wade.friedfood.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.wade.friedfood.MainViewModel
 import com.wade.friedfood.login.LoginViewModel
 import com.wade.friedfood.data.source.FriedFoodRepository
 
@@ -34,6 +35,8 @@ class ViewModelFactory constructor(
                 isAssignableFrom(NewsViewModel::class.java) ->
                     NewsViewModel(repository)
 
+                isAssignableFrom(MainViewModel::class.java) ->
+                    MainViewModel(repository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

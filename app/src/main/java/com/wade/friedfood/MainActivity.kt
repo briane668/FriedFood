@@ -4,23 +4,27 @@ package com.wade.friedfood
 import android.location.Location
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wade.friedfood.databinding.ActivityMainBinding
+import com.wade.friedfood.ext.getVmFactory
 import com.wade.friedfood.map.MapsFragmentDirections
+import com.wade.friedfood.profile.ProfileViewModel
+import com.wade.friedfood.util.UserManager
 
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+
 
 
     private lateinit var binding: ActivityMainBinding
@@ -60,8 +64,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-
-
+        viewModel.login(UserManager.ProfileData)
 
 
 
